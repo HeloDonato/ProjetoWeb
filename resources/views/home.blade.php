@@ -15,7 +15,7 @@
                     @endif
 
                     {{ __('Você está logado!') }}
-                    <a href="{{ url('portaria/show') }}">teste</a>
+                    <a href="{{ url('portarias/create') }}">teste</a>
                 </div>
             </div>
         </div>
