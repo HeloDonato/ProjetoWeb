@@ -41,4 +41,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function grupo(){
+        //para fazer a relação forenkey
+        return $this->hasMany('App\Models\Grupo');
+    }
 }

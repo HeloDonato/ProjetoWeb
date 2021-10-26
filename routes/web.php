@@ -21,6 +21,11 @@ Route::get('/', function () {
 
 Auth::routes();
 
+Route::get('/',[PortariaController::class,'index']);
+Route::get('/portarias/create',[PortariaController::class,'create']);
+Route::post('/portarias',[PortariaController::class,'store']);
+
+
 Route::group(['middleware' => 'auth'], function(){
 
     Route::group(['prefix' => 'portaria'], function(){

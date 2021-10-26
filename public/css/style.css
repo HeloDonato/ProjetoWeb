@@ -1,0 +1,65 @@
+
+/* Barra de Proucurar*/
+
+#search-container{
+   
+    height: 400px;
+    padding: 50px;
+    text-align: center;
+}
+
+#search-container h1{
+   color: #F2a340;
+   margin-bottom: 30px;
+   font-weight: 900;
+}
+
+#search-container form{
+    width: 50%;
+    margin: 0 auto;
+}
+#events-container{
+    padding: 50px;
+
+}
+#events-container h2{
+    margin-bottom: 10px;
+
+}
+#events-container .subtitle{
+   color: #757575;
+   margin-bottom: 30px;
+}
+
+#cards-container{
+    display: flex;
+}
+#events-container .card{
+    flex: 1 1 24%;
+    max-width: 25%;
+    border-radius: 10px;
+    padding: 0;
+    margin: .5%;
+}
+
+/* Criação de evento*/
+
+#event-create-container{
+    padding: 30px;
+}
+#event-create-container label{
+    font-weight: bold;
+}
+
+
+/* Criação da Portaria*/
+
+
+#event-create-container input,
+#event-create-container select,
+#event-create-container textarea{
+    font-size: 12px;
+    margin: 10px;
+}
+
+
