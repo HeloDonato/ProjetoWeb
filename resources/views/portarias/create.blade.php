@@ -6,27 +6,27 @@
 
     <div id="event-create-container" class="col-md-6 offset-md-3">
         <h1>Cria sua Portaria</h1>
-        <form action="/portarias" method="POST" enctype="multipart/form-data">
+        {{ Form::open(['route' => 'portaria.store', 'method' => "POST"]) }}
             @csrf
             <div class="form-group">
-                <label for="title">Número da Portaria:</label>
-                <input type="number" class="form-control" id="numPortaria" name="numPortaria" placeholder="Número da Portaria">
+                {{ Form::label('numPortaria', 'Quantidade *') }}
+                {{ Form::number('numPortaria', 'old'('numPortaria'), ['class' => 'form-control', 'required','placeholder' => '0','autofocus']) }}
             </div>
             <div class="form-group">
-                <label for="title">Título:</label>
-                <input type="text" class="form-control" id="titulo" name="titulo" placeholder="Título da Portaria">
+                {{ Form::label('titulo', 'Título *') }}
+                {{ Form::text('titulo', 'old'('titulo'), ['class' => 'form-control', 'required','placeholder' => 'Evento 01','autofocus']) }}
             </div>
             <div class="form-group">
-                <label for="title">Descrição:</label>
-                <textarea name="descricao" id="descricao" class="form-control" placeholder="Descrição da Portaria"></textarea>
+                {{ Form::label('descricao', 'Descrição *') }}
+                {{ Form::text('descricao', 'old'('descricao'), ['class' => 'form-control', 'required','placeholder' => 'Eventos','autofocus']) }}
             </div>
             <div class="form-group">
-                <label for="date">Insira a data inicial da Portaria:</label>
-                <input type="date" class="form-control" id="dataInicial" name="dataInicial">
+                {{ Form::label('dataInicial', 'Data Inicial *') }}
+                {{ Form::date('dataInicial', 'old'('dataInicial'), ['class' => 'form-control', 'required','placeholder' => '00/00/0000', 'autofocus']) }}
             </div>
             <div class="form-group">
-                <label for="date">Insira a data Final da Portaria:</label>
-                <input type="date" class="form-control" id="dataFinal" name="dataFinal">
+                {{ Form::label('dataFinal', 'Data Final') }}
+                {{ Form::date('dataFinal', 'old'('dataFinal'), ['class' => 'form-control','placeholder' => '00/00/0000','autofocus']) }}
             </div>
             <div class="form-group">
                 <label for="title">Insira o tipo da Portaria</label>
@@ -36,7 +36,7 @@
                 </select>
             </div>
             <input type="submit" class="btn btn-primary" value="Criar Portaria">
-        </form>
+        {{ Form::close() }}
     </div>
 
 

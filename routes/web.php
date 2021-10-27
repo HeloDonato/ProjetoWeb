@@ -35,7 +35,7 @@ Route::group(['middleware' => 'auth'], function(){
         //Route::put('/edit/update/{id}',  [PortariaController::class, 'update']);
         //Route::any('/busca',  [PortariaController::class, 'search']);
         //Route::get('/create',  [PortariaController::class, 'create']);
-        //Route::post('/create/novo',  [PortariaController::class, 'store']);
+        Route::post('/store',  [PortariaController::class, 'store'])->name('portaria.store');
 
     });
 
