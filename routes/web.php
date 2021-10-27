@@ -29,12 +29,11 @@ Route::post('/portarias',[PortariaController::class,'store']);
 Route::group(['middleware' => 'auth'], function(){
 
     Route::group(['prefix' => 'portaria'], function(){
-        Route::get('/show',  [PortariaController::class, 'index']);
         //Route::get('/delete/{id}',  [PortariaController::class, 'delete']);
         //Route::get('/edit/{id}',  [PortariaController::class, 'edit']);
         //Route::put('/edit/update/{id}',  [PortariaController::class, 'update']);
         //Route::any('/busca',  [PortariaController::class, 'search']);
-        //Route::get('/create',  [PortariaController::class, 'create']);
+        Route::get('/create',  [PortariaController::class, 'create'])->name('portaria.create');;
         Route::post('/store',  [PortariaController::class, 'store'])->name('portaria.store');
 
     });

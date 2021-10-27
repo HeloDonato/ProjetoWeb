@@ -9,7 +9,7 @@
         {{ Form::open(['route' => 'portaria.store', 'method' => "POST"]) }}
             @csrf
             <div class="form-group">
-                {{ Form::label('numPortaria', 'Quantidade *') }}
+                {{ Form::label('numPortaria', 'Númedo da Portaria *') }}
                 {{ Form::number('numPortaria', 'old'('numPortaria'), ['class' => 'form-control', 'required','placeholder' => '0','autofocus']) }}
             </div>
             <div class="form-group">
