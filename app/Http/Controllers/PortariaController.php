@@ -39,10 +39,28 @@ class PortariaController extends Controller
         $portaria->dataFinal = $request->dataFinal;
         $portaria->tipo = $request->tipo;
 
+
+        //relação ony to many
+        $user = auth()->user();
+        $portaria->user_id = $user->id;
+
         $portaria->save();
-        return redirect(route('home'));
+        return redirect('/');
         }catch(QueryException $e){
             return redirect()->back();
         }
     }
+    public function myportarias(){
+        $user = auth()->user();
+        $portaria = $user->portarias;
+
+        return view('portarias.myportarias',['portaria' => $portaria]);
+    }
+
+    public function destroy($id){
+        Portaria::findOrFail($id)->delete();
+
+        return redirect('portarias.myportarias')->with('msg','Evento excluído com sucesso!');
+    }
+
 }

@@ -8,9 +8,20 @@ use Illuminate\Database\Eloquent\Model;
 class Grupo extends Model{
     use HasFactory;
 
-    
-    public function user(){
-        //pertence a um usuario para fazer a forenkey
-        return $this->belongsTo('App\Models\User');
+    //para tratar os campos multiselecionados
+    protected $casts = [
+        'items' => 'array'
+    ];
+
+    //data
+    protected $dates = [
+        'data'
+    ];
+
+    protected $guarded = [];//tudo q for enviado pelo post pode ser atualizado
+
+    //relacao many to many
+    public function users(){
+        return $this->belongsToMany('App\Models\User');
     }
 }

@@ -20,8 +20,8 @@ class Portaria extends Model
 
     protected $guarded = [];//tudo q for enviado pelo post pode ser atualizado
 
+    //relacao com o usuario dono da portaria
     public function user(){
-        //pertence a um usuario para fazer a forenkey
         return $this->belongsTo('App\Models\User');
     }
 }

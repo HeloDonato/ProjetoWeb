@@ -14,11 +14,11 @@
             </div>
             <div class="form-group">
                 {{ Form::label('titulo', 'Título *') }}
-                {{ Form::text('titulo', 'old'('titulo'), ['class' => 'form-control', 'required','placeholder' => 'Evento 01','autofocus']) }}
+                {{ Form::text('titulo', 'old'('titulo'), ['class' => 'form-control', 'required','placeholder' => 'Portaria','autofocus']) }}
             </div>
             <div class="form-group">
                 {{ Form::label('descricao', 'Descrição *') }}
-                {{ Form::text('descricao', 'old'('descricao'), ['class' => 'form-control', 'required','placeholder' => 'Eventos','autofocus']) }}
+                {{ Form::text('descricao', 'old'('descricao'), ['class' => 'form-control', 'required','placeholder' => 'Descrição da Portaria','autofocus']) }}
             </div>
             <div class="form-group">
                 {{ Form::label('dataInicial', 'Data Inicial *') }}

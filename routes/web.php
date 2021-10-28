@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PortariaController;
 use App\Http\Controllers\ServidorController;
 use App\Http\Controllers\RelatorioController;
+use App\Models\Portaria;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,15 +24,15 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/',[PortariaController::class,'index']);
-
 Route::group(['middleware' => 'auth'], function(){
 
     Route::group(['prefix' => 'portaria'], function(){
-        //Route::get('/delete/{id}',  [PortariaController::class, 'delete']);
+        Route::delete('/destroy/{id}', [PortariaController::class, 'destroy'])->name('portaria.destroy');
         //Route::get('/edit/{id}',  [PortariaController::class, 'edit']);
         //Route::put('/edit/update/{id}',  [PortariaController::class, 'update']);
         //Route::any('/busca',  [PortariaController::class, 'search']);
-        Route::get('/create',  [PortariaController::class, 'create'])->name('portaria.create');;
+        Route::get('/myportarias',[PortariaController::class,'myportarias'])->name('portaria.myportarias');
+        Route::get('/create',  [PortariaController::class, 'create'])->name('portaria.create');
         Route::post('/store',  [PortariaController::class, 'store'])->name('portaria.store');
 
     });

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddUserIdToGroupTable extends Migration
+class AddUserIdToPortariasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,9 @@ class AddUserIdToGroupTable extends Migration
      */
     public function up()
     {
-        Schema::table('grupo', function (Blueprint $table) {
-            $table->foreignId('user_id')->constrained();//chave estrangeira
+        Schema::table('portarias', function (Blueprint $table) {
+            //forenkey
+            $table->foreignId('user_id')->constrained();
         });
     }
 
@@ -25,10 +26,11 @@ class AddUserIdToGroupTable extends Migration
      */
     public function down()
     {
-        Schema::table('grupo', function (Blueprint $table) {
-            $table->foreignId('usuer_id')
+        Schema::table('portarias', function (Blueprint $table) {
+            //vai deletar no modo cascade= para nao ficar um filho sem pai
+            $table->foreignId('user_id')
             ->constrained()
-            ->onDelete('cascade');//deletar a forenkey
+            ->onDelete('cascade');
         });
     }
 }

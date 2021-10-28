@@ -15,13 +15,13 @@ class CreatePortariasTable extends Migration
     {
         Schema::create('portarias', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
             $table->string('numPortaria');
             $table->string('titulo');
             $table->string('descricao');
             $table->date('dataInicial');
             $table->date('dataFinal');
             $table->boolean('tipo');
+            $table->timestamps();
         });
     }
 

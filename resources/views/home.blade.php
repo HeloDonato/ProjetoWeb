@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.main')
 
 @section('content')
 <div class="container">
@@ -15,7 +15,6 @@
                     @endif
 
                     {{ __('Você está logado!') }}
-                    <a href="{{ route('portaria.create') }}">teste</a>
                 </div>
             </div>
         </div>

@@ -19,6 +19,8 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'sobrenome',
+        'tipoGrupo',
         'email',
         'password',
     ];
@@ -42,8 +44,15 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function grupo(){
-        //para fazer a relação forenkey
-        return $this->hasMany('App\Models\Grupo');
+    //relação com a portaria
+    public function portarias(){
+        //tem muitas portarias
+        return $this->hasMany('App\Models\Portaria');
     }
+
+    //relacao many to many
+    public function grupos(){
+        return $this->belongsToMany('App\Models\Grupo');
+    }
+
 }

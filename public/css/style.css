@@ -34,6 +34,7 @@
 #cards-container{
     display: flex;
 }
+
 #events-container .card{
     flex: 1 1 24%;
     max-width: 25%;
@@ -62,4 +63,13 @@
     margin: 10px;
 }
 
+/* My Portaria*/
+
+.dashboard-title-container{
+    margin-bottom: 30px;
+    margin-top: 30px;
+}
+.dashboard-events-container th{
+    width: 25%;
+}
 
