@@ -15,7 +15,7 @@
                     @endif
 
                     {{ __('Você está logado!') }}
-                    <a href="{{ url('portarias/create') }}">teste</a>
+                    <a href="{{ route('portaria.create') }}">teste</a>
                 </div>
             </div>
         </div>

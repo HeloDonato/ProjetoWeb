@@ -3,31 +3,44 @@
 @section('title', 'Portarias IFNMG')
 
 @section('content')
-    <div id="search-container" class="col-md-12">
-        <h1>Busque uma Portaria</h1>
+    <div class="col-md-12">
+        <h1 class="center">Busque uma Portaria</h1>
         <form action="/" method="GET">
             <input type="text" id="search" name="search" class="form-control" placeholder="Procurar...">
         </form>
     </div>
-    <div id="events-container" class="col-md-12">
+    <div id="events-container" class="col-md-12 ">
         @if($search)
             <h2>Buscando por: {{$search}}</h2>
         @else
             <h2>Portarias</h2>
-            <p class="subtitle">Veja outras Portarias</p>
         @endif
-        <div id="cards-container" class="now">
-            @foreach($portaria as $portarias)
-                <div class="card col-md-3">
+        <div id="cards-container" class="row">
                     <div class="card-body">
-                        <p>{{$portarias->numPortaria}}</p>
-                        <h5 class="card-title">{{$portarias->titulo}}</h5>
-                        <p class="card-date">{{$portarias->descricao}}</p>
-                        <p class="card-date">{{$portarias->dataInicial}}</p>
-                        <p class="card-date">{{$portarias->dataFinal}}</p>
+                        <div class="table-responsive">
+                        <table class="table table-hover table-striped table-bordered table-condensed ">
+                            <thead>
+                                <tr >
+                                    <th>Nº da Portaria</th>
+                                    <th>Título da Portaria</th>
+                                    <th>Descrição da Portaria</th>
+                                    <th>Data Inicial</th>
+                                    <th>Data Final</th>
+                                </tr>
+                            </thead>
+                            @foreach ($portaria as $portarias)
+                            <tbody>
+                                <tr>
+                                    <td>{{$portarias->numPortaria}}</td>
+                                    <td class="card-title">{{$portarias->titulo}}</td>
+                                    <td class="card-date">{{$portarias->descricao}}</td>
+                                    <td class="card-date">{{$portarias->dataInicial}}</td>
+                                    <td class="card-date">{{$portarias->dataFinal}}</td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </div>
                     </div>
-                </div>
-            @endforeach
             @if(count($portaria) == 0 && $search)
                 <p>Não foi possível encontrar nenhuma portaria com {{$search}}!</p>
             @elseif(count($portaria) == 0)

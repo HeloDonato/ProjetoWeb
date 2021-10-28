@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Portaria;
 class HomeController extends Controller
 {
     /**
@@ -24,5 +24,12 @@ class HomeController extends Controller
     public function index()
     {
         return view('home');
+    }
+    
+    public function welcomeShow()
+    {   
+        $portaria = Portaria::paginate(10);
+
+        return view('home')->with('portarias', $portaria);
     }
 }
