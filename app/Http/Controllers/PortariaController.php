@@ -21,7 +21,6 @@ class PortariaController extends Controller
         }else{
             $portaria = Portaria::all();
         }
-
         return view('welcome',['portaria'=> $portaria,'search' => $search]);
     }
 

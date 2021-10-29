@@ -37,7 +37,7 @@
                                         <td class="card-date">{{$portarias->descricao}}</td>
                                         <td class="card-date">{{$portarias->dataInicial}}</td>
                                         <td class="card-date">{{$portarias->dataFinal}}</td>
-                                        <td class="card-title"></td>
+                                        <td class="card-title">{{$portarias->user->name}}</td>
                                     </tr>
                                 </tbody>
                             @endforeach
