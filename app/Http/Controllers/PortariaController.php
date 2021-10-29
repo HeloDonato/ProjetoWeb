@@ -21,6 +21,7 @@ class PortariaController extends Controller
         }else{
             $portaria = Portaria::all();
         }
+
         return view('welcome',['portaria'=> $portaria,'search' => $search]);
     }
 
@@ -40,12 +41,13 @@ class PortariaController extends Controller
         $portaria->tipo = $request->tipo;
 
 
+
         //relação ony to many
         $user = auth()->user();
         $portaria->user_id = $user->id;
 
         $portaria->save();
-        return redirect('/');
+        return redirect('/')->with('msg','Portaria criada com sucesso!');
         }catch(QueryException $e){
             return redirect()->back();
         }
@@ -64,7 +66,7 @@ class PortariaController extends Controller
         }catch(QueryException $e){
         }
         
-        return redirect()->back();
+        return redirect()->back()->with('msg','Portaria excluída com sucesso!');;
     }
     
     public function edit($id){

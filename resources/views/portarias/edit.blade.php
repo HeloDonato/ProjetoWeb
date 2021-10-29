@@ -38,7 +38,7 @@
                     <option value="1">Permanentes</option>
                 </select>
             </div>
-            <input type="submit" class="btn btn-primary" value="Criar Portaria">
+            <input type="submit" class="btn btn-primary" value="Salvar Portaria">
         {{ Form::close() }}
     </div>
 
