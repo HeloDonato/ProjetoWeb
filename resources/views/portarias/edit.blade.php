@@ -6,7 +6,7 @@
 
     <div id="event-create-container" class="col-md-6 offset-md-3">
         <h1>Edite sua Portaria</h1>
-        {{ Form::open(['route' => ['portaria.update',$portaria->id], 'method' => "POST"]) }}
+        {{ Form::model($portaria,['route' => ['portaria.update',$portaria->id], 'method' => "POST"]) }}
             @csrf
             @method('PUT')
             {{ Form::open(['route' => 'portaria.store', 'method' => "POST"]) }}
@@ -20,7 +20,7 @@
                 {{ Form::text('titulo', 'old'('titulo'), ['class' => 'form-control', 'required','placeholder' => 'Portaria','autofocus']) }}
             </div>
             <div class="form-group">
-                {{ Form::label('descricao', 'Descrição *') }}
+                {{ Form::label('descricao', 'Descrição   *') }}
                 {{ Form::text('descricao', 'old'('descricao'), ['class' => 'form-control', 'required','placeholder' => 'Descrição da Portaria','autofocus']) }}
             </div>
             <div class="form-group">
