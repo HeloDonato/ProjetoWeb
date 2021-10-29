@@ -27,7 +27,7 @@ Route::get('/',[PortariaController::class,'index']);
 Route::group(['middleware' => 'auth'], function(){
 
     Route::group(['prefix' => 'portaria'], function(){
-        Route::delete('/destroy/{id}', [PortariaController::class, 'destroy'])->name('portaria.destroy');
+        Route::get('/destroy/{id}', [PortariaController::class, 'destroy'])->name('portaria.destroy');
         //Route::get('/edit/{id}',  [PortariaController::class, 'edit']);
         //Route::put('/edit/update/{id}',  [PortariaController::class, 'update']);
         //Route::any('/busca',  [PortariaController::class, 'search']);

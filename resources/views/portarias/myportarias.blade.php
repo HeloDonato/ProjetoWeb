@@ -31,11 +31,29 @@
                                     <td class="card-date">{{$portarias->dataFinal}}</td>
                                     <td>
                                         <a href="#" class="btn btn-info edit-btn"><ion-icon name="create-outline"></ion-icon>Editar</a>
-                                        <form action="{{ route('portaria.destroy',['$portaria->id'])}}" method="POST">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-danger delete-btn"><ion-icon name="trash-outline"></ion-icon>Deletar</button>
-                                        </form>
+                                        <a href="" class="btn btn-danger" data-toggle="modal" data-target="#modal{{ $portarias->numPortaria }}">Excluir</a>      
+
+                                        <div class="modal fade" id="modal{{ $portarias->numPortaria  }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Título da Portaria: {{ $portarias->titulo }}</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        O registro selecionado será excluído, deseja prosseguir?
+                                                        <br>
+                                                        Número da Portaria: <strong>{{  $portarias->numPortaria }}</strong> <br>
+                                                        </strong>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <a href="{{ route('portaria.destroy', $portarias->id) }}" class="btn btn-danger">Excluir</a>
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                                                    </div>
+                                                </div>
+                                            </div>
                                     </td>
                                 </tr>
                             </tbody>

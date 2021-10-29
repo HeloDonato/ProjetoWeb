@@ -7,6 +7,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class Portaria extends Model
 {
+
+    protected $table = 'portarias';
+    protected $fillable = [
+        'numPortaria',
+        'titulo',
+        'descricao',
+        'dataInicial',
+        'dataFinal',
+        'tipo'
+    ];
+
     use HasFactory;
     //para tratar os campos multiselecionados
     protected $casts = [
