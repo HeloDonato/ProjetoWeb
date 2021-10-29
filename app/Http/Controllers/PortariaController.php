@@ -11,61 +11,79 @@ use App\Models\Portaria;
 
 class PortariaController extends Controller
 {
-public function index()
-{
-    $search = request('search');//buscar
-    if($search){
-        $portaria = Portaria::where([
-            ['titulo', 'like', '%'.$search.'%']
-        ])->get();
-    }else{
-        $portaria = Portaria::all();
+    public function index()
+    {
+        $search = request('search');//buscar
+        if($search){
+            $portaria = Portaria::where([
+                ['titulo', 'like', '%'.$search.'%']
+            ])->get();
+        }else{
+            $portaria = Portaria::all();
+        }
+        return view('welcome',['portaria'=> $portaria,'search' => $search]);
     }
-    return view('welcome',['portaria'=> $portaria,'search' => $search]);
-}
 
-public function create(){
-    return view('portarias.create');
-}
+    public function create(){
+        return view('portarias.create');
+    }
 
-public function store(Request $request){
-    $portaria = new Portaria;
+    public function store(Request $request){
+        $portaria = new Portaria;
 
-    try{
-    $portaria->numPortaria = $request->numPortaria;
-    $portaria->titulo = $request->titulo;
-    $portaria->descricao = $request->descricao;
-    $portaria->dataInicial = $request->dataInicial;
-    $portaria->dataFinal = $request->dataFinal;
-    $portaria->tipo = $request->tipo;
+        try{
+        $portaria->numPortaria = $request->numPortaria;
+        $portaria->titulo = $request->titulo;
+        $portaria->descricao = $request->descricao;
+        $portaria->dataInicial = $request->dataInicial;
+        $portaria->dataFinal = $request->dataFinal;
+        $portaria->tipo = $request->tipo;
 
 
-    //relação ony to many
-    $user = auth()->user();
-    $portaria->user_id = $user->id;
+        //relação ony to many
+        $user = auth()->user();
+        $portaria->user_id = $user->id;
 
-    $portaria->save();
-    return redirect('/');
-    }catch(QueryException $e){
+        $portaria->save();
+        return redirect('/');
+        }catch(QueryException $e){
+            return redirect()->back();
+        }
+    }
+    public function myportarias(){
+        $user = auth()->user();
+        $portaria = $user->portarias;
+
+        return view('portarias.myportarias',['portaria' => $portaria]);
+    }
+
+    public function destroy($id){
+        $portaria = Portaria::find($id);
+        try{
+            $portaria->delete();
+        }catch(QueryException $e){
+        }
+        
         return redirect()->back();
     }
-}
-public function myportarias(){
-    $user = auth()->user();
-    $portaria = $user->portarias;
+    
+    public function edit($id){
 
-    return view('portarias.myportarias',['portaria' => $portaria]);
-}
+        $portaria = Portaria::findOrFail($id);
+        //dd($portaria->id);
 
-public function destroy($id){
-    $portaria = Portaria::find($id);
-    try{
-        $portaria->delete();
-    }catch(QueryException $e){
+        return view('portarias.edit',['portaria' => $portaria]);
+
     }
     
-    return redirect()->back();
+    public function update(Request $request){
+
+        Portaria::findOrFail($request->id)->update($request->all());
+
+        return redirect('/portaria/myportarias')->with('msg','Portaria editada com sucesso!');
+
     }
-
-
 }
+
+
+

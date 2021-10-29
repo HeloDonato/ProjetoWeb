@@ -28,8 +28,8 @@ Route::group(['middleware' => 'auth'], function(){
 
     Route::group(['prefix' => 'portaria'], function(){
         Route::get('/destroy/{id}', [PortariaController::class, 'destroy'])->name('portaria.destroy');
-        //Route::get('/edit/{id}',  [PortariaController::class, 'edit']);
-        //Route::put('/edit/update/{id}',  [PortariaController::class, 'update']);
+        Route::get('/edit/{id}',  [PortariaController::class, 'edit'])->name('portaria.edit');
+        Route::put('/update/{id}',  [PortariaController::class, 'update'])->name('portaria.update');
         //Route::any('/busca',  [PortariaController::class, 'search']);
         Route::get('/myportarias',[PortariaController::class,'myportarias'])->name('portaria.myportarias');
         Route::get('/create',  [PortariaController::class, 'create'])->name('portaria.create');

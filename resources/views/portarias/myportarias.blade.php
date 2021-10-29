@@ -30,7 +30,7 @@
                                     <td class="card-date">{{$portarias->dataInicial}}</td>
                                     <td class="card-date">{{$portarias->dataFinal}}</td>
                                     <td>
-                                        <a href="#" class="btn btn-info edit-btn"><ion-icon name="create-outline"></ion-icon>Editar</a>
+                                        <a href="{{ route('portaria.edit', $portarias->id) }}" class="btn btn-info edit-btn"><ion-icon name="create-outline"></ion-icon>Editar</a>
                                         <a href="" class="btn btn-danger" data-toggle="modal" data-target="#modal{{ $portarias->numPortaria }}">Excluir</a>      
 
                                         <div class="modal fade" id="modal{{ $portarias->numPortaria  }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
