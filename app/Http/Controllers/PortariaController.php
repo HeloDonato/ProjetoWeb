@@ -4,10 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Console\Scheduling\Event;
 use Illuminate\Http\Request;
-use DB;
 use Illuminate\Database\QueryException;
 use App\Models\User;
 use App\Models\Portaria;
+use Illuminate\Support\Facades\DB;
 
 class PortariaController extends Controller
 {
@@ -19,7 +19,8 @@ class PortariaController extends Controller
                 ['titulo', 'like', '%'.$search.'%']
             ])->get();
         }else{
-            $portaria = Portaria::all();
+            $portaria = Portaria::orderBy('created_at','desc')->get();//ordenando a ultima criada 
+
         }
         return view('welcome',['portaria'=> $portaria,'search' => $search]);
     }
@@ -48,7 +49,7 @@ class PortariaController extends Controller
         $portaria->save();
         return redirect('/')->with('msg','Portaria criada com sucesso!');
         }catch(QueryException $e){
-            return redirect()->back();
+            return redirect()->back()->withErrors('Não foi possivel criar a Portaria!');
         }
     }
     public function myportarias(){
@@ -62,10 +63,10 @@ class PortariaController extends Controller
         $portaria = Portaria::find($id);
         try{
             $portaria->delete();
+            return redirect()->back()->with('msg','Portaria excluída com sucesso!');
         }catch(QueryException $e){
+            return redirect()->back()->withErrors('Não foi possivel deletar a portaria!');
         }
-        
-        return redirect()->back()->with('msg','Portaria excluída com sucesso!');;
     }
     
     public function edit($id){
@@ -79,9 +80,12 @@ class PortariaController extends Controller
     
     public function update(Request $request){
 
-        Portaria::findOrFail($request->id)->update($request->all());
-
-        return redirect('/portaria/myportarias')->with('msg','Portaria editada com sucesso!');
+        try{
+            Portaria::findOrFail($request->id)->update($request->all());
+            return redirect('/portaria/myportarias')->with('msg','Portaria editada com sucesso!');
+        }catch(QueryException $e){
+            return redirect()->back()->withErrors('Não foi possível editar a portaria!');
+        }
 
     }
 }
