@@ -40,8 +40,6 @@ class PortariaController extends Controller
         $portaria->dataFinal = $request->dataFinal;
         $portaria->tipo = $request->tipo;
 
-
-
         //relação ony to many
         $user = auth()->user();
         $portaria->user_id = $user->id;
@@ -49,7 +47,7 @@ class PortariaController extends Controller
         $portaria->save();
         return redirect('/')->with('msg','Portaria criada com sucesso!');
         }catch(QueryException $e){
-            return redirect()->back()->withErrors('Não foi possivel criar a Portaria!');
+            return redirect()->back()->with('msgE','Erro ao criar a portaria!');
         }
     }
     public function myportarias(){
@@ -65,7 +63,7 @@ class PortariaController extends Controller
             $portaria->delete();
             return redirect()->back()->with('msg','Portaria excluída com sucesso!');
         }catch(QueryException $e){
-            return redirect()->back()->withErrors('Não foi possivel deletar a portaria!');
+            return redirect()->back()->with('msgE','Erro ao excluir!');
         }
     }
     
@@ -79,13 +77,10 @@ class PortariaController extends Controller
     }
     
     public function update(Request $request){
+        
+        Portaria::findOrFail($request->id)->update($request->all());
 
-        try{
-            Portaria::findOrFail($request->id)->update($request->all());
-            return redirect('/portaria/myportarias')->with('msg','Portaria editada com sucesso!');
-        }catch(QueryException $e){
-            return redirect()->back()->withErrors('Não foi possível editar a portaria!');
-        }
+        return redirect('/portaria/myportarias')->with('msg','Portaria editada com sucesso!');
 
     }
 }
