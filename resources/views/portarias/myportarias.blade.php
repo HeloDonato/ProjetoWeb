@@ -27,8 +27,8 @@
                                     <td>{{$portarias->numPortaria}}</td>
                                     <td class="card-title">{{$portarias->titulo}}</td>
                                     <td class="card-date">{{$portarias->descricao}}</td>
-                                    <td class="card-date">{{$portarias->dataInicial}}</td>
-                                    <td class="card-date">{{$portarias->dataFinal}}</td>
+                                    <td class="card-date">{{date('d/m/Y',strtotime($portarias->dataInicial))}}</td>
+                                    <td class="card-date">{{date('d/m/Y',strtotime($portarias->dataFinal))}}</td>
                                     <td>
                                         <a href="{{ route('portaria.edit', $portarias->id) }}" class="btn btn-info edit-btn"><ion-icon name="create-outline"></ion-icon>Editar</a>
                                         <a href="" class="btn btn-danger" data-toggle="modal" data-target="#modal{{ $portarias->numPortaria }}">Excluir</a>      
