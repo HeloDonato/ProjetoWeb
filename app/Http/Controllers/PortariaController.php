@@ -29,23 +29,47 @@ class PortariaController extends Controller
         return view('portarias.create');
     }
 
+    public function show($id){
+        $portaria = Portaria::findOrfail($id);
+        
+        //$portariaOwner = User::where('id',$portaria->user_id)->first()->toArray();
+
+
+        return view('portarias.show',['portaria' => $portaria]);
+    }
+
     public function store(Request $request){
         $portaria = new Portaria;
 
         try{
-        $portaria->numPortaria = $request->numPortaria;
-        $portaria->titulo = $request->titulo;
-        $portaria->descricao = $request->descricao;
-        $portaria->dataInicial = $request->dataInicial;
-        $portaria->dataFinal = $request->dataFinal;
-        $portaria->tipo = $request->tipo;
+            $portaria->numPortaria = $request->numPortaria;
+            $portaria->titulo = $request->titulo;
+            $portaria->descricao = $request->descricao;
+            $portaria->dataInicial = $request->dataInicial;
+            $portaria->dataFinal = $request->dataFinal;
+            $portaria->tipo = $request->tipo;
 
-        //relação ony to many
-        $user = auth()->user();
-        $portaria->user_id = $user->id;
+            //uploard do doc
+            if($request->hasFile('doc') && $request->file('doc')->isValid()){
+                
+                $requestdoc = $request->doc;
 
-        $portaria->save();
-        return redirect('/')->with('msg','Portaria criada com sucesso!');
+                $extension = $requestdoc->extension();
+
+                $docName = md5($requestdoc->getClientOriginalName() . strtotime("now")) . "." . $extension;
+
+                $requestdoc->move(storage_path('portarias'), $docName);
+
+                $portaria->doc = $docName;
+
+            }
+
+            //relação ony to many
+            $user = auth()->user();
+            $portaria->user_id = $user->id;
+
+            $portaria->save();
+            return redirect('/')->with('msg','Portaria criada com sucesso!');
         }catch(QueryException $e){
             return redirect()->back()->with('msgE','Erro ao criar a portaria!');
         }

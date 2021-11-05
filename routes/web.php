@@ -30,10 +30,11 @@ Route::group(['middleware' => 'auth'], function(){
         Route::get('/destroy/{id}', [PortariaController::class, 'destroy'])->name('portaria.destroy');
         Route::get('/edit/{id}',  [PortariaController::class, 'edit'])->name('portaria.edit');
         Route::put('/update/{id}',  [PortariaController::class, 'update'])->name('portaria.update');
-        //Route::any('/busca',  [PortariaController::class, 'search']);
+        Route::get('/show/{id}',[PortariaController::class, 'show'])->name('portaria.show');
         Route::get('/myportarias',[PortariaController::class,'myportarias'])->name('portaria.myportarias');
         Route::get('/create',  [PortariaController::class, 'create'])->name('portaria.create');
         Route::post('/store',  [PortariaController::class, 'store'])->name('portaria.store');
+        
 
     });
 

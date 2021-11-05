@@ -6,10 +6,14 @@
 
     <div id="event-create-container" class="col-md-6 offset-md-3">
         <h1>Cria sua Portaria</h1>
-        {{ Form::open(['route' => 'portaria.store', 'method' => "POST"]) }}
+        {{ Form::open(['route' => 'portaria.store', 'method' => "POST",'enctype' => "multipart/form-data"]) }}
             @csrf
             <div class="form-group">
-                {{ Form::label('numPortaria', 'Númedo da Portaria *') }}
+                {{ Form::label('doc', 'Arquivo da Portaria *') }}
+                {{ Form::file('doc')}}
+            </div>
+            <div class="form-group">
+                {{ Form::label('numPortaria', 'Número da Portaria *') }}
                 {{ Form::number('numPortaria', 'old'('numPortaria'), ['class' => 'form-control', 'required','placeholder' => '0','autofocus']) }}
             </div>
             <div class="form-group">

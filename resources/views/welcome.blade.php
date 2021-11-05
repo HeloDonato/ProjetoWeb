@@ -27,6 +27,7 @@
                                     <th>Data Inicial</th>
                                     <th>Data Final</th>
                                     <th>Autor</th>
+                                    <th>Informações</th>
                                 </tr>
                             </thead>
                             @foreach ($portaria as $portarias)
@@ -37,7 +38,10 @@
                                         <td class="card-date">{{$portarias->descricao}}</td>
                                         <td class="card-date">{{date('d/m/Y',strtotime($portarias->dataInicial))}}</td>
                                         <td class="card-date">{{date('d/m/Y',strtotime($portarias->dataFinal))}}</td>
-                                        <td class="card-title">{{$portarias->user->name}}</td>
+                                        <td class="card-title">{{$portarias->user->name}} {{$portarias->user->sobrenome}}</td>
+                                        <td class="car-title">
+                                            <a href="{{ route('portaria.show', $portarias->id) }}" class="btn btn-info edit-btn"><ion-icon name="information-circle-outline"></ion-icon>Saiba Mais</a>
+                                        </td>
                                     </tr>
                                 </tbody>
                             @endforeach
