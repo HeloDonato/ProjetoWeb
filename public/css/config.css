@@ -1,0 +1,63 @@
+.navbar{
+    background-color: #475B63;
+    height: 10vh;
+    justify-content: left;
+    padding-left: 0;
+}
+
+.link{
+    color: #fff;
+    font-size: 5vh;
+}
+
+.link:hover{
+    color: #fff;
+    text-decoration: none;
+}
+
+footer{
+    background-color: #475B63;
+    color: #fff;
+    height: 8vh;
+    align-items: center;
+    align-content: center;
+    padding-top: 3vh;
+}
+
+.fundo{
+    height: 85vh;
+    align-items: center;
+    width: 100vw;
+    padding-top: 15vh;
+}
+
+.card-header{
+    background-color: #475B63 !important;
+    color: #fff;
+}
+
+.btn-entrar{
+    background-color: #729B79;
+    width: 10vh;
+    color: #fff;
+}
+
+.link-card{
+    color: #729B79;
+    padding-left: 2vh;
+}
+
+.link-card:hover{
+    color: #5c8362;
+}
+
+.input-search{
+    width: 40vw !important;
+}
+
+.btn-search{
+    background-color: #729B79;
+    width: 10vh;
+    color: #fff;
+    margin-left: 10px;
+}
