@@ -1,49 +1,60 @@
-@extends('layouts.main')
 
-@section('title','Criar Portaria')
+@extends('layouts.admin')
 
 @section('content')
-
-    <div id="event-create-container" class="col-md-6 offset-md-3">
-        <h1>Cria sua Portaria</h1>
-        {{ Form::open(['route' => 'portaria.store', 'method' => "POST",'enctype' => "multipart/form-data"]) }}
-            @csrf
-            <div class="form-group">
-                {{ Form::label('doc', 'Arquivo da Portaria *') }}
-                {{ Form::file('doc')}}
+<div class="container-fluid fundo-TCS">
+    <div class="content">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="fundo-img">
+                    <img src="{{ asset('img/portarias2.png') }}" id="img-portarias">
+                </div>
             </div>
-            <div class="form-group">
-                {{ Form::label('numPortaria', 'Número da Portaria *') }}
-                {{ Form::number('numPortaria', 'old'('numPortaria'), ['class' => 'form-control', 'required','placeholder' => '0','autofocus']) }}
+            <div class="col-md-6 div-formCS">
+                <div class="tit-form col-md-8">
+                    <h1 class="tit-form-ser">Portarias</h1>
+                </div>
+    
+                {{ Form::open(['route' => 'portaria.store', 'method' => "POST",'enctype' => "multipart/form-data"]) }}
+                    @csrf
+                    <div class="mb-3 col-md-8">
+                        <label>Número da Portaria*</label>
+                        {{ Form::number('numPortaria', 'old'('numPortaria'), ['class' => 'form-control cad-servidor', 'required','placeholder' => '0','autofocus']) }}
+                    </div>
+                    <div class="mb-3 col-md-8">
+                        <label>Título da Portaria*</label>
+                        {{ Form::text('titulo', 'old'('titulo'), ['class' => 'form-control cad-servidor', 'required','placeholder' => 'Portaria','autofocus']) }}
+                    </div>
+                    <div class="mb-3 col-md-8">
+                        <label>Descrição da Portaria*"</label>
+                        {{ Form::text('descricao', 'old'('descricao'), ['class' => 'form-control cad-servidor', 'required','placeholder' => 'Descrição da Portaria','autofocus']) }}
+                    </div>
+                    <div class="mb-3 col-md-8">
+                        <label>Data Inicial da Portaria*</label>
+                        {{ Form::date('dataInicial', 'old'('dataInicial'), ['class' => 'form-control cad-servidor', 'required','placeholder' => '00/00/0000', 'autofocus']) }}
+                    </div>
+                    <div class="mb-3 col-md-8">
+                        <label>Data Final da Portaria</label>
+                        {{ Form::date('dataFinal', 'old'('dataFinal'), ['class' => 'form-control cad-servidor','placeholder' => '00/00/0000','autofocus']) }}
+                    </div>
+                    <div class="form-group col-md-8">
+                        <label for="title">Insira o tipo da Portaria</label>
+                        <select name="tipo" id="tipo" class="form-control cad-servidor">
+                            <option value="0">Temporárias</option>
+                            <option value="1">Permanentes</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-8" style="color: #fff;">
+                        <label>Arquivo da Portaria*</label><br>
+                        {{ Form::file('doc')}}
+                    </div>
+                    <div class="mb-3 col-md-8">
+                        <input type="submit" class="btn btn-enviar" value="Criar Portaria">
+                    </div>
+                {{ Form::close() }}
             </div>
-            <div class="form-group">
-                {{ Form::label('titulo', 'Título *') }}
-                {{ Form::text('titulo', 'old'('titulo'), ['class' => 'form-control', 'required','placeholder' => 'Portaria','autofocus']) }}
-            </div>
-            <div class="form-group">
-                {{ Form::label('descricao', 'Descrição *') }}
-                {{ Form::text('descricao', 'old'('descricao'), ['class' => 'form-control', 'required','placeholder' => 'Descrição da Portaria','autofocus']) }}
-            </div>
-            <div class="form-group">
-                {{ Form::label('dataInicial', 'Data Inicial *') }}
-                {{ Form::date('dataInicial', 'old'('dataInicial'), ['class' => 'form-control', 'required','placeholder' => '00/00/0000', 'autofocus']) }}
-            </div>
-            <div class="form-group">
-                {{ Form::label('dataFinal', 'Data Final') }}
-                {{ Form::date('dataFinal', 'old'('dataFinal'), ['class' => 'form-control','placeholder' => '00/00/0000','autofocus']) }}
-            </div>
-            <div class="form-group">
-                <label for="title">Insira o tipo da Portaria</label>
-                <select name="tipo" id="tipo" class="form-control">
-                    <option value="0">Temporárias</option>
-                    <option value="1">Permanentes</option>
-                </select>
-            </div>
-            <input type="submit" class="btn btn-primary" value="Criar Portaria">
-        {{ Form::close() }}
+        </div>
     </div>
-
+</div>
 
 @endsection
-
-

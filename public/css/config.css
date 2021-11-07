@@ -61,3 +61,66 @@ footer{
     color: #fff;
     margin-left: 10px;
 }
+
+#img-portarias{
+    width: 30vw;
+    height: 30vw;
+}
+
+.content{
+    height: 100%;
+}
+
+.btn-enviar{
+    background-color: #729B79;
+    width: 100%;
+    color: #fff;
+    margin-bottom: 5%;
+    margin-top: 5%;
+    border-radius: 50px !important;
+    font-weight: bold !important;
+}
+
+.cad-servidor{
+    border-radius: 50px !important;
+    border-top: none !important;
+    border-color: #729B79 !important;
+}
+
+label{
+    color: #fff
+}
+
+.tit-form-ser{
+    color: #fff !important;
+    font-family: 'Play', sans-serif !important;
+}
+
+.tit-form{
+    justify-content: center;
+    width: 100%;
+    display: flex;
+}
+
+.fundo-img{
+    justify-content: center;
+    display: flex;
+    height: 100%;
+    align-items: center;
+}
+
+.fundo-TCS{
+    background-color: #475B63;
+    height: 100%;
+}
+
+.opc-nav{
+    color: #fff;
+    font-size: 2vh;
+    padding-left: 20px;
+}
+
+.opc-nav:hover{
+    color: #fff;
+    text-decoration: underline;
+}
