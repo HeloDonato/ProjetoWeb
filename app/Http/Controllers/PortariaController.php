@@ -7,7 +7,9 @@ use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
 use App\Models\User;
 use App\Models\Portaria;
+use Facade\FlareClient\Http\Response;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class PortariaController extends Controller
 {
@@ -105,6 +107,21 @@ class PortariaController extends Controller
         Portaria::findOrFail($request->id)->update($request->all());
 
         return redirect('/portaria/myportarias')->with('msg','Portaria editada com sucesso!');
+
+    }
+
+    public function download(Request $request,$doc){
+
+        return response()->download(storage_path('portarias/'.$doc));    
+
+    }
+
+    public function view($doc){
+
+        $docFile = "portarias/$doc";
+
+        return response()->file(storage_path($docFile));
+
 
     }
 }
