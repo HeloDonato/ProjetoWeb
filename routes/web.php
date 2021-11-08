@@ -41,13 +41,13 @@ Route::group(['middleware' => 'auth'], function(){
     });
 
     Route::group(['prefix' => 'servidor'], function(){
-        //Route::get('/show',  [ServidorController::class, 'index']);
-        //Route::get('/delete/{id}',  [ServidorController::class, 'delete']);
-        //Route::get('/edit/{id}',  [ServidorController::class, 'edit']);
-        //Route::put('/edit/update/{id}',  [ServidorController::class, 'update']);
+        Route::get('/show',  [ServidorController::class, 'index'])->name('servidor.show');
+        Route::get('/delete/{id}',  [ServidorController::class, 'destroy'])->name('servidor.destroy');
+        Route::get('/edit/{id}',  [ServidorController::class, 'edit'])->name('servidor.edit');
+        Route::put('/update/{id}',  [ServidorController::class, 'update'])->name('servidor.update');
         //Route::any('/busca',  [ServidorController::class, 'search']);
-        //Route::get('/create',  [ServidorController::class, 'create']);
-        //Route::post('/create/novo',  [ServidorController::class, 'store']);
+        Route::get('/create',  [ServidorController::class, 'create'])->name('servidor.create');
+        Route::post('/create/novo',  [ServidorController::class, 'store'])->name('servidor.store');
     });
 
     Route::group(['prefix' => 'relatorios'], function(){
@@ -55,7 +55,4 @@ Route::group(['middleware' => 'auth'], function(){
         //Route::any('/busca',  [ServidorController::class, 'search']);
 
     });
-
-
-    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 });

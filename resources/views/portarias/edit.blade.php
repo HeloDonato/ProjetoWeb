@@ -38,6 +38,10 @@
                     <option value="1">Permanentes</option>
                 </select>
             </div>
+            <div class="form-group col-md-8" >
+                <label>Arquivo da Portaria*</label><br>
+                {{ Form::file('doc')}}
+            </div>
             <input type="submit" class="btn btn-primary" value="Salvar Portaria">
         {{ Form::close() }}
     </div>

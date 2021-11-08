@@ -19,7 +19,7 @@ class PortariaController extends Controller
         if($search){
             $portaria = Portaria::where([
                 ['titulo', 'like', '%'.$search.'%']
-            ])->get();
+            ])->get();  
         }else{
             $portaria = Portaria::orderBy('created_at','desc')->get();//ordenando a ultima criada 
 
@@ -103,10 +103,12 @@ class PortariaController extends Controller
     }
     
     public function update(Request $request){
-        
-        Portaria::findOrFail($request->id)->update($request->all());
-
-        return redirect('/portaria/myportarias')->with('msg','Portaria editada com sucesso!');
+        try{
+            Portaria::findOrFail($request->id)->update($request->all());
+            return redirect('/portaria/myportarias')->with('msg','Portaria editada com sucesso!');
+        }catch(QueryException $e){
+            return redirect('/portaria/myportarias')->with('msgE','Erro ao editar portaria!');
+        }
 
     }
 

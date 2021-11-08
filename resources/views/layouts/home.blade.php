@@ -27,16 +27,57 @@
             <a class="link" href="{{ url('/') }}">
                 Portarias
             </a>
-            <form action="/" method="GET" class="d-flex">
+            <div class="container">
+            <form action="/home" method="GET" class="d-flex">
                 <div class="input-group">
                     <input id="search" name="search" class="form-control" type="text" placeholder="Pesquisar" >
                     <div class="input-group-append">
-                        <button class="btn btn-info" type="button">Pesquisar</button>
+                        <a href="{{url('homeA')}}" class="btn btn-info">Pesquisar</a>
                     </div>
                 </div>
             </form>
-            <button class="btn btn-search" type="submit">Entrar</button>
+            <div>
+                <ul class="navbar-nav mr-auto">
+
+                </ul>
             
+                <ul class="nav justify-content-center">
+                    <!-- Authentication Links -->
+                    @guest
+                        @if (Route::has('login'))
+                            <li class="nav-item">
+                                <a class="nav-link btn btn-success" href="{{ route('login') }}">{{ __('Entrar') }}</a>
+                            </li>
+                        @endif
+                    @else
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="{{ route('portaria.create') }}">{{ __('Criar Portaria') }}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="{{ route('portaria.myportarias') }}">{{ __('Minhas Portarias') }}</a>
+                        </li>
+                        
+                        <li class="nav-item dropdown">
+                            <a id="navbarDropdown " class="nav-link dropdown-toggle text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                {{ Auth::user()->name }}
+                            </a>
+
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{ route('logout') }}"
+                                onclick="event.preventDefault();
+                                                document.getElementById('logout-form').submit();">
+                                    {{ __('Sair') }}
+                                </a>
+
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    @csrf
+                                </form>
+                            </div>
+                        </li>
+                    @endguest
+                </ul>
+            </div>
+            </div>
         </nav>
         @if($search)
             <h2>Buscando por: {{$search}}</h2>

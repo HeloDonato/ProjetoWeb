@@ -44,7 +44,7 @@
                             <option value="1">Permanentes</option>
                         </select>
                     </div>
-                    <div class="form-group col-md-8" style="color: #fff;">
+                    <div class="form-group col-md-8" >
                         <label>Arquivo da Portaria*</label><br>
                         {{ Form::file('doc')}}
                     </div>

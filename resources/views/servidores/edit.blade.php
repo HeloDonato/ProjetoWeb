@@ -14,7 +14,7 @@
                     <h1 class="tit-form-ser">Servidores</h1>
                 </div>
     
-                {{ Form::open(['route' => 'servidor.store', 'method' => "POST"]) }}
+                {{ Form::model($servidor,['route' => ['servidor.update',$servidor->id], 'method' => "PUT"]) }}
                     <div class="mb-3 col-md-8">
                         {{ Form::text('nome', 'old'('nome'), ['class' => 'form-control cad-servidor', 'required','placeholder' => 'Nome','autofocus']) }}
                     </div>
