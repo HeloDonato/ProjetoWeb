@@ -24,11 +24,11 @@
 <body>
     <div id="app">
         <nav class="navbar">
-            <a class="link" href="{{ url('/') }}">
+            <a class="link" href="/">
                 Portarias
             </a>
             <div class="container">
-            <form action="/home" method="GET" class="d-flex">
+            <form action="/" method="GET" class="d-flex">
                 <div class="input-group">
                     <input id="search" name="search" class="form-control" type="text" placeholder="Pesquisar" >
                     <div class="input-group-append">

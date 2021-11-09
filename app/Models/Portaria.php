@@ -31,8 +31,13 @@ class Portaria extends Model
 
     protected $guarded = [];//tudo q for enviado pelo post pode ser atualizado
 
-    //relacao com o usuario dono da portaria
+    //relacao ony to many
     public function user(){
         return $this->belongsTo('App\Models\User');
+    }
+
+    //relacao many to many
+    public function servidores(){
+        return $this->belongsToMany('App\Models\Servidor');
     }
 }
