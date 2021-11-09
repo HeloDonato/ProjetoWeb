@@ -15,6 +15,7 @@
                                     <th>Data Inicial</th>
                                     <th>Data Final</th>
                                     <th>Autor</th>
+                                    <th>Status</th>
                                     <th>Informações</th>
                                 </tr>
                             </thead>
@@ -27,6 +28,15 @@
                                         <td class="card-date">{{date('d/m/Y',strtotime($portarias->dataInicial))}}</td>
                                         <td class="card-date">{{date('d/m/Y',strtotime($portarias->dataFinal))}}</td>
                                         <td class="card-title">{{$portarias->user->name}} {{$portarias->user->sobrenome}}</td>
+                                        <td class="card-title">
+                                            @if($portarias->dataFinal < $portarias->dataInicial)
+                                                Inativa 
+                                            @elseif($portarias->tipo == 0)
+                                                Temporária
+                                            @else
+                                                Permanente
+                                            @endif
+                                        </td>
                                         <td class="car-title">
                                             <a href="{{route('portaria.view',$portarias->doc)}}" class="btn btn-info edit-btn" target="_blank">Visualizar</a>
                                             <a href="{{route('portaria.download',$portarias->doc)}}" class="btn btn-info edit-btn">Baixar</a>
