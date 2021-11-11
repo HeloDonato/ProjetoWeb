@@ -21,6 +21,6 @@ class Servidor extends Model
 
     //relação many to many
     public function portarias(){
-        return $this->belongsToMany('App\Models\Portaria');
+        return $this->belongsToMany('App\Models\Portaria','servidores_id','portarias_id');
     }
 }

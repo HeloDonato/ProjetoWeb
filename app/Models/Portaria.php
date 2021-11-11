@@ -38,6 +38,6 @@ class Portaria extends Model
 
     //relacao many to many
     public function servidores(){
-        return $this->belongsToMany('App\Models\Servidor');
+        return $this->belongsToMany('App\Models\Servidor','servidores_id','portarias_id');
     }
 }

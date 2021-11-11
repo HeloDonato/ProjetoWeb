@@ -29,7 +29,8 @@
                                         <td class="card-date">{{date('d/m/Y',strtotime($portarias->dataFinal))}}</td>
                                         <td class="card-title">{{$portarias->user->name}} {{$portarias->user->sobrenome}}</td>
                                         <td class="card-title">
-                                            @if($portarias->dataFinal < $portarias->dataInicial)
+                                     
+                                            @if($portarias->dataFinal < $mytime = date('Y-m-d H:i:s'))
                                                 Inativa 
                                             @elseif($portarias->tipo == 0)
                                                 Temporária

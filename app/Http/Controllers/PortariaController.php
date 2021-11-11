@@ -7,7 +7,10 @@ use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
 use App\Models\User;
 use App\Models\Portaria;
+use App\Models\Servidor;
+use Carbon\Carbon;
 use Facade\FlareClient\Http\Response;
+use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
@@ -66,9 +69,11 @@ class PortariaController extends Controller
 
             }
 
+
             //relação ony to many
             $user = auth()->user();
             $portaria->user_id = $user->id;
+
 
             $portaria->save();
             return redirect('/')->with('msg','Portaria criada com sucesso!');
@@ -126,6 +131,7 @@ class PortariaController extends Controller
 
 
     }
+
 }
 
 

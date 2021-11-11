@@ -31,7 +31,7 @@ class ServidorController extends Controller
             $servidor->email = $request->email;
             $servidor->cargo = $request->cargo;
 
-            //uploard do doc
+
             $servidor->save();
             return redirect('/')->with('msg','Servidor adicionado com sucesso!');
         }catch(QueryException $e){
