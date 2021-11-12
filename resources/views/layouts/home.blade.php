@@ -15,6 +15,7 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Play:wght@700&display=swap" rel="stylesheet">
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -51,17 +52,9 @@
                     <ul class="navbar-nav ml-auto" style="justify-content: right">
                         <!-- Authentication Links -->
                         @guest
-                            @if (Route::has('login'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Entrar') }}</a>
-                                </li>
-                            @endif
-
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Cadastrar') }}</a>
-                                </li>
-                            @endif
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('login') }}">{{ __('Entrar') }}</a>
+                            </li>
                         @else
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('portaria.create') }}">{{ __('Criar Portaria') }}</a>

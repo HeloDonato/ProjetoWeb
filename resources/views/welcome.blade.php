@@ -40,8 +40,8 @@
                                     @endif
                                 </td>
                                 <td class="car-title">
-                                    <a href="{{route('portaria.view',$portarias->doc)}}" class="btn btn-info edit-btn" target="_blank">Visualizar</a>
-                                    <a href="{{route('portaria.download',$portarias->doc)}}" class="btn btn-info edit-btn">Baixar</a>
+                                    <a href="{{route('portaria.view',$portarias->doc)}}" class="btn btn-pesquisar" target="_blank">Visualizar</a>
+                                    <a href="{{route('portaria.download',$portarias->doc)}}" class="btn btn-pesquisar">Baixar</a>
                                 </td>
                             </tr>
                         

@@ -12,6 +12,7 @@
     font-size: 5vh !important;
     color: #fff;
     padding-left: 0%;
+    font-family: 'Play', sans-serif !important;
 }
 
 .container{
@@ -176,6 +177,7 @@ label{
 
 .btn-pesquisar:hover{
     color: #fff;
+    background-color: #678d6e;
 }
 
 .form-pesquisa{
