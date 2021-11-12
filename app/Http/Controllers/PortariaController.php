@@ -92,9 +92,7 @@ class PortariaController extends Controller
             ])->get();  
         }else{
             $portaria = Portaria::orderBy('created_at','desc')->get();//ordenando a ultima criada 
-
         }
-        
         return view('portarias.myportarias',['portaria' => $portaria, 'search' => $search]);
     }
 
