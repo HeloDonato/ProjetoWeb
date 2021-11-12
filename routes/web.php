@@ -36,6 +36,7 @@ Route::group(['middleware' => 'auth'], function(){
         Route::post('/store',  [PortariaController::class, 'store'])->name('portaria.store');
         Route::get('/dowload/{doc}',[PortariaController::class,'download'])->name('portaria.download');
         Route::get('/view/{doc}',[PortariaController::class,'view'])->name('portaria.view');
+        Route::get('/search',[PortariaController::class,'search'])->name('portaria.search');
         
 
     });
