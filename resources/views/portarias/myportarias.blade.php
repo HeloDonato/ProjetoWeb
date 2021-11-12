@@ -18,8 +18,9 @@
                                 <th>Ações</th>
                             </tr>
                         </thead>
-                        @foreach($portaria as $portarias)
-                            <tbody>
+                        <tbody>
+                            @foreach($portaria as $portarias)
+                            
                                 <tr>
                                     <td>{{$portarias->numPortaria}}</td>
                                     <td class="card-title">{{$portarias->titulo}}</td>
@@ -27,8 +28,8 @@
                                     <td class="card-date">{{date('d/m/Y',strtotime($portarias->dataInicial))}}</td>
                                     <td class="card-date">{{date('d/m/Y',strtotime($portarias->dataFinal))}}</td>
                                     <td>
-                                        <a href="{{ route('portaria.edit', $portarias->id) }}" class="btn btn-info edit-btn"><ion-icon name="create-outline"></ion-icon>Editar</a>
-                                        <a href="" class="btn btn-danger" data-toggle="modal" data-target="#modal{{ $portarias->numPortaria }}"><ion-icon name="trash-outline"></ion-icon>Excluir</a>      
+                                        <a href="{{ route('portaria.edit', $portarias->id) }}" class="btn btn-pesquisar edit-btn">Editar <i class="fas fa-edit"></i></a>
+                                        <a href="" class="btn btn-danger" data-toggle="modal" data-target="#modal{{ $portarias->numPortaria }}">Excluir <i class="fas fa-trash-alt"></i></a>      
 
                                         <div class="modal fade" id="modal{{ $portarias->numPortaria  }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog" role="document">
@@ -53,8 +54,8 @@
                                             </div>
                                     </td>
                                 </tr>
+                            @endforeach
                             </tbody>
-                        @endforeach
                     </table>
                 </div>
             </div>

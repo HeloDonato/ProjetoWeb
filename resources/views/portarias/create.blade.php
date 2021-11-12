@@ -38,18 +38,18 @@
                         {{ Form::date('dataFinal', 'old'('dataFinal'), ['class' => 'form-control cad-servidor','placeholder' => '00/00/0000','autofocus']) }}
                     </div>
                     <div class="form-group col-md-8">
-                        <label for="title">Insira o tipo da Portaria</label>
+                        <label for="tipo">Insira o tipo da Portaria</label>
                         <select name="tipo" id="tipo" class="form-control cad-servidor">
                             <option value="0">Temporárias</option>
                             <option value="1">Permanentes</option>
                         </select>
                     </div>
-                    <label for="title">Escolha o servidor</label>
-                    <select name="tipo" id="tipo" class="form-control cad-servidor">
-                        <option selected disabled> Selecione </option>
-
-                    </select>
-                </div>
+                    <div class="form-group col-md-8">
+                        <label for="participantes">Escolha os servidores</label>
+                        <select name="tipo" id="tipo" class="form-control cad-servidor">
+                            <option selected disabled> Selecione </option>
+                        </select>
+                    </div>
                     <div class="form-group col-md-8" style="color: #fff;">
                         <label>Arquivo da Portaria*</label><br>
                         {{ Form::file('doc')}}
