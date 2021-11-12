@@ -62,7 +62,7 @@
         </div>
                     
     @else
-        <p>Você ainda não tem nenhuma portaria!, <a href="{{ route('portaria.create') }}">Criar Portaria</a></p>
+        
     @endif
    
 @endsection

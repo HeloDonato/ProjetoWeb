@@ -85,7 +85,17 @@ class PortariaController extends Controller
         $user = auth()->user();
         $portaria = $user->portarias;
 
-        return view('portarias.myportarias',['portaria' => $portaria]);
+        $search = request('search');//buscar
+        if($search){
+            $portaria = Portaria::where([
+                ['titulo', 'like', '%'.$search.'%']
+            ])->get();  
+        }else{
+            $portaria = Portaria::orderBy('created_at','desc')->get();//ordenando a ultima criada 
+
+        }
+        
+        return view('portarias.myportarias',['portaria' => $portaria, 'search' => $search]);
     }
 
     public function destroy($id){
