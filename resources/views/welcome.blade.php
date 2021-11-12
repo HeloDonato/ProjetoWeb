@@ -14,7 +14,7 @@
                             <th>Descrição da Portaria</th>
                             <th>Data Inicial</th>
                             <th>Data Final</th>
-                            <th>Autor</th>
+                            <th>Autor</th> 
                             <th>Status</th>
                             <th>Informações</th>
                         </tr>
