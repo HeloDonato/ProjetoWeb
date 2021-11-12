@@ -18,18 +18,22 @@
     <link href="https://fonts.googleapis.com/css2?family=Play:wght@700&display=swap" rel="stylesheet">
 
     <!-- Styles -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/css/fontawesome.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/css/all.min.css" />
+    <link type="text/css" rel="stylesheet" href="{{ mix('css/app.css') }}">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/config.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <body>
     <div id="app">
-    <nav class="navbar navbar-expand-md" style="justify-content:space-between">
+        <nav class="navbar navbar-expand-md" style="justify-content:space-between">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('Portarias', 'Portarias') }}
                 </a>
             </div>
+                
             <div class="container">
                 <div class="navbar-conteudo">
                     <!-- Left Side Of Navbar -->
@@ -40,23 +44,35 @@
                     <ul class="navbar-nav ml-auto" style="justify-content: right">
                         <!-- Authentication Links -->
                         @guest
-                            @if (Route::has('login'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Entrar') }}</a>
-                                </li>
-                            @endif
-
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Cadastrar') }}</a>
-                                </li>
-                            @endif
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('login') }}"><i class="fas fa-sign-in-alt nav-icon fa-lg"></i> {{ __('Entrar') }}</a>
+                            </li>
                         @else
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('portaria.create') }}">{{ __('Criar Portaria') }}</a>
-                            </li>
-                            <li class="nav-item">
                                 <a class="nav-link" href="{{ route('portaria.myportarias') }}">{{ __('Minhas Portarias') }}</a>
+                            </li>
+
+                            <li class="nav-item dropdown">
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    Ferramentas
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li>
+                                        <a class="dropdown-item" href="{{ route('servidor.create') }}">
+                                            {{ __('Cadastrar Servidor') }}
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="{{ route('portaria.create') }}">
+                                            {{ __('Cadastrar Portaria') }}
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="#">
+                                        {{ __('Relatórios') }}
+                                        </a>
+                                    </li>
+                                </ul>
                             </li>
                             
                             <li class="nav-item dropdown">
@@ -90,9 +106,5 @@
             IFNMG - Campus Almenara
         </footer>
     </div>
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </body>
 </html>

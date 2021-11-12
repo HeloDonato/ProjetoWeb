@@ -58,10 +58,30 @@
                             </li>
                         @else
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('portaria.create') }}">{{ __('Criar Portaria') }}</a>
-                            </li>
-                            <li class="nav-item">
                                 <a class="nav-link" href="{{ route('portaria.myportarias') }}">{{ __('Minhas Portarias') }}</a>
+                            </li>
+
+                            <li class="nav-item dropdown">
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    Ferramentas
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li>
+                                        <a class="dropdown-item" href="{{ route('servidor.create') }}">
+                                            {{ __('Cadastrar Servidor') }}
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="{{ route('portaria.create') }}">
+                                            {{ __('Cadastrar Portaria') }}
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="#">
+                                        {{ __('Relatórios') }}
+                                        </a>
+                                    </li>
+                                </ul>
                             </li>
                             
                             <li class="nav-item dropdown">

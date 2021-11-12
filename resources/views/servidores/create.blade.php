@@ -1,4 +1,5 @@
-@extends('layouts.login')
+
+@extends('layouts.admin')
 
 @section('content')
 <div class="container-fluid fundo-TCS">
@@ -11,7 +12,7 @@
             </div>
             <div class="col-md-6 div-formCS">
                 <div class="tit-form col-md-8">
-                    <h1 class="tit-form-ser">Servidores</h1>
+                    <h1 class="tit-form-ser">Novo Servidor</h1>
                 </div>
     
                 {{ Form::open(['route' => 'servidor.store', 'method' => "POST"]) }}
@@ -30,10 +31,11 @@
                     <div class="lign-bottom col-md-8">
                         <button ty  pe="submit" class="btn btn-enviar">Enviar</button>
                     </div>
-                    
-                {{Form::close()}}           
-             </div>
+                {{Form::close()}}  
+
+            </div>
         </div>
     </div>
 </div>
+
 @endsection

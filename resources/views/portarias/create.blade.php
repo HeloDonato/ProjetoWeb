@@ -2,7 +2,7 @@
 @extends('layouts.admin')
 
 @section('content')
-<div class="container-fluid fundo-TCS">
+<div class="container-fluid fundo-TCP">
     <div class="content">
         <div class="row">
             <div class="col-md-6">

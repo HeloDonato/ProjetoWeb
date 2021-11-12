@@ -107,8 +107,14 @@ footer{
     height: 30vw;
 }
 
+#img-servidores{
+    width: 30vw;
+    height: 20vw;
+}
+
 .content{
     height: 100%;
+    width: 100%;
 }
 
 .btn-enviar{
@@ -152,7 +158,16 @@ label{
 
 .fundo-TCS{
     background-color: #475B63;
-    height: 100%;
+    min-height: 82vh;
+    align-items: center;
+    align-content: space-between;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+
+.fundo-TCP{
+    background-color: #475B63;
 }
 
 .opc-nav{
