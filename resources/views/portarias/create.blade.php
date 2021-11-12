@@ -12,7 +12,7 @@
             </div>
             <div class="col-md-6 div-formCS">
                 <div class="tit-form col-md-8">
-                    <h1 class="tit-form-ser">Portarias</h1>
+                    <h1 class="tit-form-ser">Nova Portaria</h1>
                 </div>
     
                 {{ Form::open(['route' => 'portaria.store', 'method' => "POST",'enctype' => "multipart/form-data"]) }}

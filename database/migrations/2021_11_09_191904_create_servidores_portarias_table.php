@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateGrupoUsersTable extends Migration
+class CreateServidoresPortariasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class CreateGrupoUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('grupo_users', function (Blueprint $table) {
-            $table->foreignId('grupo_id')->references('id')->on('grupo')->onDelete('cascade');
-            $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
+        Schema::create('servidores_portarias', function (Blueprint $table) {
+            $table->foreignId('servidores_id')->references('id')->on('servidores')->onDelete('cascade');
+            $table->foreignId('portarias_id')->references('id')->on('portarias')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -27,6 +27,6 @@ class CreateGrupoUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('grupo_users');
+        Schema::dropIfExists('servidores_portarias');
     }
 }

@@ -1,17 +1,36 @@
 .navbar{
     background-color: #475B63;
     height: 10vh;
-    justify-content: left;
     padding-left: 0;
 }
 
-.link{
+.nav-link{
     color: #fff;
-    font-size: 5vh;
 }
 
-.link:hover{
+.navbar-brand{
+    font-size: 5vh !important;
     color: #fff;
+    padding-left: 0%;
+    font-family: 'Play', sans-serif !important;
+}
+
+.container{
+    margin-left: 10px !important;
+    margin-right: 10px !important;
+}
+
+.navbar-conteudo{
+    width: 100% !important;
+}
+
+.navbar-brand:hover{
+    color: #c3e6cb;
+    text-decoration: none;
+}
+
+.nav-link:hover{
+    color: #c3e6cb;
     text-decoration: none;
 }
 
@@ -47,7 +66,8 @@ footer{
     height: 85vh;
     align-items: center;
     width: 100vw;
-    padding-top: 15vh;
+    padding-top: 10vh;
+    background-color: #475B63;
 }
 
 .card-header{
@@ -57,17 +77,18 @@ footer{
 
 .btn-entrar{
     background-color: #729B79;
-    width: 10vh;
+    width: 15vh;
     color: #fff;
+    padding: 5px !important;
 }
 
 .link-card{
-    color: #729B79;
+    color: #fff;
     padding-left: 2vh;
 }
 
 .link-card:hover{
-    color: #5c8362;
+    color: #c3e6cb;
 }
 
 .input-search{
@@ -119,6 +140,7 @@ label{
     justify-content: center;
     width: 100%;
     display: flex;
+    margin-bottom: 10px;
 }
 
 .fundo-img{
@@ -142,4 +164,32 @@ label{
 .opc-nav:hover{
     color: #fff;
     text-decoration: underline;
+}
+
+.div-formCS{
+    align-items: center;
+}
+
+.btn-pesquisar{
+    background-color: #729B79;
+    color: #fff;
+}
+
+.btn-pesquisar:hover{
+    color: #fff;
+    background-color: #678d6e;
+}
+
+.form-pesquisa{
+    width: 30vw;
+}
+
+.msg-buscando{
+    font-size: 20px;
+    padding: 5px;
+    margin-top: 10px;
+}
+
+.ident-pesquisa{
+    font-weight: bold;
 }

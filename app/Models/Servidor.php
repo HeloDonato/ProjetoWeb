@@ -11,10 +11,16 @@ class Servidor extends Model
 
     
     protected $table = 'servidores';
+    
     protected $fillable = [
         'nome',
         'sobrenome',
         'email',
         'cargo',
     ];
+
+    //relação many to many
+    public function portarias(){
+        return $this->belongsToMany('App\Models\Portaria','servidores_id','portarias_id');
+    }
 }

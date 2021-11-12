@@ -1,13 +1,10 @@
-@extends('layouts.main')
+@extends('layouts.home')
 
 @section('title', 'Minhas Portarias')
 
 @section('content')
-    <div class="col-md-10 offset-md-1 dashboard-title-container">   
-        <h1>Minhas Portarias</h1>
-    </div>
     @if(count($portaria)> 0)
-        <div id="cards-container" class="row">
+        <div id="cards-container" class="row" style="margin-top: 20px;">
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-hover table-striped table-bordered table-condensed ">
