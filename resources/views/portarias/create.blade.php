@@ -44,7 +44,13 @@
                             <option value="1">Permanentes</option>
                         </select>
                     </div>
-                    <div class="form-group col-md-8" >
+                    <label for="title">Escolha o servidor</label>
+                    <select name="tipo" id="tipo" class="form-control cad-servidor">
+                        <option selected disabled> Selecione </option>
+
+                    </select>
+                </div>
+                    <div class="form-group col-md-8" style="color: #fff;">
                         <label>Arquivo da Portaria*</label><br>
                         {{ Form::file('doc')}}
                     </div>
