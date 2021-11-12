@@ -38,9 +38,7 @@
                 <form action="/" method="GET" class="form-pesquisa">
                     <div class="input-group">
                         <input id="search" name="search" class="form-control" type="text" placeholder="Pesquisar" >
-                        <div class="input-group-append">
-                            <a href="{{url('homeA')}}" class="btn btn-pesquisar">Pesquisar</a>
-                        </div>
+                        <button type="submit" class="btn btn-pesquisar">Pesquisar</button>
                     </div>
                 </form>
             </div>
