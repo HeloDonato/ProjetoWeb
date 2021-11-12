@@ -1,16 +1,34 @@
 .navbar{
     background-color: #475B63;
     height: 10vh;
-    justify-content: left;
     padding-left: 0;
 }
 
-.link{
+.nav-link{
     color: #fff;
-    font-size: 5vh;
 }
 
-.link:hover{
+.navbar-brand{
+    font-size: 5vh !important;
+    color: #fff;
+    padding-left: 0%;
+}
+
+.container{
+    margin-left: 10px !important;
+    margin-right: 10px !important;
+}
+
+.navbar-conteudo{
+    width: 100% !important;
+}
+
+.navbar-brand:hover{
+    color: #c3e6cb;
+    text-decoration: none;
+}
+
+.nav-link:hover{
     color: #c3e6cb;
     text-decoration: none;
 }
@@ -149,4 +167,27 @@ label{
 
 .div-formCS{
     align-items: center;
+}
+
+.btn-pesquisar{
+    background-color: #729B79;
+    color: #fff;
+}
+
+.btn-pesquisar:hover{
+    color: #fff;
+}
+
+.form-pesquisa{
+    width: 30vw;
+}
+
+.msg-buscando{
+    font-size: 20px;
+    padding: 5px;
+    margin-top: 10px;
+}
+
+.ident-pesquisa{
+    font-weight: bold;
 }

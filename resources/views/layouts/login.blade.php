@@ -25,7 +25,7 @@
 <body>
     <div id="app">
         <nav class="navbar">
-            <a class="link" href="{{ url('/') }}">
+            <a class="navbar-brand" href="{{ url('/') }}">
                 Portarias
             </a>
         </nav>

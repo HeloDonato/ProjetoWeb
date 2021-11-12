@@ -24,46 +24,43 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md">
-
-                <a class="link" href="{{ url('/') }}">
-                    Portarias
+    <nav class="navbar navbar-expand-md" style="justify-content:space-between">
+            <div class="container">
+                <a class="navbar-brand" href="{{ url('/') }}">
+                    {{ config('Portarias', 'Portarias') }}
                 </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            </div>
+            <div class="container">
+                <div class="navbar-conteudo">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-
                     </ul>
 
                     <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
+                    <ul class="navbar-nav ml-auto" style="justify-content: right">
                         <!-- Authentication Links -->
                         @guest
                             @if (Route::has('login'))
                                 <li class="nav-item">
-                                    <a class="opc-nav" href="{{ route('login') }}">{{ __('Entrar') }}</a>
+                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Entrar') }}</a>
                                 </li>
                             @endif
 
                             @if (Route::has('register'))
                                 <li class="nav-item">
-                                    <a class="opc-nav" href="{{ route('register') }}">{{ __('Cadastrar') }}</a>
+                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Cadastrar') }}</a>
                                 </li>
                             @endif
                         @else
                             <li class="nav-item">
-                                <a class="opc-nav" href="{{ route('portaria.create') }}">{{ __('Criar Portaria') }}</a>
+                                <a class="nav-link" href="{{ route('portaria.create') }}">{{ __('Criar Portaria') }}</a>
                             </li>
                             <li class="nav-item">
-                                <a class="opc-nav" href="{{ route('portaria.myportarias') }}">{{ __('Minhas Portarias') }}</a>
+                                <a class="nav-link" href="{{ route('portaria.myportarias') }}">{{ __('Minhas Portarias') }}</a>
                             </li>
                             
                             <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="opc-nav dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}
                                 </a>
 
@@ -82,6 +79,7 @@
                         @endguest
                     </ul>
                 </div>
+            </div>
         </nav>
 
         <main>
