@@ -43,6 +43,7 @@
     text-align: center;
     padding: 10px;
 }
+
 .msgE{
     background-color: #fc9898;
     color: #2e2727f3;
@@ -70,6 +71,23 @@ footer{
     background-color: #475B63;
 }
 
+.content-login{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+.col-form-login{
+    margin-top: 25vh;
+    width: 100%;
+}
+
+.row-form{
+    width: 100vw;
+}
+
 .card-header{
     background-color: #475B63 !important;
     color: #fff;
@@ -77,18 +95,20 @@ footer{
 
 .btn-entrar{
     background-color: #729B79;
-    width: 15vh;
+    min-width: 15vh;
+    max-width: fit-content;
     color: #fff;
     padding: 5px !important;
+    margin: 10px;
 }
 
 .link-card{
-    color: #fff;
+    color: #678d6e;
     padding-left: 2vh;
 }
 
 .link-card:hover{
-    color: #c3e6cb;
+    color: #729B79;
 }
 
 .input-search{
@@ -133,12 +153,33 @@ footer{
     border-color: #729B79 !important;
 }
 
+.cad-login{
+    border-radius: 50px !important;
+    border-top: none !important;
+    border-color: #729B79 !important;
+    height: 50px !important;
+}
+
+.last-line-form-login{
+    display: flex;
+    justify-content: center;
+}
+
 label{
     color: #fff
 }
 
+.label-login{
+    color: #678d6e;
+}
+
 .tit-form-ser{
     color: #fff !important;
+    font-family: 'Play', sans-serif !important;
+}
+
+.tit-form-login{
+    color:#678d6e !important;
     font-family: 'Play', sans-serif !important;
 }
 
