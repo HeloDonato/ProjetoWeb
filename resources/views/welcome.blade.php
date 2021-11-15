@@ -3,9 +3,9 @@
 @section('title', 'Portarias IFNMG')
 
 @section('content')
-        <div id="cards-container" class="row">
-            <div class="card-body">
-                <div class="table-responsive">
+    <div id="cards-container" class="row">
+        <div class="card-body">
+            <div class="table-responsive">
                 <table class="table table-striped">
                     <thead>
                         <tr >
@@ -47,9 +47,8 @@
                         
                         @endforeach
                     </tbody>
-                </div>
+                </table>
             </div>
-
         </div>
     </div>
 @endsection

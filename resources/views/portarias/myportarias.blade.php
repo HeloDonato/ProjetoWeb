@@ -44,7 +44,6 @@
                                                         O registro selecionado será excluído, deseja prosseguir?
                                                         <br>
                                                         Número da Portaria: <strong>{{  $portarias->numPortaria }}</strong> <br>
-                                                        </strong>
                                                     </div>
                                                     <div class="modal-footer">
                                                         <a href="{{ route('portaria.destroy', $portarias->id) }}" class="btn btn-danger">Excluir</a>
@@ -52,16 +51,15 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                        </div>
                                     </td>
                                 </tr>
+
                             @endforeach
-                            </tbody>
+                        </tbody>
                     </table>
                 </div>
             </div>
         </div>
-                    
-    @else
     @endif
-   
 @endsection

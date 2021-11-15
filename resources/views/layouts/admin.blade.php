@@ -58,13 +58,18 @@
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <li>
+                                        <a class="dropdown-item" href="{{ route('portaria.create') }}">
+                                            {{ __('Cadastrar Portaria') }}
+                                        </a>
+                                    </li>    
+                                    <li>
                                         <a class="dropdown-item" href="{{ route('servidor.create') }}">
                                             {{ __('Cadastrar Servidor') }}
                                         </a>
                                     </li>
                                     <li>
-                                        <a class="dropdown-item" href="{{ route('portaria.create') }}">
-                                            {{ __('Cadastrar Portaria') }}
+                                        <a class="dropdown-item" href="{{ route('servidor.show') }}">
+                                            {{ __('Listar Servidores') }}
                                         </a>
                                     </li>
                                     <li>

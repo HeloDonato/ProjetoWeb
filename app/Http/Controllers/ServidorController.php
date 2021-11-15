@@ -13,9 +13,22 @@ class ServidorController extends Controller
 {
     public function index()
     {
-        $servidores = Servidor::paginate(10);
+        $search = request('search');//buscar
+        if($search){
+            $servidores = Servidor::where([
+                ['nome', 'like', '%'.$search.'%']
+            ])->get();  
+        }else{
+            $servidores = Servidor::orderBy('created_at','desc')->get();//ordenando a ultima criada 
 
-        return view('servidores.show')->with('servidor', $servidores);
+        }
+        return view('servidores.show',['servidores'=> $servidores,'search' => $search]);
+
+        //$servidores = Servidor::paginate(10);
+
+        //return view('servidores.show',['servidores'=> $servidores]);
+
+        //return view('servidores.show')->with('servidor', $servidores);
     }
 
     public function create(){
@@ -33,7 +46,7 @@ class ServidorController extends Controller
 
 
             $servidor->save();
-            return redirect('/')->with('msg','Servidor adicionado com sucesso!');
+            return redirect('/servidor/show')->with('msg','Servidor adicionado com sucesso!');
         }catch(QueryException $e){
             return redirect()->back()->with('msgE','Erro ao criar servidor!');
         }
