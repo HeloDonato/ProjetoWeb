@@ -45,6 +45,13 @@
                         </select>
                     </div>
                     <div class="form-group col-md-8">
+                        <label for="tipo">Escolha a origem da Portaria</label>
+                        <select name="origem" id="origem" class="form-control cad-servidor">
+                            <option value="0">Campus</option>
+                            <option value="1">Reitoria</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-8">
                         <label for="participantes">Escolha os servidores</label>
                         <select name="tipo" id="tipo" class="form-control cad-servidor">
                             <option selected disabled> Selecione </option>
