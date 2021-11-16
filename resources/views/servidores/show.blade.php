@@ -24,12 +24,12 @@
                     <tbody>
                         @foreach($servidores as $servidor)
                             <tr>
-                                <td>num matricula</td>
+                                <td>{{$servidor->matricula}}</td>
                                 <td>{{$servidor->nome}} {{$servidor->sobrenome}}</td>
-                                <td>aqui fica o CPF</td>
+                                <td>{{$servidor->cpf}}</td>
                                 <td class="card-title">{{$servidor->email}}</td>
                                 <td class="card-title">{{$servidor->cargo}}</td>
-                                <td class="card-title">aqui fica a função</td>
+                                <td class="card-title">{{$servidor->funcao}}</td>
                                 <td>
                                     <a href="#" class="btn btn-pesquisar edit-btn">Editar <i class="fas fa-edit"></i></a>
                                     <a href="" class="btn btn-danger" data-toggle="modal" data-target="teste">Excluir <i class="fas fa-trash-alt"></i></a>      

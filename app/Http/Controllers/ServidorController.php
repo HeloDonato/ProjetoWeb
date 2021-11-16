@@ -43,7 +43,7 @@ class ServidorController extends Controller
         try{
             $servidor->nome = $request->nome;
             $servidor->sobrenome = $request->sobrenome;
-            $servidor->matricula = $request->email;
+            $servidor->matricula = $request->matricula;
             $servidor->cpf = preg_replace("/\D+/", "",$request->cpf);
             $servidor->email = $request->email;
             $servidor->cargo = $request->cargo;

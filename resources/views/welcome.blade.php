@@ -14,7 +14,7 @@
                             <th>Descrição da Portaria</th>
                             <th>Data Inicial</th>
                             <th>Data Final</th>
-                            <th>Autor</th> 
+                            <th>Origem</th> 
                             <th>Status</th>
                             <th>Informações</th>
                         </tr>
@@ -27,8 +27,14 @@
                                 <td class="card-title">{{$portarias->titulo}}</td>
                                 <td class="card-date">{{$portarias->descricao}}</td>
                                 <td class="card-date">{{date('d/m/Y',strtotime($portarias->dataInicial))}}</td>
-                                <td class="card-date">{{date('d/m/Y',strtotime($portarias->dataFinal))}}</td>
-                                <td class="card-title">{{$portarias->user->name}} {{$portarias->user->sobrenome}}</td>
+                                <td class="card-date">
+                                    @if($portarias->dataFinal == null)
+                                        Sem data
+                                    @else
+                                        {{date('d/m/Y',strtotime($portarias->dataFinal))}}
+                                    @endif
+                                </td>
+                                <td class="card-title">{{$portarias->origem}}</td>
                                 <td class="card-title">
                                 
                                     @if($portarias->dataFinal < $mytime = date('Y-m-d H:i:s'))
