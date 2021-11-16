@@ -20,14 +20,13 @@ class PortariaController extends Controller
     {
         $search = request('search');//buscar
         if($search){
-            $portaria = Portaria::where([
+            $portarias = Portaria::where([
                 ['titulo', 'like', '%'.$search.'%']
             ])->get();  
         }else{
-            $portaria = Portaria::orderBy('created_at','desc')->get();//ordenando a ultima criada 
-
+            $portarias = Portaria::orderBy('created_at','desc')->paginate(10);//ordenando a ultima criada 
         }
-        return view('welcome',['portaria'=> $portaria,'search' => $search]);
+        return view('welcome',['portarias'=> $portarias,'search' => $search]);
     }
 
     public function create(){
@@ -116,17 +115,17 @@ class PortariaController extends Controller
     }
     public function myportarias(){
         $user = auth()->user();
-        $portaria = $user->portarias;
+        $portarias = $user->portarias;
 
         $search = request('search');//buscar
         if($search){
-            $portaria = Portaria::where([
+            $portarias = Portaria::where([
                 ['titulo', 'like', '%'.$search.'%']
             ])->get();  
         }else{
-            $portaria = Portaria::orderBy('created_at','desc')->get();//ordenando a ultima criada 
+            $portarias = Portaria::orderBy('created_at','desc')->get();//ordenando a ultima criada 
         }
-        return view('portarias.myportarias',['portaria' => $portaria, 'search' => $search]);
+        return view('portarias.myportarias',['portarias' => $portarias, 'search' => $search]);
     }
 
     public function destroy($id){

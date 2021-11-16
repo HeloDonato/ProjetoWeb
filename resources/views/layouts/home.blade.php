@@ -122,7 +122,7 @@
             @yield('content')
         </main>
 
-        <footer class="text-center text-lg-start fixed-bottom">
+        <footer class="text-center text-lg-start">
             IFNMG - Campus Almenara
         </footer>
     </div>
@@ -140,9 +140,9 @@
         </div>
     </main>      
            
-    @if(count($portaria) == 0 && $search ?? '')
+    @if(count($portarias) == 0 && $search ?? '')
         <p>Não foi possível encontrar nenhuma portaria com {{$search ?? ''}}!, <a href="/">Ver outras Portarias</a> </p>
-    @elseif(count($portaria) == 0)
+    @elseif(count($portarias) == 0)
         <p>Não há portarias disponíveis, <a href="{{route('portaria.create')}}">Criar Portarias</a></p>
     @endif
 </body>

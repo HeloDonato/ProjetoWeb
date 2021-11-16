@@ -253,3 +253,8 @@ label{
 .entrar-icon{
     color: #fff;
 }
+
+.div-paginacao{
+    justify-content: center;
+    display: flex;
+}
