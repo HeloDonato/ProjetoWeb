@@ -55,21 +55,53 @@ class PortariaController extends Controller
             $portaria->tipo = $request->tipo;
             $portaria->origem = $request->origem;
 
-            //uploard do doc
-            if($request->hasFile('doc') && $request->file('doc')->isValid()){
-                
-                $requestdoc = $request->doc;
+            $registros = Portaria::all();
 
-                $extension = $requestdoc->extension();
-
-                $docName = md5($requestdoc->getClientOriginalName() . strtotime("now")) . "." . $extension;
-
-                $requestdoc->move(storage_path('portarias'), $docName);
-
-                $portaria->doc = $docName;
-
+            //Retornando mensagem de erro caso o número da portaria já exista no banco     
+            foreach($registros as $registro){
+                if($registro->numPortaria == $portaria->numPortaria){
+                    return redirect()
+                            ->back()    
+                            ->withInput()
+                            ->with('msgE','Não foi possível registrar a portaria! Número da portaria já registrado!');
+                }
             }
 
+            //Retornando mensagem de erro caso a data fianl seja nula para portarias temporárias
+            if($portaria->tipo == '0'){
+                if($portaria->dataFinal == null){
+                    return redirect()
+                            ->back()
+                            ->withInput()
+                            ->with('msgE','Não foi possível registrar a portaria! Data final obrigatória para portarias temporárias!');
+                }
+            }
+          
+            //uploard do doc
+
+            if($request->hasFile('doc')){
+                if($request->file('doc')->isValid()){
+                    $requestdoc = $request->doc;
+
+                    $extension = $requestdoc->extension();
+    
+                    $docName = md5($requestdoc->getClientOriginalName() . strtotime("now")) . "." . $extension;
+    
+                    $requestdoc->move(storage_path('portarias'), $docName);
+    
+                    $portaria->doc = $docName;
+                }else{
+                    return redirect()
+                        ->back()
+                        ->withInput()
+                        ->with('msgE','Não foi possível registrar a portaria! Problemas com o processamento do arquivo!');
+                }
+            }else{
+                return redirect()
+                        ->back()
+                        ->withInput()
+                        ->with('msgE','Erro ao cadastarar portaria! Selecione um arquivo para ser enviado!');
+            }
 
             //relação ony to many
             $user = auth()->user();

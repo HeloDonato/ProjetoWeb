@@ -104,6 +104,18 @@
         </nav>
 
         <main>
+            
+            <div class="container-fluid">
+                <div class="row">
+                    @if(session('msg'))
+                        <p class="msg">{{session('msg')}}</p>
+                    @endif
+                    @if(session('msgE'))
+                        <p class="msgE">{{session('msgE')}}</p>
+                    @endif
+                </div>
+            </div>
+
             @yield('content')
         </main>
 

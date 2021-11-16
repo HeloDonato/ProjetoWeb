@@ -39,7 +39,7 @@
                     </div>
                     <div class="form-group col-md-8">
                         <label for="tipo">Insira o tipo da Portaria</label>
-                        <select name="tipo" id="tipo" class="form-control cad-servidor">
+                        <select name="tipo" id="tipo" class="form-control cad-servidor" required>
                             <option value="0">Temporárias</option>
                             <option value="1">Permanentes</option>
                         </select>
