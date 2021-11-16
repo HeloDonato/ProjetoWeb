@@ -21,6 +21,7 @@ class CreatePortariasTable extends Migration
             $table->date('dataInicial');
             $table->date('dataFinal');
             $table->boolean('tipo');
+            $table->string('origem');
             $table->timestamps();
         });
     }

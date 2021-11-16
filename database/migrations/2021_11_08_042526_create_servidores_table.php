@@ -17,8 +17,11 @@ class CreateServidoresTable extends Migration
             $table->id();
             $table->string('nome');
             $table->string('sobrenome');
+            $table->string('matricula')->unique();
+            $table->string('cpf')->unique();
             $table->string('email')->unique();
             $table->string('cargo');
+            $table->string('funcao');
             $table->timestamps();
         });
     }

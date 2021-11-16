@@ -15,6 +15,7 @@ class Portaria extends Model
         'descricao',
         'dataInicial',
         'dataFinal',
+        'origem',
         'tipo'
     ];
 

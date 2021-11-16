@@ -49,10 +49,9 @@ class User extends Authenticatable
         //tem muitas portarias
         return $this->hasMany('App\Models\Portaria');
     }
-
     //relacao many to many
-    public function grupos(){
-        return $this->belongsToMany('App\Models\Grupo');
+    public function ids(){
+        return $this->belongsTo(Servidor::class, 'id_servidor');
     }
 
 }

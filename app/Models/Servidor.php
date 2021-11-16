@@ -15,8 +15,11 @@ class Servidor extends Model
     protected $fillable = [
         'nome',
         'sobrenome',
+        'matricula',
+        'cpf',
         'email',
         'cargo',
+        'funcao'
     ];
 
     //relação many to many

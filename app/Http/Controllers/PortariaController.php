@@ -53,6 +53,7 @@ class PortariaController extends Controller
             $portaria->dataInicial = $request->dataInicial;
             $portaria->dataFinal = $request->dataFinal;
             $portaria->tipo = $request->tipo;
+            $portaria->origem = $request->origem;
 
             //uploard do doc
             if($request->hasFile('doc') && $request->file('doc')->isValid()){

@@ -6,6 +6,8 @@ use Illuminate\Console\Scheduling\Event;
 use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
 use App\Models\Servidor;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 use Facade\FlareClient\Http\Response;
 use Illuminate\Support\Facades\DB;
 
@@ -41,11 +43,27 @@ class ServidorController extends Controller
         try{
             $servidor->nome = $request->nome;
             $servidor->sobrenome = $request->sobrenome;
+            $servidor->matricula = $request->email;
+            $servidor->cpf = preg_replace("/\D+/", "",$request->cpf);
             $servidor->email = $request->email;
             $servidor->cargo = $request->cargo;
-
-
+            $servidor->funcao = $request->funcao;
             $servidor->save();
+            try{
+                $usuario = new User;
+                $id_servidor = Servidor::max('id');
+
+                $usuario->name = $request->nome;
+                $usuario->sobrenome = $request->sobrenome;
+                $usuario->email = $request->email;
+                $usuario->password = Hash::make(preg_replace("/\D+/", "",$request->cpf));
+                $usuario->tipoGrupo = 'padrao';
+                $usuario->id_servidor = $id_servidor;
+                $usuario->save();
+            }catch(QueryException $e){
+                return redirect()->back()->with('msgE','Erro ao criar usuario!');
+            } 
+
             return redirect('/servidor/show')->with('msg','Servidor adicionado com sucesso!');
         }catch(QueryException $e){
             return redirect()->back()->with('msgE','Erro ao criar servidor!');
@@ -74,6 +92,23 @@ class ServidorController extends Controller
     public function update(Request $request){
         try{
         Servidor::findOrFail($request->id)->update($request->all());
+        return redirect('/servidor/show')->with('msg','Servidor editado com sucesso!');
+        }catch(QueryException $e){
+        return redirect('/servidor/show')->with('msgE','Erro ao editar servidor!');
+        }
+    }
+    
+    public function alterarGrupo(Request $request){
+        $servidor = Servidor::findOrFail($request->id);
+        $usuarios = User::all();
+
+        try{
+            foreach($usuarios as $usuario){
+                if($servidor->id == $usuario->id_servidor){
+                    $usuario->tipoGrupo = $request->tipoGrupo;
+                    $usuario->save();
+                }
+            }    
         return redirect('/servidor/show')->with('msg','Servidor editado com sucesso!');
         }catch(QueryException $e){
         return redirect('/servidor/show')->with('msgE','Erro ao editar servidor!');
