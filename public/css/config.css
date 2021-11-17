@@ -258,3 +258,14 @@ label{
     justify-content: center;
     display: flex;
 }
+
+.header-modal-info{
+    background-color: #729B79;
+    color: #fff;
+}
+
+.span-modal-info{
+    font-weight: bold;
+    color: #729B79;
+}
+

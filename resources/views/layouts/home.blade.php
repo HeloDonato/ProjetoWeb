@@ -119,26 +119,26 @@
         @endif
 
         <main>
+
+            <div class="container-fluid">
+                <div class="row">
+                    @if(session('msg'))
+                        <p class="msg">{{session('msg')}}</p>
+                    @endif
+                    @if(session('msgE'))
+                        <p class="msgE">{{session('msgE')}}</p>
+                    @endif
+                </div>
+            </div>
+
             @yield('content')
         </main>
-
+        
         <footer class="text-center text-lg-start">
             IFNMG - Campus Almenara
         </footer>
     </div>
-    
-    <main>
-        <div class="container-fluid">
-            <div class="row">
-                @if(session('msg'))
-                    <p class="msg">{{session('msg')}}</p>
-                @endif
-                @if(session('msgE'))
-                    <p class="msgE">{{session('msgE')}}</p>
-                @endif
-            </div>
-        </div>
-    </main>      
+         
            
     @if(count($portarias) == 0 && $search ?? '')
         <p>Não foi possível encontrar nenhuma portaria com {{$search ?? ''}}!, <a href="/">Ver outras Portarias</a> </p>

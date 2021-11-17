@@ -51,25 +51,42 @@
                     <ul class="navbar-nav ml-auto" style="justify-content: right">
                         <!-- Authentication Links -->
                         @guest
-                            @if (Route::has('login'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Entrar') }}</a>
-                                </li>
-                            @endif
-
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Cadastrar') }}</a>
-                                </li>
-                            @endif
-                        @else
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('portaria.create') }}">{{ __('Criar Portaria') }}</a>
+                                <a class="nav-link" href="{{ route('login') }}"><i class="fas fa-sign-in-alt nav-icon fa-lg"></i> {{ __('Entrar') }}</a>
                             </li>
+                        @else
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('portaria.myportarias') }}">{{ __('Minhas Portarias') }}</a>
                             </li>
-                            
+                            @if(Auth::user()->tipoGrupo != 'padrao')
+                                <li class="nav-item dropdown">
+                                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                        Ferramentas
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <li>
+                                            <a class="dropdown-item" href="{{ route('portaria.create') }}">
+                                                {{ __('Cadastrar Portaria') }}
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="{{ route('servidor.create') }}">
+                                                {{ __('Cadastrar Servidor') }}
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="{{ route('servidor.show') }}">
+                                                {{ __('Listar Servidores') }}
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="#">
+                                            {{ __('Relatórios') }}
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            @endif    
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}
@@ -95,6 +112,18 @@
 
 
         <main>
+
+            <div class="container-fluid">
+                <div class="row">
+                    @if(session('msg'))
+                        <p class="msg">{{session('msg')}}</p>
+                    @endif
+                    @if(session('msgE'))
+                        <p class="msgE">{{session('msgE')}}</p>
+                    @endif
+                </div>
+            </div>
+
             @yield('content')
         </main>
 
@@ -107,18 +136,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
-    <main>
-        <div class="container-fluid">
-            <div class="row">
-                @if(session('msg'))
-                    <p class="msg">{{session('msg')}}</p>
-                @endif
-                @if(session('msgE'))
-                    <p class="msgE">{{session('msgE')}}</p>
-                @endif
-            </div>
-        </div>
-    </main>      
            
 </body>
 </html>

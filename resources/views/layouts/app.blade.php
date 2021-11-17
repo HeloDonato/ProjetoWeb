@@ -60,35 +60,35 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('portaria.myportarias') }}">{{ __('Minhas Portarias') }}</a>
                             </li>
-
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    Ferramentas
-                                </a>
-                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <li>
-                                        <a class="dropdown-item" href="{{ route('portaria.create') }}">
-                                            {{ __('Cadastrar Portaria') }}
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" href="{{ route('servidor.create') }}">
-                                            {{ __('Cadastrar Servidor') }}
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" href="{{ route('servidor.show') }}">
-                                            {{ __('Listar Servidores') }}
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" href="#">
-                                        {{ __('Relatórios') }}
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            
+                            @if(Auth::user()->tipoGrupo != 'padrao')
+                                <li class="nav-item dropdown">
+                                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                        Ferramentas
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <li>
+                                            <a class="dropdown-item" href="{{ route('portaria.create') }}">
+                                                {{ __('Cadastrar Portaria') }}
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="{{ route('servidor.create') }}">
+                                                {{ __('Cadastrar Servidor') }}
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="{{ route('servidor.show') }}">
+                                                {{ __('Listar Servidores') }}
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="#">
+                                            {{ __('Relatórios') }}
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            @endif    
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}
@@ -119,6 +119,18 @@
         @endif
 
         <main>
+
+            <div class="container-fluid">
+                <div class="row">
+                    @if(session('msg'))
+                        <p class="msg">{{session('msg')}}</p>
+                    @endif
+                    @if(session('msgE'))
+                        <p class="msgE">{{session('msgE')}}</p>
+                    @endif
+                </div>
+            </div>
+
             @yield('content')
         </main>
 
@@ -126,19 +138,7 @@
             IFNMG - Campus Almenara
         </footer>
     </div>
-    
-    <main>
-        <div class="container-fluid">
-            <div class="row">
-                @if(session('msg'))
-                    <p class="msg">{{session('msg')}}</p>
-                @endif
-                @if(session('msgE'))
-                    <p class="msgE">{{session('msgE')}}</p>
-                @endif
-            </div>
-        </div>
-    </main>      
+       
            
     @if(count($servidores) == 0 && $search ?? '')
         <p>Não foi possível encontrar nenhuma portaria com {{$search ?? ''}}!, <a href="/">Ver outras Portarias</a> </p>

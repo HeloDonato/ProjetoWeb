@@ -14,7 +14,12 @@
                             <th class="col-md-3">Descrição da Portaria</th>
                             <th>Data Inicial</th>
                             <th>Data Final</th>
-                            <th class="col-info">Informações</th>
+                            <th>Informações</th>
+                            @if(Auth::user())
+                                @if(Auth::user()->tipoGrupo != 'padrao')
+                                    <th>Ações</th>
+                                @endif
+                            @endif
                         </tr>
                     </thead>
                     <tbody>
@@ -33,27 +38,27 @@
                                     @endif
                                 </td>
                                 <td class="car-title">
-                                    <a href="{{route('portaria.view',$portaria->doc)}}" class="btn btn-pesquisar" target="_blank">Abrir <i class="fas fa-eye"></i></a>
-                                    <a href="{{route('portaria.download',$portaria->doc)}}" class="btn btn-pesquisar">Baixar <i class="fas fa-download"></i></a>
-                                    <a href="" class="btn btn-pesquisar" data-toggle="modal" data-target="#modal{{ $portaria->numPortaria }}">Info <i class="fas fa-info-circle"></i></a>      
+                                    <a href="{{route('portaria.view',$portaria->doc)}}" class="btn btn-pesquisar" target="_blank" style="margin-bottom:3px">Abrir <i class="fas fa-eye"></i></a>
+                                    <a href="{{route('portaria.download',$portaria->doc)}}" class="btn btn-pesquisar" style="margin-bottom:3px">Baixar <i class="fas fa-download"></i></a>
+                                    <a href="" class="btn btn-pesquisar" data-toggle="modal" data-target="#modal{{ $portaria->id }}" style="margin-bottom:3px">Info <i class="fas fa-info-circle"></i></a>      
 
-                                    <div class="modal fade" id="modal{{ $portaria->numPortaria  }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal fade" id="modal{{ $portaria->id  }}" tabindex="-1" role="dialog" aria-hidden="true">
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLabel"><strong>Título da Portaria: </strong>{{ $portaria->titulo }}</h5>
+                                                <div class="modal-header header-modal-info">
+                                                    <h5 class="modal-title"><strong>Título da Portaria: </strong>{{ $portaria->titulo }}</h5>
                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <strong>Número da portaria:</strong> {{$portaria->numPortaria}}<br><hr>
-                                                    <strong>Descrição da portaria:</strong> {{$portaria->descricao}}<br><hr>
-                                                    <strong>Paricipantes dessa portaria:</strong><br><hr>
-                                                    <strong>Origem da portaria:</strong> {{$portaria->origem}}<br><hr>
-                                                    <strong>Data inicial da portaria:</strong> {{$portaria->descricao}}<br><hr>
-                                                    <strong>Data final da portaria:</strong> {{$portaria->descricao}}<br><hr>
-                                                    <strong>Status da portaria:</strong> 
+                                                    <span class="span-modal-info">Número da portaria:</span> {{$portaria->numPortaria}}<br><hr>
+                                                    <span class="span-modal-info">Descrição da portaria:</span> {{$portaria->descricao}}<br><hr>
+                                                    <span class="span-modal-info">Paricipantes dessa portaria:</span><br><hr>
+                                                    <span class="span-modal-info">Origem da portaria:</span> {{$portaria->origem}}<br><hr>
+                                                    <span class="span-modal-info">Data inicial da portaria:</span> {{$portaria->descricao}}<br><hr>
+                                                    <span class="span-modal-info">Data final da portaria:</span> {{$portaria->descricao}}<br><hr>
+                                                    <span class="span-modal-info">Status da portaria:</span> 
                                                     @if($portaria->dataFinal < $mytime = date('Y-m-d H:i:s'))
                                                         Inativa 
                                                     @elseif($portaria->tipo == 0)
@@ -66,6 +71,36 @@
                                         </div>
                                     </div>
                                 </td>
+                                @if(Auth::user())
+                                    @if(Auth::user()->tipoGrupo != 'padrao')
+                                        <td>
+                                            <a href="{{ route('portaria.edit', $portaria->id) }}" class="btn btn-secondary edit-btn" style="margin-bottom:3px">Editar <i class="fas fa-edit"></i></a>
+                                            <a href="" class="btn btn-danger" data-toggle="modal" data-target="#modal{{ $portaria->numPortaria }}" style="margin-bottom:3px">Excluir <i class="fas fa-trash-alt"></i></a>      
+
+                                            <div class="modal fade" id="modal{{ $portaria->numPortaria  }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel">Título da Portaria: {{ $portaria->titulo }}</h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            O registro selecionado será excluído, deseja prosseguir?
+                                                            <br>
+                                                            Número da Portaria: <strong>{{  $portaria->numPortaria }}</strong> <br>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <a href="{{ route('portaria.destroy', $portaria->id) }}" class="btn btn-danger">Excluir</a>
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    @endif
+                                @endif
                             </tr>
 
                         @endforeach

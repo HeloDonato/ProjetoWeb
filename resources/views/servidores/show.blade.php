@@ -15,10 +15,7 @@
                             <th>E-mail</th>
                             <th class="col-md-1">Cargo</th>
                             <th class="col-md-2">Função</th>
-                            <th class="col-md-2">Ações</th>
-                            @if(Auth::user()->tipoGrupo == 'super')
-                                <th class="col-md-1">Tipo</th>
-                            @endif
+                            <th class="col-md-3">Ações</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -31,14 +28,17 @@
                                 <td class="card-title">{{$servidor->cargo}}</td>
                                 <td class="card-title">{{$servidor->funcao}}</td>
                                 <td>
-                                    <a href="#" class="btn btn-pesquisar edit-btn">Editar <i class="fas fa-edit"></i></a>
-                                    <a href="" class="btn btn-danger" data-toggle="modal" data-target="teste">Excluir <i class="fas fa-trash-alt"></i></a>      
+                                    <a href="{{ route('servidor.edit', $servidor->id) }}" class="btn btn-pesquisar edit-btn" style="margin-bottom:3px">Editar <i class="fas fa-edit"></i></a>
+                                    <a href="" class="btn btn-danger" data-toggle="modal" data-target="#modal{{ $servidor->id }}" style="margin-bottom:3px">Excluir <i class="fas fa-trash-alt"></i></a>
+                                    @if(Auth::user()->tipoGrupo == 'super')
+                                        <a href="" class="btn btn-secondary" data-toggle="modal" data-target="#modal2{{ $servidor->id }}" style="margin-bottom:3px">Acesso <i class="fas fa-user-shield"></i></a>      
+                                    @endif
 
-                                    <div class="modal fade" id="teste" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal fade" id="modal{{ $servidor->id  }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLabel">Título da Portaria: {{ $servidor->nome }}</h5>
+                                                    <h5 class="modal-title" id="exampleModalLabel">Servidor: {{ $servidor->nome }}</h5>
                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
@@ -47,25 +47,22 @@
                                                     O registro selecionado será excluído, deseja prosseguir?
                                                     <br>
                                                     Nome do Servidor: <strong>{{  $servidor->nome }} {{$servidor->sobrenome}}</strong> <br>
-                                                    Matrícula: 
+                                                    Matrícula: {{$servidor->matricula}}
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <a href="#" class="btn btn-danger">Excluir</a>
+                                                    <a href="{{ route('servidor.destroy', $servidor->id) }}" class="btn btn-danger">Excluir</a>
                                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </td>
-                                @if(Auth::user()->tipoGrupo == 'super')
-                                    <td>
-                                        <a href="" class="btn btn-danger" data-toggle="modal" data-target="#modal{{  $servidor->id  }}">Excluir <i class="fas fa-trash-alt"></i></a>      
-                                        
-                                        <div class="modal fade" id="modal{{ $servidor->id  }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+                                    @if(Auth::user()->tipoGrupo == 'super')
+                                        <div class="modal fade modal-info" id="modal2{{ $servidor->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog" role="document">
                                                 <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="exampleModalLabel"></h5>
+                                                    <div class="modal-header header-modal-info">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Nível de acesso de usuário</h5>
                                                         <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
                                                             <span aria-hidden="true">&times;</span>
                                                         </button>
@@ -80,14 +77,12 @@
                                                         <input type="submit" class="btn btn-enviar" value="Alterar">
                                                         {{Form::close()}}
                                                     </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </td>
-                                @endif
+                                    @endif
+                                </td>
+                                
                             </tr>
                         @endforeach
                     </tbody> 

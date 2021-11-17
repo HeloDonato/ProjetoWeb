@@ -15,9 +15,8 @@
                                 <th>Descrição da Portaria</th>
                                 <th>Data Inicial</th>
                                 <th>Data Final</th>
-                                @if(Auth::user()->tipoGrupo != 'padrao')
-                                    <th>Ações</th>
-                                @endif
+                                <th>Status</th>
+                                <th>Origem</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -29,34 +28,16 @@
                                     <td class="card-date">{{$portaria->descricao}}</td>
                                     <td class="card-date">{{date('d/m/Y',strtotime($portaria->dataInicial))}}</td>
                                     <td class="card-date">{{date('d/m/Y',strtotime($portaria->dataFinal))}}</td>
-                                    @if(Auth::user()->tipoGrupo != 'padrao')
-                                        <td>
-                                            <a href="{{ route('portaria.edit', $portaria->id) }}" class="btn btn-pesquisar edit-btn">Editar <i class="fas fa-edit"></i></a>
-                                            <a href="" class="btn btn-danger" data-toggle="modal" data-target="#modal{{ $portaria->numPortaria }}">Excluir <i class="fas fa-trash-alt"></i></a>      
-
-                                            <div class="modal fade" id="modal{{ $portaria->numPortaria  }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                <div class="modal-dialog" role="document">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title" id="exampleModalLabel">Título da Portaria: {{ $portaria->titulo }}</h5>
-                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
-                                                                <span aria-hidden="true">&times;</span>
-                                                            </button>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            O registro selecionado será excluído, deseja prosseguir?
-                                                            <br>
-                                                            Número da Portaria: <strong>{{  $portaria->numPortaria }}</strong> <br>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <a href="{{ route('portaria.destroy', $portaria->id) }}" class="btn btn-danger">Excluir</a>
-                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    @endif
+                                    <td class="card-title">
+                                        @if($portaria->dataFinal < $mytime = date('Y-m-d H:i:s'))
+                                            Inativa 
+                                        @elseif($portaria->tipo == 0)
+                                            Temporária
+                                        @else
+                                            Permanente
+                                        @endif
+                                    </td>
+                                    <td class="card-date">{{$portaria->origem}}</td>
                                 </tr>
 
                             @endforeach
