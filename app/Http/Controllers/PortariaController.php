@@ -30,7 +30,12 @@ class PortariaController extends Controller
     }
 
     public function create(){
-        return view('portarias.create');
+        $servidores = DB::table('servidores')
+            ->join('users', function($join){
+                $join->on('servidores.id', '=', 'users.id_servidor' )
+                ->where('users.tipoGrupo', 'not like', '%super%');
+            })->get();
+        return view('portarias.create')->with('servidores', $servidores);
     }
 
     public function show($id){

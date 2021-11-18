@@ -22,6 +22,8 @@ class CreatePortariasTable extends Migration
             $table->date('dataFinal')->nullable();
             $table->boolean('tipo');
             $table->string('origem');
+            $table->unsignedBigInteger('id_servidor');
+            $table->foreign('id_servidor')->references('id')->on('users');
             $table->timestamps();
         });
     }

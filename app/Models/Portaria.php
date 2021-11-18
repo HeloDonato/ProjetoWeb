@@ -16,7 +16,8 @@ class Portaria extends Model
         'dataInicial',
         'dataFinal',
         'origem',
-        'tipo'
+        'tipo',
+        'id_servidor'
     ];
 
     use HasFactory;
@@ -39,6 +40,6 @@ class Portaria extends Model
 
     //relacao many to many
     public function servidores(){
-        return $this->belongsToMany('App\Models\Servidor','servidores_id','portarias_id');
+        return $this->belongsTo(Servidor::class, 'id_servidor');
     }
 }
