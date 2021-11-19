@@ -3,7 +3,6 @@
 @section('title', 'Minhas Portarias')
 
 @section('content')
-    @if(count($portarias)> 0)
         <div id="cards-container" class="row" style="min-height:82vh">
             <div class="card-body">
                 <div class="table-responsive">
@@ -46,5 +45,4 @@
                 </div>
             </div>
         </div>
-    @endif
 @endsection

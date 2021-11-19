@@ -140,10 +140,6 @@
     </div>
          
            
-    @if(count($portarias) == 0 && $search ?? '')
-        <p>Não foi possível encontrar nenhuma portaria com {{$search ?? ''}}!, <a href="/">Ver outras Portarias</a> </p>
-    @elseif(count($portarias) == 0)
-        <p>Não há portarias disponíveis, <a href="{{route('portaria.create')}}">Criar Portarias</a></p>
-    @endif
+
 </body>
 </html>

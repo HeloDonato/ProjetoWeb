@@ -126,7 +126,18 @@ class PortariaController extends Controller
 
     public function myportarias(){
         $user = auth()->user();
-        $portarias = $user->portarias;
+        $userId = $user->id;
+       /* $portarias = User::join('servidores_portarias', 'servidores_portarias,usuario_id', '=', 'users.id')
+        ->join('portarias', 'servidores_portarias.portarias_id', '=', 'portarias.id')
+        ->where('$userId', '=', 'servidores_portarias.usuario_id')->get();
+        return view('portarias.myportarias')->with('portarias', $portarias);
+        */
+        $portarias = DB::select(DB::raw("Select * from users 
+        inner join servidores_portarias on (servidores_portarias.usuario_id = users.id) 
+        inner join portarias on (servidores_portarias.portaria_id = portarias.id)
+        where $userId = servidores_portarias.usuario_id"));
+        return view('portarias.myportarias')->with('portarias', $portarias);
+
 
         $search = request('search');//buscar
         if($search){
