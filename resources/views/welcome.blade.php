@@ -113,9 +113,6 @@
                     </tbody>
                 </table>
             </div>
-            <div class="div-paginacao">
-                {{$portarias->links()}}
-            </div>
             <br>
         </div>
     </div>

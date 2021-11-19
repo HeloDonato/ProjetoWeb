@@ -20,11 +20,11 @@ class PortariaController extends Controller
     {
         $search = request('search');//buscar
         if($search){
-            $portarias = Portaria::where([
-                ['titulo', 'like', '%'.$search.'%']
-            ])->get();  
+            $portarias = DB::select(DB::raw("select * from servidores_portarias as sp inner join portarias as p on sp.portaria_id = p.id
+            inner join users as u on sp.usuario_id = u.id where p.titulo like '%$search%' or p.numPortaria like '%$search%' 
+            or u.nome like '%$search%' or u.sobrenome like '%$search%'"));
         }else{
-            $portarias = Portaria::orderBy('created_at','desc')->paginate(10);//ordenando a ultima criada 
+            $portarias = Portaria::orderBy('created_at','desc')->get();//paginate(10);//ordenando a ultima criada 
         }
 
         $participantes = DB::select(DB::raw("select portaria_id, usuario_id, nome, sobrenome FROM servidores_portarias as s 
@@ -171,15 +171,45 @@ class PortariaController extends Controller
     public function edit($id){
 
         $portaria = Portaria::findOrFail($id);
+        $participantes = DB::select(DB::raw("select portaria_id, usuario_id, nome, sobrenome FROM servidores_portarias as s 
+        INNER JOIN users as u ON s.usuario_id = u.id where portaria_id = $id;"));
+        
+        $servidores = DB::table('users')->where('users.id', 'not like', '1')->get();
         //dd($portaria->id);
 
-        return view('portarias.edit',['portaria' => $portaria]);
+        return view('portarias.edit',['portaria' => $portaria, 'participantes'=>$participantes, 'servidores'=>$servidores]);
 
     }
     
     public function update(Request $request){
         try{
             Portaria::findOrFail($request->id)->update($request->all());
+
+            try{
+                $portaria = Portaria::findOrFail($request->id);
+                $id_portaria = $portaria->id;
+                $servidores = User::all();
+                $id_servidores = $request->id_servidor;
+
+                if($request->id_servidor != null){
+
+                    DB::table('servidores_portarias')->where('portaria_id', '=', $id_portaria)->delete();
+
+                    foreach($servidores as $servidor){
+                        foreach($id_servidores as $id_servidor){
+                            if($id_servidor == $servidor->id){
+                                $portaria_servidor = new ServidorPortaria;
+                                $portaria_servidor->portaria_id = $id_portaria;
+                                $portaria_servidor->usuario_id  = $id_servidor;
+                                $portaria_servidor->save();
+                            }
+                        }
+                    }
+                }
+            }catch(QueryException $e){
+                    return redirect()->back()->with('msgE','Portaria criada com sucesso, mas não foi possível identificar os servidores!');
+            }
+
             return redirect('/')->with('msg','Portaria editada com sucesso!');
         }catch(QueryException $e){
             return redirect('/')->with('msgE','Erro ao editar portaria!');
