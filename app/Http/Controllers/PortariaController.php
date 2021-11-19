@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
 use App\Models\User;
 use App\Models\Portaria;
-use App\Models\Servidor;
+use App\Models\ServidorPortaria;
 use Carbon\Carbon;
 use Facade\FlareClient\Http\Response;
 use Illuminate\Support\Facades\Date;
@@ -30,26 +30,14 @@ class PortariaController extends Controller
     }
 
     public function create(){
-        $servidores = DB::table('servidores')
-            ->join('users', function($join){
-                $join->on('servidores.id', '=', 'users.id_servidor' )
-                ->where('users.tipoGrupo', 'not like', '%super%');
-            })->get();
+        $servidores = DB::table('users')->where('users.id', 'not like', '1')->get();
         return view('portarias.create')->with('servidores', $servidores);
     }
 
-    public function show($id){
-        $portaria = Portaria::findOrfail($id);
-        
-        //$portariaOwner = User::where('id',$portaria->user_id)->first()->toArray();
-
-
-        return view('portarias.show',['portaria' => $portaria]);
-    }
-
     public function store(Request $request){
+        //dd($request->all());
         $portaria = new Portaria;
-
+        //dd($request->id_servidor);
         try{
             $portaria->numPortaria = $request->numPortaria;
             $portaria->titulo = $request->titulo;
@@ -80,8 +68,8 @@ class PortariaController extends Controller
                             ->with('msgE','Não foi possível registrar a portaria! Data final obrigatória para portarias temporárias!');
                 }
             }
-          
-            //uploard do doc
+            
+            //upload do doc
 
             if($request->hasFile('doc')){
                 if($request->file('doc')->isValid()){
@@ -106,18 +94,36 @@ class PortariaController extends Controller
                         ->withInput()
                         ->with('msgE','Erro ao cadastarar portaria! Selecione um arquivo para ser enviado!');
             }
-
-            //relação ony to many
-            $user = auth()->user();
-            $portaria->user_id = $user->id;
-
-
             $portaria->save();
+
+            try{
+                $ultima_portaria = Portaria::max('id');
+                $id_portaria = $ultima_portaria;
+                $servidores = User::all();
+                $id_servidores = $request->id_servidor;
+
+                foreach($servidores as $servidor){
+                    foreach($id_servidores as $id_servidor){
+                        if($id_servidor == $servidor->id){
+                            $portaria_servidor = new ServidorPortaria;
+                            $portaria_servidor->portaria_id= $id_portaria;
+                            $portaria_servidor->usuario_id = $id_servidor;
+                            $portaria_servidor->save();
+                        }
+                    }
+                }
+
+            }catch(QueryException $e){
+                    return redirect()->back()->with('msgE','Portaria criada com sucesso, mas não foi possível identificar os servidores!');
+            }
+
+
             return redirect('/')->with('msg','Portaria criada com sucesso!');
         }catch(QueryException $e){
             return redirect()->back()->with('msgE','Erro ao criar a portaria!');
         }
     }
+
     public function myportarias(){
         $user = auth()->user();
         $portarias = $user->portarias;

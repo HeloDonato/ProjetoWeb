@@ -40,7 +40,7 @@
                                 <td class="car-title">
                                     <a href="{{route('portaria.view',$portaria->doc)}}" class="btn btn-pesquisar" target="_blank" style="margin-bottom:3px">Abrir <i class="fas fa-eye"></i></a>
                                     <a href="{{route('portaria.download',$portaria->doc)}}" class="btn btn-pesquisar" style="margin-bottom:3px">Baixar <i class="fas fa-download"></i></a>
-                                    <a href="" class="btn btn-pesquisar" data-toggle="modal" data-target="#modal{{ $portaria->id }}" style="margin-bottom:3px">Info <i class="fas fa-info-circle"></i></a>      
+                                    <a href="{{route('portaria.show',$portaria->id)}}" class="btn btn-pesquisar" data-toggle="modal" data-target="#modal{{ $portaria->id }}" style="margin-bottom:3px">Info <i class="fas fa-info-circle"></i></a>      
 
                                     <div class="modal fade" id="modal{{ $portaria->id  }}" tabindex="-1" role="dialog" aria-hidden="true">
                                         <div class="modal-dialog" role="document">
@@ -54,7 +54,9 @@
                                                 <div class="modal-body">
                                                     <span class="span-modal-info">Número da portaria:</span> {{$portaria->numPortaria}}<br><hr>
                                                     <span class="span-modal-info">Descrição da portaria:</span> {{$portaria->descricao}}<br><hr>
-                                                    <span class="span-modal-info">Paricipantes dessa portaria:</span><br><hr>
+                                                    <span class="span-modal-info">Paricipantes dessa portaria:</span>
+                                                    
+                                                    <br><hr>
                                                     <span class="span-modal-info">Origem da portaria:</span> {{$portaria->origem}}<br><hr>
                                                     <span class="span-modal-info">Data inicial da portaria:</span> {{$portaria->descricao}}<br><hr>
                                                     <span class="span-modal-info">Data final da portaria:</span> {{$portaria->descricao}}<br><hr>

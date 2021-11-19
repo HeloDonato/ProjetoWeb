@@ -14,8 +14,8 @@ class CreateServidoresPortariasTable extends Migration
     public function up()
     {
         Schema::create('servidores_portarias', function (Blueprint $table) {
-            $table->foreignId('servidores_id')->references('id')->on('servidores')->onDelete('cascade');
-            $table->foreignId('portarias_id')->references('id')->on('portarias')->onDelete('cascade');
+            $table->foreignId('usuario_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreignId('portaria_id')->references('id')->on('portarias')->onDelete('cascade');
             $table->timestamps();
         });
     }

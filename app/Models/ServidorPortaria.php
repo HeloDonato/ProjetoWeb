@@ -5,18 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Portaria extends Model
+class ServidorPortaria extends Model
 {
-
-    protected $table = 'portarias';
+    protected $table = 'servidores_portarias';
     protected $fillable = [
-        'numPortaria',
-        'titulo',
-        'descricao',
-        'dataInicial',
-        'dataFinal',
-        'origem',
-        'tipo',
+        'usuario_id',
+        'portaria_id',
     ];
 
     use HasFactory;
@@ -32,8 +26,11 @@ class Portaria extends Model
 
     protected $guarded = [];//tudo q for enviado pelo post pode ser atualizado
 
-    //relacao ony to many
-    public function user(){
-        return $this->belongsTo('App\Models\User');
+    public function id_servidor(){
+        return $this->belongsTo(User::class, 'usuario_id');
+    }
+
+    public function id_portaria(){
+        return $this->belongsTo(Portaria::class, 'portaria_id');
     }
 }

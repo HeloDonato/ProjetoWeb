@@ -18,11 +18,16 @@ class User extends Authenticatable
      * @var string[]
      */
     protected $fillable = [
-        'name',
-        'sobrenome',
         'tipoGrupo',
         'email',
         'password',
+        'nome',
+        'sobrenome',
+        'matricula',
+        'cpf',
+        'cargo',
+        'funcao',
+        'id_usuario'
     ];
 
     /**
@@ -50,8 +55,5 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\Portaria');
     }
     //relacao many to many
-    public function ids(){
-        return $this->belongsTo(Servidor::class, 'id_servidor');
-    }
 
 }

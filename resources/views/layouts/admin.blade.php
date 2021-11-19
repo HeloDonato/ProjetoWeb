@@ -11,6 +11,15 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script src="http://harvesthq.github.io/chosen/chosen.jquery.js" defer></script>
+    <script src="http://harvesthq.github.io/chosen/chosen.jquery.js" defer></script>
+    <script>
+        $(function() {
+            $('.chosen-select').chosen();
+            $('.chosen-select-deselect').chosen({ allow_single_deselect: true });
+        });
+    </script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -23,6 +32,7 @@
     <link type="text/css" rel="stylesheet" href="{{ mix('css/app.css') }}">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/config.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/chosen.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <body>
@@ -82,7 +92,7 @@
                             @endif    
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
+                                    {{ Auth::user()->nome }}
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
