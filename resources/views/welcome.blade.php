@@ -62,8 +62,8 @@
                                                     @endforeach
                                                     <br><hr>
                                                     <span class="span-modal-info">Origem da portaria:</span> {{$portaria->origem}}<br><hr>
-                                                    <span class="span-modal-info">Data inicial da portaria:</span> {{$portaria->descricao}}<br><hr>
-                                                    <span class="span-modal-info">Data final da portaria:</span> {{$portaria->descricao}}<br><hr>
+                                                    <span class="span-modal-info">Data inicial da portaria:</span> {{date('d/m/Y',strtotime($portaria->dataInicial))}}<br><hr>
+                                                    <span class="span-modal-info">Data final da portaria:</span> {{date('d/m/Y',strtotime($portaria->dataFinal))}}<br><hr>
                                                     <span class="span-modal-info">Status da portaria:</span> 
                                                     @if($portaria->dataFinal < $mytime = date('Y-m-d H:i:s'))
                                                         Inativa 
