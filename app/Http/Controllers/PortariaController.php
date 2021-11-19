@@ -26,7 +26,11 @@ class PortariaController extends Controller
         }else{
             $portarias = Portaria::orderBy('created_at','desc')->paginate(10);//ordenando a ultima criada 
         }
-        return view('welcome',['portarias'=> $portarias,'search' => $search]);
+
+        $participantes = DB::select(DB::raw("select portaria_id, usuario_id, nome, sobrenome FROM servidores_portarias as s 
+        INNER JOIN users as u ON s.usuario_id = u.id;"));
+
+        return view('welcome',['portarias'=> $portarias,'search' => $search, 'participantes'=>$participantes]);
     }
 
     public function create(){
@@ -132,14 +136,18 @@ class PortariaController extends Controller
         ->where('$userId', '=', 'servidores_portarias.usuario_id')->get();
         return view('portarias.myportarias')->with('portarias', $portarias);
         */
-        $portarias = DB::select(DB::raw("Select * from users 
-        inner join servidores_portarias on (servidores_portarias.usuario_id = users.id) 
-        inner join portarias on (servidores_portarias.portaria_id = portarias.id)
+        $portarias = DB::select(DB::raw("Select * from portarias 
+        inner join servidores_portarias on (servidores_portarias.portaria_id = portarias.id) 
         where $userId = servidores_portarias.usuario_id"));
-        return view('portarias.myportarias')->with('portarias', $portarias);
 
+        $participantes = DB::select(DB::raw("select portaria_id, usuario_id, nome, sobrenome FROM servidores_portarias as s 
+        INNER JOIN users as u ON s.usuario_id = u.id;"));
+        
+        //dd($portarias);
+        return view('portarias.myportarias')->with('portarias', $portarias)->with('participantes', $participantes);
+        
 
-        $search = request('search');//buscar
+        /*$search = request('search');//buscar
         if($search){
             $portarias = Portaria::where([
                 ['titulo', 'like', '%'.$search.'%']
@@ -147,7 +155,7 @@ class PortariaController extends Controller
         }else{
             $portarias = Portaria::orderBy('created_at','desc')->get();//ordenando a ultima criada 
         }
-        return view('portarias.myportarias',['portarias' => $portarias, 'search' => $search]);
+        return view('portarias.myportarias',['portarias' => $portarias, 'search' => $search]);*/
     }
 
     public function destroy($id){

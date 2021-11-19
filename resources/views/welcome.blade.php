@@ -55,7 +55,11 @@
                                                     <span class="span-modal-info">Número da portaria:</span> {{$portaria->numPortaria}}<br><hr>
                                                     <span class="span-modal-info">Descrição da portaria:</span> {{$portaria->descricao}}<br><hr>
                                                     <span class="span-modal-info">Paricipantes dessa portaria:</span>
-                                                    
+                                                    @foreach ($participantes as $participante)
+                                                        @if($participante->portaria_id == $portaria->id)
+                                                            <br> {{$participante->nome}} {{$participante->sobrenome}}
+                                                        @endif
+                                                    @endforeach
                                                     <br><hr>
                                                     <span class="span-modal-info">Origem da portaria:</span> {{$portaria->origem}}<br><hr>
                                                     <span class="span-modal-info">Data inicial da portaria:</span> {{$portaria->descricao}}<br><hr>

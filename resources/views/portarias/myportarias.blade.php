@@ -14,6 +14,7 @@
                                 <th>Descrição da Portaria</th>
                                 <th>Data Inicial</th>
                                 <th>Data Final</th>
+                                <th>Participantes</th>
                                 <th>Status</th>
                                 <th>Origem</th>
                             </tr>
@@ -23,10 +24,17 @@
                             
                                 <tr>
                                     <td>{{$portaria->numPortaria}}</td>
-                                    <td class="card-title">{{$portaria->titulo}}</td>
-                                    <td class="card-date">{{$portaria->descricao}}</td>
+                                    <td>{{$portaria->titulo}}</td>
+                                    <td>{{$portaria->descricao}}</td>
                                     <td class="card-date">{{date('d/m/Y',strtotime($portaria->dataInicial))}}</td>
                                     <td class="card-date">{{date('d/m/Y',strtotime($portaria->dataFinal))}}</td>
+                                    <td>
+                                        @foreach($participantes as $participante)
+                                            @if($participante->portaria_id == $portaria->id)
+                                                {{$participante->nome}} {{$participante->sobrenome}} /
+                                            @endif
+                                        @endforeach
+                                    </td>
                                     <td class="card-title">
                                         @if($portaria->dataFinal < $mytime = date('Y-m-d H:i:s'))
                                             Inativa 
