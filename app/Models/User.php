@@ -52,7 +52,7 @@ class User extends Authenticatable
     //relação com a portaria
     public function portarias(){
         //tem muitas portarias
-        return $this->hasMany('App\Models\Portaria');
+        return $this->hasMany(ServidorPortaria::class, 'usuario_id');
     }
     //relacao many to many
 

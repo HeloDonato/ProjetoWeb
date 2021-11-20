@@ -26,8 +26,19 @@ class PortariaController extends Controller
     public  function search(Request $request, Portaria $portaria){
         $portaria = new Portaria();
         $search = $request->except('_token');
-        $portarias = $portaria->search($request->except('_token'));
-
+        $tipo = 'user';
+        if($tipo == 'user'){
+            $user = User::where('nome', 'like', '%'.$request->search.'%')
+                ->first();
+            if($user) {
+                $portarias = $user->portarias;
+            } else {
+                return redirect()->back()->with('msg','Servidor no encontrado');
+            }
+        } else {
+            $portarias = $portaria->search($request->except('_token'));
+        }
+        //dd($portarias);
         return view('welcome', [
             'portarias' => $portarias,
             'filters' => $search,
