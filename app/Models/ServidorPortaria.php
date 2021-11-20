@@ -27,7 +27,7 @@ class ServidorPortaria extends Model
 
     protected $guarded = [];//tudo q for enviado pelo post pode ser atualizado
 
-    public function id_servidor(){
+    public function servidor(){
         return $this->belongsTo(User::class, 'usuario_id');
     }
 

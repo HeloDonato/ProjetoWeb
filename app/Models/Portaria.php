@@ -36,4 +36,24 @@ class Portaria extends Model
     public function user(){
         return $this->belongsTo('App\Models\User');
     }
+    
+    public function search($filter = null)
+    {
+        $results = $this->where(function($query) use($filter) {
+            if(count($filter) > 0) {
+                if(isset($filter['search']) /*and isset($filter['codigo'])*/) {
+                    $query->Where('titulo', 'LIKE', "%".$filter['search']."%")
+                        ->orWhere('numPortaria', 'LIKE', "%".$filter['search']."%")
+                        ->get();
+                }
+            }
+        })->orderBy('dataInicial', 'DESC')->paginate(10);
+
+        return $results;
+    }
+
+    public function participantes()
+    {
+        return $this->hasMany(ServidorPortaria::class, 'portaria_id');
+    }
 }

@@ -17,21 +17,22 @@ use App\Http\Controllers\RelatorioController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('welcome');
 });
 
 Auth::routes();
 
-Route::get('/',[PortariaController::class,'index']);
+Route::group(['prefix' => 'portaria'], function(){
+    Route::get('/',[PortariaController::class,'index'])->name('welcome');
+    Route::get('/dowload/{doc}',[PortariaController::class,'download'])->name('portaria.download');
+    Route::get('/view/{doc}',[PortariaController::class,'view'])->name('portaria.view');
+    Route::any('/search',[PortariaController::class,'search'])->name('portaria.search');
+});
 
 Route::group(['middleware' => 'auth'], function(){
 
     Route::group(['prefix' => 'portaria'], function(){
-        Route::get('/show/{id}',[PortariaController::class, 'show'])->name('portaria.show');
         Route::get('/myportarias',[PortariaController::class,'myportarias'])->name('portaria.myportarias');
-        Route::get('/dowload/{doc}',[PortariaController::class,'download'])->name('portaria.download');
-        Route::get('/view/{doc}',[PortariaController::class,'view'])->name('portaria.view');
-        Route::get('/search',[PortariaController::class,'search'])->name('portaria.search');
     });
 
     Route::group(['middleware' => 'admin'], function(){

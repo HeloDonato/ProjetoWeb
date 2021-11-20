@@ -18,19 +18,20 @@ class PortariaController extends Controller
 {
     public function index()
     {
-        $search = request('search');//buscar
-        if($search){
-            $portarias = DB::select(DB::raw("select * from servidores_portarias as sp inner join portarias as p on sp.portaria_id = p.id
-            inner join users as u on sp.usuario_id = u.id where p.titulo like '%$search%' or p.numPortaria like '%$search%' 
-            or u.nome like '%$search%' or u.sobrenome like '%$search%'"));
-        }else{
-            $portarias = Portaria::orderBy('created_at','desc')->get();//paginate(10);//ordenando a ultima criada 
-        }
+        $portarias = Portaria::orderBy('created_at','desc')->paginate(10);//ordenando a ultima criada 
 
-        $participantes = DB::select(DB::raw("select portaria_id, usuario_id, nome, sobrenome FROM servidores_portarias as s 
-        INNER JOIN users as u ON s.usuario_id = u.id;"));
+        return view('welcome',['portarias'=> $portarias,'search']);
+    }
 
-        return view('welcome',['portarias'=> $portarias,'search' => $search, 'participantes'=>$participantes]);
+    public  function search(Request $request, Portaria $portaria){
+        $portaria = new Portaria();
+        $search = $request->except('_token');
+        $portarias = $portaria->search($request->except('_token'));
+
+        return view('welcome', [
+            'portarias' => $portarias,
+            'filters' => $search,
+        ]);
     }
 
     public function create(){

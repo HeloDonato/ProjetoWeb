@@ -35,9 +35,10 @@
             </div>
 
             <div class="container">
-                <form action="/" method="GET" class="form-pesquisa">
+                <form action="{{route('portaria.search')}}" method="POST" class="form-pesquisa">
+                    @csrf
                     <div class="input-group">
-                        <input id="search" name="search" class="form-control" type="text" placeholder="Pesquisar" >
+                        <input id="search" name="search" value="{{$filters['search'] ?? ''}}" class="form-control" type="text" placeholder="Pesquisar" >
                         <button type="submit" class="btn btn-pesquisar">Pesquisar</button>
                     </div>
                 </form>

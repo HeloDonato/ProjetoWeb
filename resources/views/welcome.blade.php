@@ -23,6 +23,19 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @if(count($portarias) == 0)
+                            <tr>
+                                @if(Auth::check() and Auth::user()->tipoGrupo=='padrao')
+                                    <td colspan="6">
+                                @else
+                                    <td colspan="7">
+                                @endif
+                                    <div class="alert border-info text-center">
+                                        0 registros
+                                    </div>
+                                </td>
+                            </tr>
+                        @endif
                         @foreach ($portarias as $portaria)
                         
                             <tr>
@@ -40,7 +53,7 @@
                                 <td class="car-title">
                                     <a href="{{route('portaria.view',$portaria->doc)}}" class="btn btn-pesquisar" target="_blank" style="margin-bottom:3px">Abrir <i class="fas fa-eye"></i></a>
                                     <a href="{{route('portaria.download',$portaria->doc)}}" class="btn btn-pesquisar" style="margin-bottom:3px">Baixar <i class="fas fa-download"></i></a>
-                                    <a href="{{route('portaria.show',$portaria->id)}}" class="btn btn-pesquisar" data-toggle="modal" data-target="#modal{{ $portaria->id }}" style="margin-bottom:3px">Info <i class="fas fa-info-circle"></i></a>      
+                                    <a href="" class="btn btn-pesquisar" data-toggle="modal" data-target="#modal{{ $portaria->id }}" style="margin-bottom:3px">Info <i class="fas fa-info-circle"></i></a>      
 
                                     <div class="modal fade" id="modal{{ $portaria->id  }}" tabindex="-1" role="dialog" aria-hidden="true">
                                         <div class="modal-dialog" role="document">
@@ -55,10 +68,8 @@
                                                     <span class="span-modal-info">Número da portaria:</span> {{$portaria->numPortaria}}<br><hr>
                                                     <span class="span-modal-info">Descrição da portaria:</span> {{$portaria->descricao}}<br><hr>
                                                     <span class="span-modal-info">Paricipantes dessa portaria:</span>
-                                                    @foreach ($participantes as $participante)
-                                                        @if($participante->portaria_id == $portaria->id)
-                                                            <br> {{$participante->nome}} {{$participante->sobrenome}}
-                                                        @endif
+                                                    @foreach ($portaria->participantes as $participante)
+                                                        {{ $participante->servidor->nome }}
                                                     @endforeach
                                                     <br><hr>
                                                     <span class="span-modal-info">Origem da portaria:</span> {{$portaria->origem}}<br><hr>
@@ -113,6 +124,11 @@
                     </tbody>
                 </table>
             </div>
+            @if(isset($filters))
+                {{ $portarias->appends($filters)->links() }}
+            @else
+                {{ $portarias->links() }}
+            @endif
             <br>
         </div>
     </div>
