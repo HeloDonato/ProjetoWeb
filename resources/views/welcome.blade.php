@@ -43,7 +43,7 @@
                                 <td class="card-date">{{$portaria->descricao ?? $portaria->portaria->descricao}}</td>
                                 <td class="card-date">{{date('d/m/Y',strtotime($portaria->dataInicial ?? $portaria->portaria->dataInicial))}}</td>
                                 <td class="card-date">
-                                    @if($portaria->dataFinal == null and !isset($portaria->portaria->dataFinal) or $portaria->portaria->dataFinal == null)
+                                    @if($portaria->dataFinal == null or !isset($portaria->portaria->dataFinal) or $portaria->portaria->dataFinal == null)
                                         Sem data
                                     @else
                                         {{date('d/m/Y',strtotime($portaria->dataFinal ?? $portaria->portaria->dataFinal))}}
@@ -79,7 +79,13 @@
                                                     <br><hr>
                                                     <span class="span-modal-info">Origem da portaria:</span> {{$portaria->origem ?? $portaria->portaria->origem}}<br><hr>
                                                     <span class="span-modal-info">Data inicial da portaria:</span> {{date('d/m/Y',strtotime($portaria->dataInicial ?? $portaria->portaria->dataInicial))}}<br><hr>
-                                                    <span class="span-modal-info">Data final da portaria:</span> {{date('d/m/Y',strtotime($portaria->dataFinal ?? $portaria->portaria->dataFinal))}}<br><hr>
+                                                    <span class="span-modal-info">Data final da portaria:</span> 
+                                                    @if($portaria->dataFinal == null or !isset($portaria->portaria->dataFinal) or $portaria->portaria->dataFinal == null)
+                                                        Sem data
+                                                    @else
+                                                        {{date('d/m/Y',strtotime($portaria->dataFinal ?? $portaria->portaria->dataFinal))}}
+                                                    @endif
+                                                    <br><hr>
                                                     <span class="span-modal-info">Status da portaria:</span> 
                                                     @if($portaria->dataFinal < $mytime = date('Y-m-d H:i:s'))
                                                         Inativa 
