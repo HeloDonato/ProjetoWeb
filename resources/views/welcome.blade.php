@@ -131,13 +131,10 @@
                     </tbody>
                 </table>
             </div>
-            @if(isset($portarias->doc))
-                @if(isset($filters))
-                    {{ $portarias->appends($filters)->links() }}
-                @else
-                    {{ $portarias->links() }}
-                @endif
-            @endif
+            <div class="div-paginacao">
+                {{ $portarias->links() }}
+            </div>
+                
             <br>
         </div>
     </div>
