@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Minhas Portarias')
+@section('title', 'Portarias')
 
 @section('content')
         <div id="cards-container" class="row" style="min-height:82vh">

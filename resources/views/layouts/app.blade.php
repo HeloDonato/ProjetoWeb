@@ -28,22 +28,17 @@
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-md" style="justify-content:space-between">
-            <div class="container">
+            @if((Auth::check() and Auth::user()->tipoGrupo!='padrao'))
+                <div class="container" style="width: 60%;">
+            @else
+                <div class="container" style="width: 100%;">
+            @endif
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('Portarias', 'Portarias') }}
                 </a>
             </div>
-
-            <div class="container">
-                <form method="GET" class="form-pesquisa">
-                    <div class="input-group">
-                        <input id="search" name="search" class="form-control" type="text" placeholder="Pesquisar" >
-                        <button type="submit" class="btn btn-pesquisar">Pesquisar</button>
-                    </div>
-                </form>
-            </div>
                 
-            <div class="container">
+            <div class="container container-links">
                 <div class="navbar-conteudo">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
@@ -52,9 +47,15 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto" style="justify-content: right">
                         <!-- Authentication Links -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('servidor.show') }}">{{ __('Servidores') }}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('welcome') }}">{{ __('Portarias') }}</a>
+                        </li>
                         @guest
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}"><i class="fas fa-sign-in-alt nav-icon fa-lg"></i> {{ __('Entrar') }}</a>
+                                <a class="nav-link" href="{{ route('login') }}">{{ __('Entrar') }} <i class="fas fa-sign-in-alt nav-icon fa-lg"></i></a>
                             </li>
                         @else
                             <li class="nav-item">
@@ -74,11 +75,6 @@
                                         <li>
                                             <a class="dropdown-item" href="{{ route('servidor.create') }}">
                                                 {{ __('Cadastrar Servidor') }}
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="dropdown-item" href="{{ route('servidor.show') }}">
-                                                {{ __('Listar Servidores') }}
                                             </a>
                                         </li>
                                         <li>
@@ -111,12 +107,6 @@
                 </div>
             </div>
         </nav>
-        @if($search ?? '')
-            <div class="msg-buscando">
-                Buscando por: <span class="ident-pesquisa">{{$search ?? ''}}</span>
-            </div>
-            
-        @endif
 
         <main>
 
@@ -133,17 +123,13 @@
 
             @yield('content')
         </main>
-
-        <footer class="text-center text-lg-start fixed-bottom">
+        
+        <footer class="text-center text-lg-start">
             IFNMG - Campus Almenara
         </footer>
     </div>
-       
+         
            
-    @if(count($servidores) == 0 && $search ?? '')
-        <p>Não foi possível encontrar nenhuma portaria com {{$search ?? ''}}!, <a href="/">Ver outras Portarias</a> </p>
-    @elseif(count($servidores) == 0)
-        <p>Não há portarias disponíveis, <a href="{{route('portaria.create')}}">Criar Portarias</a></p>
-    @endif
+
 </body>
 </html>

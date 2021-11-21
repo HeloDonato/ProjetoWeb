@@ -38,15 +38,15 @@
                         @endif
                         @foreach ($portarias as $portaria)
                             <tr>
-                                <td>{{$portaria->numPortaria ?? $portaria->portaria->numPortaria}}</td>
-                                <td class="card-title">{{$portaria->titulo ?? $portaria->portaria->titulo}}</td>
-                                <td class="card-date">{{$portaria->descricao ?? $portaria->portaria->descricao}}</td>
-                                <td class="card-date">{{date('d/m/Y',strtotime($portaria->dataInicial ?? $portaria->portaria->dataInicial))}}</td>
+                                <td>{{$portaria->numPortaria}}</td>
+                                <td class="card-title">{{$portaria->titulo}}</td>
+                                <td class="card-date">{{$portaria->descricao}}</td>
+                                <td class="card-date">{{date('d/m/Y',strtotime($portaria->dataInicial))}}</td>
                                 <td class="card-date">
-                                    @if($portaria->dataFinal == null or !isset($portaria->portaria->dataFinal) or $portaria->portaria->dataFinal == null)
+                                    @if($portaria->dataFinal == null)
                                         Sem data
                                     @else
-                                        {{date('d/m/Y',strtotime($portaria->dataFinal ?? $portaria->portaria->dataFinal))}}
+                                        {{date('d/m/Y',strtotime($portaria->dataFinal))}}
                                     @endif
                                 </td>
                                 <td class="car-title">
@@ -58,32 +58,28 @@
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header header-modal-info">
-                                                    <h5 class="modal-title"><strong>Título da Portaria: </strong>{{ $portaria->titulo ?? $portaria->portaria->titulo}}</h5>
+                                                    <h5 class="modal-title"><strong>Título da Portaria: </strong>{{ $portaria->titulo}}</h5>
                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <span class="span-modal-info">Número da portaria:</span> {{$portaria->numPortaria ?? $portaria->portaria->numPortaria}}<br><hr>
-                                                    <span class="span-modal-info">Descrição da portaria:</span> {{$portaria->descricao ?? $portaria->portaria->descricao}}<br><hr>
+                                                    <span class="span-modal-info">Número da portaria:</span> {{$portaria->numPortaria}}<br><hr>
+                                                    <span class="span-modal-info">Descrição da portaria:</span> {{$portaria->descricao}}<br><hr>
                                                     <span class="span-modal-info">Paricipantes dessa portaria:</span>
-                                                    @if($portaria->participantes)
+
                                                         @foreach ($portaria->participantes as $participante)
                                                             {{ $participante->servidor->nome }}
                                                         @endforeach
-                                                    @else
-                                                        @foreach ($portaria->portaria->participantes as $participante)
-                                                            {{ $participante->servidor->nome }}
-                                                        @endforeach
-                                                    @endif
+                                                
                                                     <br><hr>
-                                                    <span class="span-modal-info">Origem da portaria:</span> {{$portaria->origem ?? $portaria->portaria->origem}}<br><hr>
-                                                    <span class="span-modal-info">Data inicial da portaria:</span> {{date('d/m/Y',strtotime($portaria->dataInicial ?? $portaria->portaria->dataInicial))}}<br><hr>
+                                                    <span class="span-modal-info">Origem da portaria:</span> {{$portaria->origem}}<br><hr>
+                                                    <span class="span-modal-info">Data inicial da portaria:</span> {{date('d/m/Y',strtotime($portaria->dataInicial))}}<br><hr>
                                                     <span class="span-modal-info">Data final da portaria:</span> 
-                                                    @if($portaria->dataFinal == null or !isset($portaria->portaria->dataFinal) or $portaria->portaria->dataFinal == null)
+                                                    @if($portaria->dataFinal == null)
                                                         Sem data
                                                     @else
-                                                        {{date('d/m/Y',strtotime($portaria->dataFinal ?? $portaria->portaria->dataFinal))}}
+                                                        {{date('d/m/Y',strtotime($portaria->dataFinal))}}
                                                     @endif
                                                     <br><hr>
                                                     <span class="span-modal-info">Status da portaria:</span> 

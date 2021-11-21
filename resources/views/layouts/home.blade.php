@@ -28,23 +28,27 @@
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-md" style="justify-content:space-between">
-            <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('Portarias', 'Portarias') }}
-                </a>
-            </div>
+            @if((Auth::check() and Auth::user()->tipoGrupo!='padrao'))
+                <div class="container" style="width: 60%;">
+            @else
+                <div class="container" style="width: 100%;">
+            @endif
+                    <a class="navbar-brand" href="{{ url('/') }}">
+                        {{ config('Portarias', 'Portarias') }}
+                    </a>
+                </div>
 
             <div class="container">
                 <form action="{{route('portaria.search')}}" method="POST" class="form-pesquisa">
                     @csrf
                     <div class="input-group">
-                        <input id="search" name="search" value="{{$filters['search'] ?? ''}}" class="form-control" type="text" placeholder="Pesquisar" >
+                        <input id="search" name="search" value="{{$filters['search'] ?? ''}}" class="form-control" type="text" placeholder="Pesquisar portaria (nome, número)" >
                         <button type="submit" class="btn btn-pesquisar">Pesquisar</button>
                     </div>
                 </form>
             </div>
                 
-            <div class="container">
+            <div class="container container-links">
                 <div class="navbar-conteudo">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
@@ -53,9 +57,12 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto" style="justify-content: right">
                         <!-- Authentication Links -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('servidor.show') }}">{{ __('Servidores') }}</a>
+                        </li>
                         @guest
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}"><i class="fas fa-sign-in-alt nav-icon fa-lg"></i> {{ __('Entrar') }}</a>
+                                <a class="nav-link" href="{{ route('login') }}">{{ __('Entrar') }} <i class="fas fa-sign-in-alt nav-icon fa-lg"></i></a>
                             </li>
                         @else
                             <li class="nav-item">
@@ -75,11 +82,6 @@
                                         <li>
                                             <a class="dropdown-item" href="{{ route('servidor.create') }}">
                                                 {{ __('Cadastrar Servidor') }}
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="dropdown-item" href="{{ route('servidor.show') }}">
-                                                {{ __('Listar Servidores') }}
                                             </a>
                                         </li>
                                         <li>
@@ -112,12 +114,6 @@
                 </div>
             </div>
         </nav>
-        @if($search ?? '')
-            <div class="msg-buscando">
-                Buscando por: <span class="ident-pesquisa">{{$search ?? ''}}</span>
-            </div>
-            
-        @endif
 
         <main>
 

@@ -56,4 +56,14 @@ class Portaria extends Model
     {
         return $this->hasMany(ServidorPortaria::class, 'portaria_id');
     }
+
+    public function minhasPortarias($idServidor)
+    {
+        $results = Portaria::select('*')
+            ->join('servidores_portarias', 'portarias.id', 'servidores_portarias.portaria_id')
+            ->where('servidores_portarias.usuario_id', '=', $idServidor)
+            ->orderBy('dataInicial', 'DESC')->paginate(10);
+
+        return $results;
+    }
 }

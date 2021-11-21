@@ -8,6 +8,10 @@
     color: #fff;
 }
 
+.container-links{
+    width: 100vw !important;
+}
+
 .navbar-brand{
     font-size: 5vh !important;
     color: #fff;

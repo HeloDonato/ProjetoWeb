@@ -13,6 +13,7 @@ use Facade\FlareClient\Http\Response;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use PhpParser\Node\Expr\New_;
 
 class PortariaController extends Controller
 {
@@ -26,18 +27,9 @@ class PortariaController extends Controller
     public  function search(Request $request, Portaria $portaria){
         $portaria = new Portaria();
         $search = $request->except('_token');
-        $tipo = 'user';
-        if($tipo == 'user'){
-            $user = User::where('nome', 'like', '%'.$request->search.'%')
-                ->first();
-            if($user) {
-                $portarias = $user->portarias;
-            } else {
-                return redirect()->back()->with('msg','Servidor no encontrado');
-            }
-        } else {
-            $portarias = $portaria->search($request->except('_token'));
-        }
+
+        $portarias = $portaria->search($request->except('_token'));
+
         //dd($portarias);
         return view('welcome', [
             'portarias' => $portarias,
@@ -143,31 +135,24 @@ class PortariaController extends Controller
     public function myportarias(){
         $user = auth()->user();
         $userId = $user->id;
-       /* $portarias = User::join('servidores_portarias', 'servidores_portarias,usuario_id', '=', 'users.id')
-        ->join('portarias', 'servidores_portarias.portarias_id', '=', 'portarias.id')
-        ->where('$userId', '=', 'servidores_portarias.usuario_id')->get();
-        return view('portarias.myportarias')->with('portarias', $portarias);
-        */
-        $portarias = DB::select(DB::raw("Select * from portarias 
-        inner join servidores_portarias on (servidores_portarias.portaria_id = portarias.id) 
-        where $userId = servidores_portarias.usuario_id"));
 
-        $participantes = DB::select(DB::raw("select portaria_id, usuario_id, nome, sobrenome FROM servidores_portarias as s 
-        INNER JOIN users as u ON s.usuario_id = u.id;"));
+        $portaria = new Portaria();
+        $portarias = $portaria->minhasPortarias($userId);
+
         
         //dd($portarias);
-        return view('portarias.myportarias')->with('portarias', $portarias)->with('participantes', $participantes);
-        
+        return view('portarias.myportarias')->with('portarias', $portarias);
+    }
 
-        /*$search = request('search');//buscar
-        if($search){
-            $portarias = Portaria::where([
-                ['titulo', 'like', '%'.$search.'%']
-            ])->get();  
-        }else{
-            $portarias = Portaria::orderBy('created_at','desc')->get();//ordenando a ultima criada 
-        }
-        return view('portarias.myportarias',['portarias' => $portarias, 'search' => $search]);*/
+    public function portariasServidor($id){
+        $user = User::find($id);
+
+        $portaria = new Portaria();
+        $portarias = $portaria->minhasPortarias($user->id);
+
+        
+        //dd($portarias);
+        return view('portarias.servidoresPortarias')->with('portarias', $portarias)->with('servidor', $user);
     }
 
     public function destroy($id){

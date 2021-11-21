@@ -27,6 +27,11 @@ Route::group(['prefix' => 'portaria'], function(){
     Route::get('/dowload/{doc}',[PortariaController::class,'download'])->name('portaria.download');
     Route::get('/view/{doc}',[PortariaController::class,'view'])->name('portaria.view');
     Route::any('/search',[PortariaController::class,'search'])->name('portaria.search');
+    Route::get('/show/portariasServidores{id}',  [PortariaController::class, 'portariasServidor'])->name('servidor.portarias');
+});
+
+Route::group(['prefix' => 'servidor'], function(){
+    Route::get('/show',  [ServidorController::class, 'index'])->name('servidor.show');
 });
 
 Route::group(['middleware' => 'auth'], function(){
@@ -45,7 +50,6 @@ Route::group(['middleware' => 'auth'], function(){
         });
     
         Route::group(['prefix' => 'servidor'], function(){
-            Route::get('/show',  [ServidorController::class, 'index'])->name('servidor.show');
             Route::get('/delete/{id}',  [ServidorController::class, 'destroy'])->name('servidor.destroy');
             Route::get('/edit/{id}',  [ServidorController::class, 'edit'])->name('servidor.edit');
             Route::put('/update/{id}',  [ServidorController::class, 'update'])->name('servidor.update');
