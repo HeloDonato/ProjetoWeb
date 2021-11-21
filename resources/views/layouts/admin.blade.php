@@ -10,8 +10,8 @@
     <title>Portarias</title>
 
     <!-- Scripts -->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="{{ asset('js/app.js') }}" defer></script>
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
     <script src="http://harvesthq.github.io/chosen/chosen.jquery.js" defer></script>
     <script src="http://harvesthq.github.io/chosen/chosen.jquery.js" defer></script>
     <script>
@@ -59,6 +59,9 @@
                             </li>
                         @else
                             <li class="nav-item">
+                                <a class="nav-link" href="{{ route('servidor.show') }}">{{ __('Servidores') }}</a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link" href="{{ route('portaria.myportarias') }}">{{ __('Minhas Portarias') }}</a>
                             </li>
                             @if(Auth::user()->tipoGrupo != 'padrao')
@@ -75,11 +78,6 @@
                                         <li>
                                             <a class="dropdown-item" href="{{ route('servidor.create') }}">
                                                 {{ __('Cadastrar Servidor') }}
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="dropdown-item" href="{{ route('servidor.show') }}">
-                                                {{ __('Listar Servidores') }}
                                             </a>
                                         </li>
                                         <li>

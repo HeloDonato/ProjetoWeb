@@ -50,9 +50,6 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('servidor.show') }}">{{ __('Servidores') }}</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('welcome') }}">{{ __('Portarias') }}</a>
-                        </li>
                         @guest
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('login') }}">{{ __('Entrar') }} <i class="fas fa-sign-in-alt nav-icon fa-lg"></i></a>
