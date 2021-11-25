@@ -101,4 +101,8 @@ class ServidorController extends Controller
         }
     }
 
+    public function showrelatorio(){
+        return view('servidores.showrelatorio');
+    }
+
 }

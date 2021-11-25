@@ -59,7 +59,7 @@ Route::group(['middleware' => 'auth'], function(){
         });
     
         Route::group(['prefix' => 'relatorios'], function(){
-            //Route::get('/show',  [PortariaController::class, 'index']);
+            Route::get('/show',  [ServidorController::class, 'showrelatorio'])->name('servidor.showrelatorio');
             //Route::any('/busca',  [ServidorController::class, 'search']);
     
         });
