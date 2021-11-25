@@ -102,7 +102,11 @@ class ServidorController extends Controller
     }
 
     public function showrelatorio(){
-        return view('servidores.showrelatorio');
+        $user = User::find(2);
+        $relatorios = $user->portariaServidors(2);
+    //dd($relatorios);
+        return view('servidores.showrelatorio')->with('relatorios', $relatorios);
     }
+
 
 }

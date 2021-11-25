@@ -81,7 +81,7 @@
                                             </a>
                                         </li>
                                         <li>
-                                            <a class="dropdown-item" href="#">
+                                            <a class="dropdown-item" href="{{route('servidor.showrelatorio')}}">
                                             {{ __('Relatórios') }}
                                             </a>
                                         </li>

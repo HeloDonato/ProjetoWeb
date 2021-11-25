@@ -55,5 +55,13 @@ class User extends Authenticatable
         return $this->hasMany(ServidorPortaria::class, 'usuario_id');
     }
     //relacao many to many
-
+    public function portariaServidors($id)
+    {
+        $results = User::select('users.nome', 'users.sobrenome', 'users.matricula', 'portarias.numPortaria', 'portarias.titulo')
+            ->join('servidores_portarias', 'users.id', 'servidores_portarias.portaria_id')
+            ->join('portarias','servidores_portarias.portaria_id', 'portarias.id')
+            ->where('servidores_portarias.usuario_id', '=', $id)->get();
+            
+        return $results;
+    }
 }
