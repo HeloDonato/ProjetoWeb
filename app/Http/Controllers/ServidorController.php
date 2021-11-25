@@ -104,8 +104,9 @@ class ServidorController extends Controller
     public function showrelatorio(){
         $user = User::find(2);
         $relatorios = $user->portariaServidors(2);
+        $ccount = $user->portariaServidors(2)->count();
     //dd($relatorios);
-        return view('servidores.showrelatorio')->with('relatorios', $relatorios);
+        return view('servidores.showrelatorio')->with('relatorios', $relatorios)->with( 'user', $user)->with('count', $ccount);
     }
 
 

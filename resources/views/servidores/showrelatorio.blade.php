@@ -5,9 +5,15 @@
 @section('content')
     <div id="cards-container" class="row" style="margin-top: 20px; min-height: 82vh;">
         <div class="card-body">
+            Nome: {{$user->nome}}<br>
+            Matricula: {{$user->matricula}} </br>
+            Número total de portarias: {{$count}}
+            <ul>    
             @foreach ($relatorios as $relatorio)
-                <p>{{$relatorio->nome}}<p>
+                <li> Numero da portaria: {{$relatorio->numPortaria}} </li>
+                     Titulo: {{$relatorio->titulo}} </Titulo:>
             @endforeach
+            </ul>
         </div>
     </div>
 
