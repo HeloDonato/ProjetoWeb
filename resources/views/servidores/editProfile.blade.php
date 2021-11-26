@@ -15,13 +15,13 @@
                     <h1 class="tit-form-ser">Alterar Senha</h1>
                 </div>
     
-                {{ Form::model(['route' => ['servidor.updateProfile'], 'method' => "POST"]) }}
+                {{ Form::model($servidor,['route' => ['servidor.updateProfile',$servidor->id], 'method' => "POST"]) }}
                     @csrf
                     @method('PUT')
                     {{ Form::open(['route' => 'servidor.store', 'method' => "POST",'enctype' => "multipart/form-data"]) }}
                         @csrf
                         <div class="mb-3 col-md-8">
-                            {{ Form::text('old_password', 'old'('old_password'), ['class' => 'form-control cad-servidor', 'required','placeholder' => 'Senha Antiga','autofocus']) }}
+                            {{ Form::text('cpf', 'old'('cpf'), ['class' => 'form-control cad-servidor', 'required','placeholder' => 'Senha Antiga','autofocus']) }}
                         </div>
                         <div class="mb-3 col-md-8">
                             {{ Form::text('new_password', 'old'('new_password'), ['class' => 'form-control cad-servidor', 'required','placeholder' => 'Nova Senha','autofocus']) }}

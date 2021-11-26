@@ -48,6 +48,7 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    protected $guarded = [];//tudo q for enviado pelo post pode ser atualizado
 
     //relação com a portaria
     public function portarias(){
