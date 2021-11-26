@@ -22,34 +22,34 @@
                         </thead>
                         <tbody>
                             @foreach($portarias as $portaria)
-                            
-                                <tr>
-                                    <td>{{$portaria->numPortaria}}</td>
-                                    <td>{{$portaria->titulo}}</td>
-                                    <td>{{$portaria->descricao}}</td>
-                                    <td class="card-date">{{date('d/m/Y',strtotime($portaria->dataInicial))}}</td>
-                                    <td class="card-date">{{date('d/m/Y',strtotime($portaria->dataFinal))}}</td>
-                                    <td>
-                                        @foreach ($portaria->participantes as $participante)
-                                            {{ $participante->servidor->nome }}
-                                        @endforeach
-                                    </td>
-                                    <td class="card-title">
-                                        @if($portaria->dataFinal < $mytime = date('Y-m-d H:i:s'))
-                                            Inativa 
-                                        @elseif($portaria->tipo == 0)
-                                            Temporária
-                                        @else
-                                            Permanente
-                                        @endif
-                                    </td>
-                                    <td class="card-date">{{$portaria->origem}}</td>
-                                    <td>
-                                        <a href="{{route('portaria.view',$portaria->doc ?? $portaria->portaria->doc)}}" class="btn btn-pesquisar" target="_blank" style="margin-bottom:3px">Abrir <i class="fas fa-eye"></i></a>
-                                        <a href="{{route('portaria.download',$portaria->doc ?? $portaria->portaria->doc)}}" class="btn btn-pesquisar" style="margin-bottom:3px">Baixar <i class="fas fa-download"></i></a>
-                                    </td>
-                                </tr>
-
+                                @if($portaria->sigilo == 0 or ($portaria->sigilo==1 and Auth::check() and Auth::user()->tipoGrupo != 'padrao'))
+                                    <tr>
+                                        <td>{{$portaria->numPortaria}}</td>
+                                        <td>{{$portaria->titulo}}</td>
+                                        <td>{{$portaria->descricao}}</td>
+                                        <td class="card-date">{{date('d/m/Y',strtotime($portaria->dataInicial))}}</td>
+                                        <td class="card-date">{{date('d/m/Y',strtotime($portaria->dataFinal))}}</td>
+                                        <td>
+                                            @foreach ($portaria->participantes as $participante)
+                                                {{ $participante->servidor->nome }}
+                                            @endforeach
+                                        </td>
+                                        <td class="card-title">
+                                            @if($portaria->dataFinal < $mytime = date('Y-m-d H:i:s'))
+                                                Inativa 
+                                            @elseif($portaria->tipo == 0)
+                                                Temporária
+                                            @else
+                                                Permanente
+                                            @endif
+                                        </td>
+                                        <td class="card-date">{{$portaria->origem}}</td>
+                                        <td>
+                                            <a href="{{route('portaria.view',$portaria->doc ?? $portaria->portaria->doc)}}" class="btn btn-pesquisar" target="_blank" style="margin-bottom:3px">Abrir <i class="fas fa-eye"></i></a>
+                                            <a href="{{route('portaria.download',$portaria->doc ?? $portaria->portaria->doc)}}" class="btn btn-pesquisar" style="margin-bottom:3px">Baixar <i class="fas fa-download"></i></a>
+                                        </td>
+                                    </tr>
+                                @endif
                             @endforeach
                         </tbody>
                     </table>

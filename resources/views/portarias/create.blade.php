@@ -29,20 +29,35 @@
                         <label>Descrição da Portaria*"</label>
                         {{ Form::text('descricao', 'old'('descricao'), ['class' => 'form-control cad-servidor', 'required','placeholder' => 'Descrição da Portaria','autofocus']) }}
                     </div>
-                    <div class="form-group col-md-8">
-                        <label for="tipo">Insira o tipo da Portaria</label>
-                        <select name="tipo" id="tipo" class="form-control cad-servidor" required>
-                            <option value="0">Temporárias</option>
-                            <option value="1">Permanentes</option>
-                        </select>
+                    <div class="mb-3 col-md-8">
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label for="tipo">Insira o tipo da Portaria</label>
+                                <select name="tipo" id="tipo" class="form-control cad-servidor" required>
+                                    <option value="0">Temporárias</option>
+                                    <option value="1">Permanentes</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="sigilo">Sigilo:</label>
+                                <select name="sigilo" id="sigilo" class="form-control cad-servidor" required>
+                                    <option value="0">Não</option>
+                                    <option value="1">Sim</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
-                    <div class="mb-3 col-md-8" id='inicial'>
-                        <label>Data Inicial da Portaria*</label>
-                        {{ Form::date('dataInicial', 'old'('dataInicial'), ['class' => 'form-control cad-servidor', 'required','placeholder' => '00/00/0000', 'autofocus']) }}
-                    </div>
-                    <div class="mb-3 col-md-8 hide" id='final'>
-                        <label>Data Final da Portaria</label>
-                        {{ Form::date('dataFinal', 'old'('dataFinal'), ['class' => 'form-control cad-servidor','placeholder' => '00/00/0000','autofocus']) }}
+                    <div class="mb-3 col-md-8">
+                        <div class="row">
+                            <div class="col-md-6" id='inicial'>
+                                <label>Data Inicial da Portaria*</label>
+                                {{ Form::date('dataInicial', 'old'('dataInicial'), ['class' => 'form-control cad-servidor', 'required','placeholder' => '00/00/0000', 'autofocus']) }}
+                            </div>
+                            <div class="col-md-6 hide" id='final'>
+                                <label>Data Final da Portaria</label>
+                                {{ Form::date('dataFinal', 'old'('dataFinal'), ['class' => 'form-control cad-servidor','placeholder' => '00/00/0000','autofocus']) }}
+                            </div>
+                        </div>
                     </div>
                     <div class="form-group col-md-8">
                         <label for="tipo">Escolha a origem da Portaria</label>

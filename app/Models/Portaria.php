@@ -17,6 +17,7 @@ class Portaria extends Model
         'dataFinal',
         'origem',
         'tipo',
+        'siiglo',
     ];
 
     use HasFactory;

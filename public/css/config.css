@@ -61,10 +61,10 @@
 footer{
     background-color: #475B63;
     color: #fff;
-    height: 8vh;
+    height: 10vh;
     align-items: center;
     align-content: center;
-    padding-top: 3vh;
+    padding-top: 2vh;
 }
 
 .fundo{
@@ -133,6 +133,11 @@ footer{
 
 #img-servidores{
     width: 30vw;
+    height: 20vw;
+}
+
+#img-cadeado{
+    width: 20vw;
     height: 20vw;
 }
 
@@ -273,3 +278,28 @@ label{
     color: #729B79;
 }
 
+.icon-grafico{
+    width: 300px !important;
+}
+
+.linha-graficos{
+    justify-content: center;
+    align-items: center;
+}
+
+.nome-grafico{
+    color: #729B79 !important;
+    font-family: 'Play', sans-serif !important;
+    font-size: 30px;
+}
+
+.linha-conteudo-options{
+    height: 100%;
+    display: flex;
+    width: 100%;
+    align-items: center;
+}
+
+.link-relatorio:hover{
+    text-decoration-color: #678d6e;
+}

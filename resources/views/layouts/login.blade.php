@@ -35,7 +35,8 @@
         </main>
 
         <footer class="text-center text-lg-start fixed-bottom">
-            IFNMG - Campus Almenara
+            Rodovia BR 367 Almenara/Jequitinhonha, km 111, Zona Rural, Almenara-MG - CEP:39900-000 <br>
+            Fone: (038) 3218-7385 - Email: comunicacao.almenara@ifnmg.edu.br
         </footer>
     </div>
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

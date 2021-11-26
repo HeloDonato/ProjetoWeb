@@ -20,7 +20,6 @@
             $('.chosen-select-deselect').chosen({ allow_single_deselect: true });
         });
     </script>
-
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
@@ -81,7 +80,7 @@
                                             </a>
                                         </li>
                                         <li>
-                                            <a class="dropdown-item" href="{{route('servidor.showrelatorio')}}">
+                                            <a class="dropdown-item" href="{{route('relatorios.options')}}">
                                             {{ __('Relatórios') }}
                                             </a>
                                         </li>
@@ -99,7 +98,9 @@
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Sair') }}
                                     </a>
-
+                                    <a class="dropdown-item" href="{{ route('servidor.editProfile', Auth::user()->id) }}">
+                                        {{ __('Perfil') }}
+                                    </a>
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf
                                     </form>
@@ -128,7 +129,8 @@
         </main>
 
         <footer class="text-center text-lg-start">
-            IFNMG - Campus Almenara
+            Rodovia BR 367 Almenara/Jequitinhonha, km 111, Zona Rural, Almenara-MG - CEP:39900-000 <br>
+            Fone: (038) 3218-7385 - Email: comunicacao.almenara@ifnmg.edu.br
         </footer>
     </div>
 </body>

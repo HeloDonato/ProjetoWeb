@@ -26,7 +26,7 @@
                         {{ Form::text('matricula', 'old'('matricula'), ['class' => 'form-control cad-servidor','placeholder' => 'Matrícula','autofocus']) }}
                     </div>
                     <div class="mb-3 col-md-8">
-                        {{ Form::text('cpf', 'old'('cpf'), ['class' => 'form-control cad-servidor','placeholder' => 'CPF','autofocus']) }}
+                        {{ Form::text('cpf', 'old'('cpf'), ['class' => 'form-control cpf cad-servidor','placeholder' => 'CPF','autofocus']) }}
                     </div>
                     <div class="mb-3 col-md-8">
                         {{ Form::email('email', 'old'('email'), ['class' => 'form-control cad-servidor', 'required','placeholder' => 'E-mail','autofocus']) }}

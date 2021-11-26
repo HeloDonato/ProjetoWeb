@@ -54,6 +54,7 @@ class PortariaController extends Controller
             $portaria->dataFinal = $request->dataFinal;
             $portaria->tipo = $request->tipo;
             $portaria->origem = $request->origem;
+            $portaria->sigilo = $request->sigilo;
 
             $registros = Portaria::all();
 

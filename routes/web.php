@@ -39,7 +39,12 @@ Route::group(['middleware' => 'auth'], function(){
     Route::group(['prefix' => 'portaria'], function(){
         Route::get('/myportarias',[PortariaController::class,'myportarias'])->name('portaria.myportarias');
     });
-
+    
+    Route::group(['prefix' => 'servidor'], function(){
+        Route::get('/profile/{id}',  [ServidorController::class, 'editProfile'])->name('servidor.editProfile');
+        Route::put('/profile/edit/{id}',  [ServidorController::class, 'updateProfile'])->name('servidor.updateProfile');
+    });
+    
     Route::group(['middleware' => 'admin'], function(){
         Route::group(['prefix' => 'admin/portaria'], function(){
             Route::get('/destroy/{id}', [PortariaController::class, 'destroy'])->name('portaria.destroy');
@@ -59,7 +64,7 @@ Route::group(['middleware' => 'auth'], function(){
         });
     
         Route::group(['prefix' => 'relatorios'], function(){
-            Route::get('/show',  [ServidorController::class, 'showrelatorio'])->name('servidor.showrelatorio');
+            Route::get('/options',  [RelatorioController::class, 'index'])->name('relatorios.options');
             //Route::any('/busca',  [ServidorController::class, 'search']);
     
         });

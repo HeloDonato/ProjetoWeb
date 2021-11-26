@@ -80,12 +80,37 @@ class ServidorController extends Controller
 
     }
     
+    public function editProfile($id){
+
+        $servidor = User::findOrFail($id);
+        //dd($portaria->id);
+
+        return view('servidores.editProfile',['servidor' => $servidor]);
+
+    }
+
     public function update(Request $request){
         try{
             User::findOrFail($request->id)->update($request->all());
         return redirect('/servidor/show')->with('msg','Servidor editado com sucesso!');
         }catch(QueryException $e){
         return redirect('/servidor/show')->with('msgE','Erro ao editar servidor!');
+        }
+    }
+
+    public function updateProfile(Request $request){
+        try{
+            $servidor = User::findOrFail($request->id);
+            $senha_antiga = Hash::make(preg_replace("/\D+/", "",$request->old_password)); 
+
+            if($servidor->password == $senha_antiga){
+                if($request->new_password == $request->confirm_password){
+                    User::findOrFail($request->id)->update($request->all());
+                }
+            }
+            return redirect('/servidor/show')->with('msg','Servidor editado com sucesso!');
+        }catch(QueryException $e){
+            return redirect('/servidor/show')->with('msgE','Erro ao editar servidor!');
         }
     }
     
@@ -100,14 +125,5 @@ class ServidorController extends Controller
             return redirect('/servidor/show')->with('msgE','Erro ao editar servidor!');
         }
     }
-
-    public function showrelatorio(){
-        $user = User::find(2);
-        $relatorios = $user->portariaServidors(2);
-        $ccount = $user->portariaServidors(2)->count();
-    //dd($relatorios);
-        return view('servidores.showrelatorio')->with('relatorios', $relatorios)->with( 'user', $user)->with('count', $ccount);
-    }
-
 
 }

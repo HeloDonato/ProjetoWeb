@@ -11,7 +11,9 @@
                         <tr>
                             <th class="col-md-1">Matrícula</th>
                             <th>Nome</th>
-                            <th class="col-md-1">CPF</th>
+                            @if(Auth::check() and Auth::user()->tipoGrupo != 'padrao')
+                                <th class="col-md-1">CPF</th>
+                            @endif
                             <th>E-mail</th>
                             <th class="col-md-1">Cargo</th>
                             <th class="col-md-2">Função</th>
@@ -25,7 +27,9 @@
                             <tr>
                                 <td>{{$servidor->matricula}}</td>
                                 <td><a href="{{ route('servidor.portarias', $servidor->id) }}">{{$servidor->nome}} {{$servidor->sobrenome}}</a></td>
-                                <td>{{$servidor->cpf}}</td>
+                                @if(Auth::check() and Auth::user()->tipoGrupo != 'padrao')
+                                    <td>{{$servidor->cpf}}</th>
+                                @endif
                                 <td class="card-title">{{$servidor->email}}</td>
                                 <td class="card-title">{{$servidor->cargo}}</td>
                                 <td class="card-title">{{$servidor->funcao}}</td>
