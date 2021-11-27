@@ -23,6 +23,7 @@ class CreatePortariasTable extends Migration
             $table->boolean('tipo');
             $table->boolean('sigilo');
             $table->string('origem');
+            $table->boolean('permaStatus')->nullable();
             $table->timestamps();
         });
     }

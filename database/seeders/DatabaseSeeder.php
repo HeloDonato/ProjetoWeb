@@ -26,7 +26,7 @@ class DatabaseSeeder extends Seeder
             'funcao' => 'teste',
             'cpf' => 'teste',
         ]);
-
+        
         // \App\Models\User::factory(10)->create();
     }
 }

@@ -18,6 +18,7 @@ class Portaria extends Model
         'origem',
         'tipo',
         'siiglo',
+        'permaStatus'
     ];
 
     use HasFactory;

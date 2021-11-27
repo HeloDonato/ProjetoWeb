@@ -55,6 +55,10 @@ class PortariaController extends Controller
             $portaria->tipo = $request->tipo;
             $portaria->origem = $request->origem;
             $portaria->sigilo = $request->sigilo;
+            if($portaria->tipo == 1)
+                $portaria->permaStatus = false;
+            elseif($portaria->tipo == 0)
+                $portaria->permaStatus = null;
 
             $registros = Portaria::all();
 
@@ -110,24 +114,22 @@ class PortariaController extends Controller
                 $id_portaria = $ultima_portaria;
                 $servidores = User::all();
                 $id_servidores = $request->id_servidor;
-
-                foreach($servidores as $servidor){
-                    foreach($id_servidores as $id_servidor){
-                        if($id_servidor == $servidor->id){
-                            $portaria_servidor = new ServidorPortaria;
-                            $portaria_servidor->portaria_id= $id_portaria;
-                            $portaria_servidor->usuario_id = $id_servidor;
-                            $portaria_servidor->save();
+                if(!empty($id_servidores)){
+                    foreach($servidores as $servidor){
+                        foreach($id_servidores as $id_servidor){
+                            if($id_servidor == $servidor->id){
+                                $portaria_servidor = new ServidorPortaria;
+                                $portaria_servidor->portaria_id= $id_portaria;
+                                $portaria_servidor->usuario_id = $id_servidor;
+                                $portaria_servidor->save();
+                            }
                         }
                     }
                 }
-
             }catch(QueryException $e){
-                    return redirect()->back()->with('msgE','Portaria criada com sucesso, mas não foi possível identificar os servidores!');
+                return redirect()->back()->with('msgE','Portaria criada com sucesso, mas não foi possível identificar os servidores!');
             }
-
-
-            return redirect('/')->with('msg','Portaria criada com sucesso!');
+        return redirect('/')->with('msg','Portaria criada com sucesso!');
         }catch(QueryException $e){
             return redirect()->back()->with('msgE','Erro ao criar a portaria!');
         }

@@ -49,13 +49,13 @@
                     </div>
                     <div class="mb-3 col-md-8">
                         <div class="row">
-                            <div class="col-md-6" id='inicial'>
+                            <div class="col-md-6">
                                 <label>Data Inicial da Portaria*</label>
                                 {{ Form::date('dataInicial', 'old'('dataInicial'), ['class' => 'form-control cad-servidor', 'required','placeholder' => '00/00/0000', 'autofocus']) }}
                             </div>
-                            <div class="col-md-6 hide">
+                            <div class="col-md-6">
                                 <label>Data Final da Portaria</label>
-                                {{ Form::date('dataFinal', 'old'('dataFinal'), ['class' => 'form-control cad-servidor','placeholder' => '00/00/0000','autofocus', 'id'=>'final']) }}
+                                {{ Form::date('dataFinal', 'old'('dataFinal'), ['class' => 'form-control cad-servidor','placeholder' => '00/00/0000','autofocus', 'id' => 'final']) }}
                             </div>
                         </div>
                     </div>
@@ -87,4 +87,17 @@
         </div>
     </div>
 </div>
+<script type="application/javascript">
+    $(document).ready(function(){
+        $('select[name=tipo]').on("change", function(){
+          var aux = $(this).val();
+            if (aux == 0){
+                $('#final').prop("disabled", false);
+            }else{
+                $('#final').prop("disabled", true);
+            }
+        });
+    });
+    $('#final').trigger('change');
+</script>
 @endsection
