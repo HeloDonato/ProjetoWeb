@@ -75,14 +75,13 @@
                             <select name="origem" id="origem" class="form-control cad-servidor" required>
                                     @if($portaria->value == 'Campus')                                                                          
                                         <option value="Campus" selected>Campus</option>
-                                        <option value="Portaria">Reitoria</option>
+                                        <option value="Reitoria">Reitoria</option>
                                     @else                      
                                         <option value="Campus">Campus</option>
-                                        <option value="Portaria" selected>Reitoria</option>
+                                        <option value="Reitoria" selected>Reitoria</option>
                                     @endif
                             </select>
                         </div>
-                        @if(Auth::user()->tipoGrupo == 'super')
                             @if($portaria->permaStatus !== null)
                                 <div class="form-group col-md-8">
                                     <label for="permaStatus">Status da portaria permanente</label>
@@ -97,7 +96,6 @@
                                         </select>
                                 </div>
                             @endif
-                        @endif
                         <div class="form-group col-md-8">
                         <label for="participantes">Escolha os servidores</label>
                             <select data-live-search="true" name="id_servidor[]" multiple class="form-control cad-servidor chosen-select">

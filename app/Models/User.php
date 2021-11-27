@@ -102,7 +102,7 @@ class User extends Authenticatable
                                 INNER JOIN users AS u ON u.id = sp.usuario_id 
                                 INNER JOIN portarias AS p ON p.id = sp.portaria_id
                                 WHERE ((p.tipo = 0 AND p.dataFinal > '$dataAtual')
-                                or p.tipo = 1)
+                                OR (p.tipo = 1 AND p.permaStatus = 0))
                                 AND u.id = $id"
         );
 
@@ -114,7 +114,8 @@ class User extends Authenticatable
             $inativas = DB::select("SELECT COUNT(u.id) AS inativas FROM servidores_portarias AS sp 
                                     INNER JOIN users AS u ON u.id = sp.usuario_id 
                                     INNER JOIN portarias AS p ON p.id = sp.portaria_id
-                                    WHERE (p.tipo = 0 AND p.dataFinal < '$dataAtual')
+                                    WHERE ((p.tipo = 0 AND p.dataFinal < '$dataAtual')
+                                    OR (p.tipo = 1 AND p.permaStatus = 1))
                                     AND u.id = $id"
         );
 

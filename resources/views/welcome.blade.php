@@ -70,7 +70,7 @@
                                                         <span class="span-modal-info">Paricipantes dessa portaria:</span>
 
                                                             @foreach ($portaria->participantes as $participante)
-                                                                {{ $participante->servidor->nome }}
+                                                                <br>{{ $participante->servidor->nome }}
                                                             @endforeach
                                                     
                                                         <br><hr>
@@ -83,13 +83,18 @@
                                                             {{date('d/m/Y',strtotime($portaria->dataFinal))}}
                                                         @endif
                                                         <br><hr>
+                                                        <span class="span-modal-info">Tipo da portaria:</span> 
+                                                            @if($portaria->tipo == 0)
+                                                                Temporária
+                                                            @else
+                                                                Permanente
+                                                            @endif    
+                                                        <br><hr>
                                                         <span class="span-modal-info">Status da portaria:</span> 
-                                                        @if($portaria->tipo == 1 && $portaria->dataFinal == null)
-                                                            Permanente
-                                                        @elseif($portaria->dataFinal < $mytime = date('Y-m-d H:i:s'))
+                                                        @if(($portaria->tipo == 1 && $portaria->permaStatus == 0) or ($portaria->tipo == 0 && $portaria->dataFinal > $mytime = date('Y-m-d H:i:s')))
+                                                            Ativa
+                                                        @elseif(($portaria->tipo == 1 && $portaria->permaStatus == 1) or ($portaria->tipo == 0 && $portaria->dataFinal < $mytime = date('Y-m-d H:i:s')))
                                                             Inativa 
-                                                        @else
-                                                            Temporária
                                                         @endif
                                                     </div>
                                                 </div>

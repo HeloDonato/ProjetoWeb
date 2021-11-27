@@ -63,7 +63,7 @@
                         <label for="tipo">Escolha a origem da Portaria</label>
                         <select name="origem" id="origem" class="form-control cad-servidor" required>
                             <option value="Campus">Campus</option>
-                            <option value="Portaria">Reitoria</option>
+                            <option value="Reitoria">Reitoria</option>
                         </select>
                     </div>
                     <div class="form-group col-md-8">
