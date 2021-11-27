@@ -27,8 +27,7 @@ class User extends Authenticatable
         'matricula',
         'cpf',
         'cargo',
-        'funcao',
-        'id_usuario'
+        'funcao'
     ];
 
     /**
@@ -49,7 +48,6 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-    protected $guarded = [];//tudo q for enviado pelo post pode ser atualizado
 
     //relação com a portaria
     public function portarias(){
@@ -66,6 +64,7 @@ class User extends Authenticatable
             
         return $results;
     }
+    protected $guarded = [];//tudo q for enviado pelo post pode ser atualizado
 
     public function portariasTotais($id){
         $total = DB::select("SELECT COUNT(u.id) AS total FROM servidores_portarias AS sp 
@@ -73,7 +72,6 @@ class User extends Authenticatable
                             INNER JOIN portarias AS p ON p.id = sp.portaria_id 
                             WHERE u.id = $id"
         );
-        //dd($total[0]->total);
         return $total[0]->total;
     }
 
@@ -81,7 +79,7 @@ class User extends Authenticatable
         $temporarias = DB::select("SELECT COUNT(u.id) AS temporarias FROM servidores_portarias AS sp 
                                     INNER JOIN users AS u ON u.id = sp.usuario_id 
                                     INNER JOIN portarias AS p ON p.id = sp.portaria_id
-                                    WHERE p.tipo = 1
+                                    WHERE p.tipo = 0
                                     AND u.id = $id"
         );
 
@@ -92,10 +90,34 @@ class User extends Authenticatable
         $permanentes = DB::select("SELECT COUNT(u.id) AS permanentes FROM servidores_portarias AS sp 
                                     INNER JOIN users AS u ON u.id = sp.usuario_id 
                                     INNER JOIN portarias AS p ON p.id = sp.portaria_id
-                                    WHERE p.tipo = 2
+                                    WHERE p.tipo = 1
                                     AND u.id = $id"
         );
 
         return $permanentes[0]->permanentes;
+    }
+
+    public function portariasAtivas($id, $dataAtual){
+        $ativas = DB::select("SELECT COUNT(u.id) AS ativas FROM servidores_portarias AS sp 
+                                INNER JOIN users AS u ON u.id = sp.usuario_id 
+                                INNER JOIN portarias AS p ON p.id = sp.portaria_id
+                                WHERE ((p.tipo = 0 AND p.dataFinal > '$dataAtual')
+                                or p.tipo = 1)
+                                AND u.id = $id"
+        );
+
+        return $ativas[0]->ativas;
+    }
+
+    public function portariasInativas($id, $dataAtual){
+            //dd($dataAtual);
+            $inativas = DB::select("SELECT COUNT(u.id) AS inativas FROM servidores_portarias AS sp 
+                                    INNER JOIN users AS u ON u.id = sp.usuario_id 
+                                    INNER JOIN portarias AS p ON p.id = sp.portaria_id
+                                    WHERE (p.tipo = 0 AND p.dataFinal < '$dataAtual')
+                                    AND u.id = $id"
+        );
+
+        return $inativas[0]->inativas;
     }
 }

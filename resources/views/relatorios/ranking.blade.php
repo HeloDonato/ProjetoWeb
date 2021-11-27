@@ -10,6 +10,24 @@
         var el = document.getElementById('no-print');
         el.style.display = 'block';
     }
+    function aviso(){
+        alert("Clique na coluna que deseja usar como parâmetro de ordenação!");
+    }
+    function info(n){
+        var info = document.getElementById('info-listagem');
+        if(n == 1){
+            info.innerHTML = "Ordenação por: número total de portarias"
+        }else if(n == 2){
+            info.innerHTML = "Ordenação por: número de portarias temporárias"
+        }else if(n == 3){
+            info.innerHTML = "Ordenação por: número de portarias permanentes"
+        }else if(n == 4){
+            info.innerHTML = "Ordenação por: número de portarias ativas"
+        }else if(n == 5){
+            info.innerHTML = "Ordenação por: número de portarias inativas"
+        }
+    }
+    window.onload = aviso;
 </script>
 <br><br>
 <div class="col-md-12 text-center" id="no-print">
@@ -21,14 +39,14 @@
     </center>
     <br><br>
 </div>
-<div class="container">
+<div class="container" onload="aviso()">
     <div class="container" style="width: 100%;">
+        <img class="if" src="{{ asset('img/almenara_horizontal_jpg.jpg') }}" style="width: 43%; height:15%" />
         <center>
-            <img class="if" src="{{ asset('img/almenara_vertical_jpg.jpg') }}" style="width: 170px; height: 170px" />
             <br><br>
-            <h4>RANKING</h4>
+            <h4 style="text-transform: uppercase;">Listagem de servidores por quantidade de portarias registradas</h4>
+            <h5 id="info-listagem"></h5>
             <br>
-            <h6>Listagem de servidores por quantidade de portarias registradas</h6>
             <br><br>
             <table class="table table-hover table-striped table-bordered table-condensed" id="myTable2">
                 <thead>
@@ -37,15 +55,21 @@
                             <strong>SERVIDOR</strong>
                         </th>
                         <a>
-                        <th class="col-md-2 titleColum" onclick="sortTable(1)" style="cursor:pointer;">
-                            <strong>PORTARIAS TOTAIS</strong>
+                        <th class="col-md-1 titleColum" onclick="sortTable(1), info(1)" style="cursor:pointer;">
+                            <strong>Nº TOTAL</strong>
                         </th>
                         </a>
-                        <th class="col-md-2 titleColum" onclick="sortTable(2)" style="cursor:pointer;">
-                            <strong>PORTARIAS TEMPORÁRIAS</strong>
+                        <th class="col-md-1 titleColum" onclick="sortTable(2), info(2)" style="cursor:pointer;">
+                            <strong>TEMPORÁRIAS</strong>
                         </th>
-                        <th class="col-md-2 titleColum" onclick="sortTable(3)" style="cursor:pointer;">
-                            <strong>PORTARIAS PERMANENTES</strong>
+                        <th class="col-md-1 titleColum" onclick="sortTable(3), info(3)" style="cursor:pointer;">
+                            <strong>PERMANENTES</strong>
+                        </th>
+                        <th class="col-md-1 titleColum" onclick="sortTable(4), info(4)" style="cursor:pointer;">
+                            <strong>ATIVAS</strong>
+                        </th>
+                        <th class="col-md-1 titleColum" onclick="sortTable(5), info(5)" style="cursor:pointer;">
+                            <strong>INATIVAS</strong>
                         </th>
                     </tr>
                 </thead>
@@ -54,16 +78,22 @@
                         @if($servidor->id !=1)
                             <tr>
                                 <td class="col-md-6 text-left">
-                                    {{ $servidor->nome }}
+                                    {{ $servidor->nome }} {{ $servidor->sobrenome }}
                                 </td>
-                                <td class="col-md-2">
+                                <td class="col-md-1">
                                     {{ $servidor->portariasTotais($servidor->id)}}
                                 </td>
-                                <td class="col-md-2">
+                                <td class="col-md-1">
                                     {{ $servidor->portariasTemporarias($servidor->id) }}
                                 </td>
-                                <td class="col-md-2">
+                                <td class="col-md-1">
                                     {{ $servidor->portariasPermanentes($servidor->id) }}
+                                </td>
+                                <td class="col-md-1">
+                                    {{ $servidor->portariasAtivas($servidor->id, $mytime = date('Y-m-d')) }}
+                                </td>
+                                <td class="col-md-1">
+                                    {{ $servidor->portariasInativas($servidor->id, $mytime = date('Y-m-d')) }}
                                 </td>
                             </tr>
                             @endif  
@@ -80,7 +110,7 @@
         table = document.getElementById("myTable2");
         switching = true;
         // Set the sorting direction to ascending:
-        dir = "asc";
+        dir = "desc";
         /* Make a loop that will continue until
         no switching has been done: */
         while (switching) {
@@ -122,8 +152,8 @@
             } else {
                 /* If no switching has been done AND the direction is "asc",
                 set the direction to "desc" and run the while loop again. */
-                if (switchcount == 0 && dir == "asc") {
-                    dir = "desc";
+                if (switchcount == 0 && dir == "desc") {
+                    dir = "asc";
                     switching = true;
                 }
             }

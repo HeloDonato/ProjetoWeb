@@ -28,16 +28,6 @@ class RelatorioController extends Controller
     public function rankingServidores(){
         $servidores = User::all();
 
-        $total = DB::select("SELECT COUNT(sp.usuario_id) AS total, u.id as servidorId FROM users AS u 
-            INNER JOIN servidores_portarias AS sp ON u.id = sp.usuario_id 
-            INNER JOIN portarias AS p ON p.id = sp.portaria_id 
-            GROUP BY u.id 
-            ORDER BY total DESC"
-        );
-
-        //$diferenca = array_diff($servidores, $total);
-        //$ativas = DB::select();
-
         return view('relatorios.ranking')
             ->with('servidores', $servidores);
     }
