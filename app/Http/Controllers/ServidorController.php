@@ -23,7 +23,7 @@ class ServidorController extends Controller
             $servidores = User::orderBy('created_at','desc')->get();//ordenando a ultima criada 
 
         }*/
-        $servidores = DB::table('users')->where('users.id', 'not like', '1')->get();
+        $servidores = DB::table('users')->where('users.id', 'not like', '1')->paginate(10);
         return view('servidores.show',['servidores'=> $servidores]);
 
         //$servidores = Servidor::paginate(10);
