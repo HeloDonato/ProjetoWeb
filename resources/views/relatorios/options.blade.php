@@ -17,7 +17,7 @@
                     </a>
                 </div>
                 <div class="col-md-4 ">
-                    <a href="{{route('relatorios.options')}}" class="link-relatorio">
+                    <a href="{{route('relatorios.ranking')}}" class="link-relatorio">
                         <div class="row linha-graficos">
                             <img src="{{ asset('img/grafico02.png') }}" class="icon-grafico">
                         </div>

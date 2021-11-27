@@ -33,7 +33,7 @@
                         <div class="row">
                             <div class="form-group col-md-6">
                                 <label for="tipo">Insira o tipo da Portaria</label>
-                                <select name="tipo" id="tipo" class="form-control cad-servidor" required>
+                                <select name="tipo" id="tipo" class="form-control cad-servidor" required onchange="mostrarData()">
                                     <option value="0">Temporárias</option>
                                     <option value="1">Permanentes</option>
                                 </select>
@@ -53,9 +53,9 @@
                                 <label>Data Inicial da Portaria*</label>
                                 {{ Form::date('dataInicial', 'old'('dataInicial'), ['class' => 'form-control cad-servidor', 'required','placeholder' => '00/00/0000', 'autofocus']) }}
                             </div>
-                            <div class="col-md-6 hide" id='final'>
+                            <div class="col-md-6 hide">
                                 <label>Data Final da Portaria</label>
-                                {{ Form::date('dataFinal', 'old'('dataFinal'), ['class' => 'form-control cad-servidor','placeholder' => '00/00/0000','autofocus']) }}
+                                {{ Form::date('dataFinal', 'old'('dataFinal'), ['class' => 'form-control cad-servidor','placeholder' => '00/00/0000','autofocus', 'id'=>'final']) }}
                             </div>
                         </div>
                     </div>
@@ -87,6 +87,4 @@
         </div>
     </div>
 </div>
-
 @endsection
-

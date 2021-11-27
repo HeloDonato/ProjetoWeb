@@ -65,6 +65,7 @@ Route::group(['middleware' => 'auth'], function(){
     
         Route::group(['prefix' => 'relatorios'], function(){
             Route::get('/options',  [RelatorioController::class, 'index'])->name('relatorios.options');
+            Route::get('/ranking',  [RelatorioController::class, 'rankingServidores'])->name('relatorios.ranking');
             //Route::any('/busca',  [ServidorController::class, 'search']);
     
         });

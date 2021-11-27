@@ -303,3 +303,7 @@ label{
 .link-relatorio:hover{
     text-decoration-color: #678d6e;
 }
+
+.titleColum{
+    cursor: pointer;
+}
