@@ -108,11 +108,13 @@ class ServidorController extends Controller
                     User::findOrFail($request->id)->update($request->all());
                 }
             }
-            return redirect('/servidor/show')->with('msg','Servidor editado com sucesso!');
+            return redirect('/servidor/show')->with('msg','Senha editada com sucesso!');
         }catch(QueryException $e){
             return redirect('/servidor/show')->with('msgE','Erro ao editar servidor!');
         }
+    
     }
+    
     
     public function alterarGrupo(Request $request){
         $servidor = User::findOrFail($request->id);

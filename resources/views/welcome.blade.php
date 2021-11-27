@@ -84,12 +84,12 @@
                                                         @endif
                                                         <br><hr>
                                                         <span class="span-modal-info">Status da portaria:</span> 
-                                                        @if($portaria->dataFinal < $mytime = date('Y-m-d H:i:s'))
-                                                            Inativa 
-                                                        @elseif($portaria->tipo == 0)
-                                                            Temporária
-                                                        @else
+                                                        @if($portaria->tipo == 1 && $portaria->dataFinal == null)
                                                             Permanente
+                                                        @elseif($portaria->dataFinal < $mytime = date('Y-m-d H:i:s'))
+                                                            Inativa 
+                                                        @else
+                                                            Temporária
                                                         @endif
                                                     </div>
                                                 </div>
