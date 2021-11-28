@@ -26,7 +26,11 @@
                         @foreach($servidores as $servidor)
                             <tr>
                                 <td>{{$servidor->matricula}}</td>
-                                <td><a href="{{ route('servidor.portarias', $servidor->id) }}">{{$servidor->nome}} {{$servidor->sobrenome}}</a></td>
+                                <td>
+                                    <a href="{{ route('servidor.portarias', $servidor->id) }}" class="link-servidor">
+                                        {{$servidor->nome}} {{$servidor->sobrenome}}
+                                    </a>
+                                </td>
                                 @if(Auth::check() and Auth::user()->tipoGrupo != 'padrao')
                                     <td>{{$servidor->cpf}}</th>
                                 @endif

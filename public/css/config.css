@@ -76,11 +76,9 @@ footer{
 }
 
 .content-login{
+    height: 100%;
     display: flex;
     align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
 }
 
 .col-form-login{
@@ -99,11 +97,16 @@ footer{
 
 .btn-entrar{
     background-color: #729B79;
-    min-width: 15vh;
-    max-width: fit-content;
+    width: 100%;
     color: #fff;
-    padding: 5px !important;
-    margin: 10px;
+    margin-top: 10px;
+    border-radius: 50px !important;
+    height: 50px !important;
+}
+
+.btn-entrar:hover{
+    background-color: #599563;
+    color: #fff;
 }
 
 .link-card{
@@ -164,14 +167,8 @@ footer{
 
 .cad-login{
     border-radius: 50px !important;
-    border-top: none !important;
     border-color: #729B79 !important;
     height: 50px !important;
-}
-
-.last-line-form-login{
-    display: flex;
-    justify-content: center;
 }
 
 label{
@@ -220,6 +217,7 @@ label{
     background-color: #475B63;
 }
 
+
 .opc-nav{
     color: #fff;
     font-size: 2vh;
@@ -233,6 +231,7 @@ label{
 
 .div-formCS{
     align-items: center;
+    width: 40vw;
 }
 
 .btn-pesquisar{

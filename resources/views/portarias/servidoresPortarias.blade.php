@@ -21,6 +21,15 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @if(count($portarias) == 0)
+                                <tr>
+                                    <td colspan="9">
+                                        <div class="alert border-info text-center">
+                                            0 registros
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endif
                             @foreach($portarias as $portaria)
                                 @if($portaria->sigilo == 0 or ($portaria->sigilo==1 and Auth::check() and Auth::user()->tipoGrupo != 'padrao'))
                                     <tr>
@@ -28,19 +37,25 @@
                                         <td>{{$portaria->titulo}}</td>
                                         <td>{{$portaria->descricao}}</td>
                                         <td class="card-date">{{date('d/m/Y',strtotime($portaria->dataInicial))}}</td>
-                                        <td class="card-date">{{date('d/m/Y',strtotime($portaria->dataFinal))}}</td>
+                                        <td class="card-date">
+                                            @if($portaria->dataFinal == null)
+                                                Sem data
+                                            @else
+                                                {{date('d/m/Y',strtotime($portaria->dataFinal))}}
+                                            @endif
+                                        </td>
                                         <td>
-                                            @foreach ($portaria->participantes as $participante)
-                                                {{ $participante->servidor->nome }}
-                                            @endforeach
+                                            <ul>
+                                                @foreach ($portaria->participantes as $participante)
+                                                    <li>{{ $participante->servidor->nome }} {{ $participante->servidor->sobrenome }}</li>
+                                                @endforeach
+                                            </ul>
                                         </td>
                                         <td class="card-title">
-                                            @if($portaria->dataFinal < $mytime = date('Y-m-d H:i:s'))
+                                            @if(($portaria->tipo == 1 && $portaria->permaStatus == 0) or ($portaria->tipo == 0 && $portaria->dataFinal > $mytime = date('Y-m-d H:i:s')))
+                                                Ativa
+                                            @elseif(($portaria->tipo == 1 && $portaria->permaStatus == 1) or ($portaria->tipo == 0 && $portaria->dataFinal < $mytime = date('Y-m-d H:i:s')))
                                                 Inativa 
-                                            @elseif($portaria->tipo == 0)
-                                                Temporária
-                                            @else
-                                                Permanente
                                             @endif
                                         </td>
                                         <td class="card-date">{{$portaria->origem}}</td>

@@ -68,12 +68,12 @@
                                                         <span class="span-modal-info">Número da portaria:</span> {{$portaria->numPortaria}}<br><hr>
                                                         <span class="span-modal-info">Descrição da portaria:</span> {{$portaria->descricao}}<br><hr>
                                                         <span class="span-modal-info">Paricipantes dessa portaria:</span>
-
-                                                            @foreach ($portaria->participantes as $participante)
-                                                                <br>{{ $participante->servidor->nome }}
-                                                            @endforeach
-                                                    
-                                                        <br><hr>
+                                                            <ul>
+                                                                @foreach ($portaria->participantes as $participante)
+                                                                    <li>{{ $participante->servidor->nome }} {{ $participante->servidor->sobrenome }}</li>
+                                                                @endforeach
+                                                            </ul>
+                                                        <hr>
                                                         <span class="span-modal-info">Origem da portaria:</span> {{$portaria->origem}}<br><hr>
                                                         <span class="span-modal-info">Data inicial da portaria:</span> {{date('d/m/Y',strtotime($portaria->dataInicial))}}<br><hr>
                                                         <span class="span-modal-info">Data final da portaria:</span> 
