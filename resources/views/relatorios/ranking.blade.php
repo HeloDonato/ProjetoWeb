@@ -17,21 +17,24 @@
     function info(n){
         var info = document.getElementById('info-listagem');
         if(n == 1){
-            info.innerHTML = "Ordenação por: número total de portarias"
+            info.innerHTML = "Ordenação por número total de portarias"
         }else if(n == 2){
-            info.innerHTML = "Ordenação por: número de portarias temporárias"
+            info.innerHTML = "Ordenação por número de portarias temporárias"
         }else if(n == 3){
-            info.innerHTML = "Ordenação por: número de portarias permanentes"
+            info.innerHTML = "Ordenação por número de portarias permanentes"
         }else if(n == 4){
-            info.innerHTML = "Ordenação por: número de portarias ativas"
+            info.innerHTML = "Ordenação por número de portarias ativas"
         }else if(n == 5){
-            info.innerHTML = "Ordenação por: número de portarias inativas"
+            info.innerHTML = "Ordenação por número de portarias inativas"
         }
     }
     window.onload = aviso;
 </script>
 <br><br>
 <div class="col-md-12 text-center" id="no-print">
+    @php
+        $data = date('Y-m-d');
+    @endphp
     <center>
         <button class="btn btn-primary no-print" onclick="set();window.print();setVis()">Imprimir</button>
         <a href="{{ url()->previous() }}">
@@ -46,10 +49,11 @@
         <center>
             <br><br>
             <h4 style="text-transform: uppercase;">Listagem de servidores por quantidade de portarias registradas</h4>
+            <h5>Data de emissão do relatório: {{date('d/m/Y',strtotime($data))}} </h5>
             <h5 id="info-listagem"></h5>
             <br>
             <br><br>
-            <table class="table table-hover table-striped table-bordered table-condensed" id="myTable2">
+            <table class="table table-striped table-bordered table-condensed" id="myTable2">
                 <thead>
                     <tr>
                         <th class="col-md-6">
@@ -57,7 +61,7 @@
                         </th>
                         <a>
                         <th class="col-md-1 titleColum" onclick="sortTable(1), info(1)" style="cursor:pointer;">
-                            <strong>Nº TOTAL</strong>
+                            <strong>TOTAL</strong>
                         </th>
                         </a>
                         <th class="col-md-1 titleColum" onclick="sortTable(2), info(2)" style="cursor:pointer;">
@@ -78,7 +82,7 @@
                     @foreach($servidores as $servidor)
                         @if($servidor->id !=1)
                             <tr>
-                                <td class="col-md-6 text-left">
+                                <td class="col-md-4 text-left">
                                     {{ $servidor->nome }} {{ $servidor->sobrenome }}
                                 </td>
                                 <td class="col-md-1">
@@ -91,10 +95,10 @@
                                     {{ $servidor->portariasPermanentes($servidor->id) }}
                                 </td>
                                 <td class="col-md-1">
-                                    {{ $servidor->portariasAtivas($servidor->id, $mytime = date('Y-m-d')) }}
+                                    {{ $servidor->portariasAtivas($servidor->id, $data) }}
                                 </td>
                                 <td class="col-md-1">
-                                    {{ $servidor->portariasInativas($servidor->id, $mytime = date('Y-m-d')) }}
+                                    {{ $servidor->portariasInativas($servidor->id, $data) }}
                                 </td>
                             </tr>
                             @endif  

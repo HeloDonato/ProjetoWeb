@@ -32,6 +32,7 @@ Route::group(['prefix' => 'portaria'], function(){
 
 Route::group(['prefix' => 'servidor'], function(){
     Route::get('/show',  [ServidorController::class, 'index'])->name('servidor.show');
+    Route::any('/search',[ServidorController::class,'search'])->name('servidor.search');
 });
 
 Route::group(['middleware' => 'auth'], function(){
@@ -66,8 +67,8 @@ Route::group(['middleware' => 'auth'], function(){
         Route::group(['prefix' => 'relatorios'], function(){
             Route::get('/options',  [RelatorioController::class, 'index'])->name('relatorios.options');
             Route::get('/ranking',  [RelatorioController::class, 'rankingServidores'])->name('relatorios.ranking');
-            Route::get('/escolha',  [RelatorioController::class, 'servidorEscolha'])->name('relatorios.escolha');
-            Route::get('/escolha/individual/{id}',  [RelatorioController::class, 'servidorIndividual'])->name('relatorios.individual');
+            Route::get('/relatorioGeral',  [RelatorioController::class, 'relatorioGeral'])->name('relatorios.relatorioGeral');
+            Route::post('/individual',  [RelatorioController::class, 'servidorIndividual'])->name('relatorios.individual');
             //Route::any('/busca',  [ServidorController::class, 'search']);
     
         });

@@ -159,9 +159,13 @@ footer{
     font-weight: bold !important;
 }
 
+.btn-enviar:hover{
+    color: #fff;
+    background-color: #678d6e;
+}
+
 .cad-servidor{
     border-radius: 50px !important;
-    border-top: none !important;
     border-color: #729B79 !important;
 }
 

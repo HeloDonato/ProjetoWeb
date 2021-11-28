@@ -15,8 +15,12 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Play:wght@700&display=swap" rel="stylesheet">
 
     <!-- Styles -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/css/fontawesome.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/css/all.min.css" />
+    <link type="text/css" rel="stylesheet" href="{{ mix('css/app.css') }}">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/config.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -24,24 +28,27 @@
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-md" style="justify-content:space-between">
-            <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('Portarias', 'Portarias') }}
-                </a>
-            </div>
+            @if((Auth::check() and Auth::user()->tipoGrupo!='padrao'))
+                <div class="container" style="width: 60%;">
+            @else
+                <div class="container" style="width: 100%;">
+            @endif
+                    <a class="navbar-brand" href="{{ url('/') }}">
+                        {{ config('Portarias', 'Portarias') }}
+                    </a>
+                </div>
 
             <div class="container">
-                <form action="/" method="GET" class="form-pesquisa">
+                <form action="{{route('servidor.search')}}" method="POST" class="form-pesquisa">
+                    @csrf
                     <div class="input-group">
-                        <input id="search" name="search" class="form-control" type="text" placeholder="Pesquisar" >
-                        <div class="input-group-append">
-                            <a href="{{url('homeA')}}" class="btn btn-pesquisar">Pesquisar</a>
-                        </div>
+                        <input id="search" name="search" value="{{$filters['search'] ?? ''}}" class="form-control" type="text" placeholder="Pesquisar servidor (nome, matrícula)" >
+                        <button type="submit" class="btn btn-pesquisar">Pesquisar</button>
                     </div>
                 </form>
             </div>
                 
-            <div class="container">
+            <div class="container container-links">
                 <div class="navbar-conteudo">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
@@ -50,9 +57,12 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto" style="justify-content: right">
                         <!-- Authentication Links -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('servidor.show') }}">{{ __('Servidores') }}</a>
+                        </li>
                         @guest
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}"><i class="fas fa-sign-in-alt nav-icon fa-lg"></i> {{ __('Entrar') }}</a>
+                                <a class="nav-link" href="{{ route('login') }}">{{ __('Entrar') }} <i class="fas fa-sign-in-alt nav-icon fa-lg"></i></a>
                             </li>
                         @else
                             <li class="nav-item">
@@ -72,11 +82,6 @@
                                         <li>
                                             <a class="dropdown-item" href="{{ route('servidor.create') }}">
                                                 {{ __('Cadastrar Servidor') }}
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="dropdown-item" href="{{ route('servidor.show') }}">
-                                                {{ __('Listar Servidores') }}
                                             </a>
                                         </li>
                                         <li>
@@ -112,7 +117,6 @@
             </div>
         </nav>
 
-
         <main>
 
             <div class="container-fluid">
@@ -128,17 +132,14 @@
 
             @yield('content')
         </main>
-
-        <footer class="text-center text-lg-start fixed-bottom">
+        
+        <footer class="text-center text-lg-start">
             Rodovia BR 367 Almenara/Jequitinhonha, km 111, Zona Rural, Almenara-MG - CEP:39900-000 <br>
             Fone: (038) 3218-7385 - Email: comunicacao.almenara@ifnmg.edu.br
         </footer>
     </div>
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-
+         
            
+
 </body>
 </html>

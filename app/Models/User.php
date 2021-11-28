@@ -66,6 +66,22 @@ class User extends Authenticatable
     }
     protected $guarded = [];//tudo q for enviado pelo post pode ser atualizado
 
+    public function search($filter = null)
+    {
+        $results = $this->where(function($query) use($filter) {
+            if(count($filter) > 0) {
+                if(isset($filter['search']) /*and isset($filter['codigo'])*/) {
+                    $query->Where('nome', 'LIKE', "%".$filter['search']."%")
+                        ->orWhere('sobrenome', 'LIKE', "%".$filter['search']."%")
+                        ->orWhere('matricula', 'LIKE', "%".$filter['search']."%")
+                        ->get();
+                }
+            }
+        })->orderBy('nome', 'DESC')->paginate(10);
+
+        return $results;
+    }
+
     public function portariasTotais($id){
         $total = DB::select("SELECT COUNT(u.id) AS total FROM servidores_portarias AS sp 
                             INNER JOIN users AS u ON u.id = sp.usuario_id 
@@ -101,7 +117,7 @@ class User extends Authenticatable
         $ativas = DB::select("SELECT COUNT(u.id) AS ativas FROM servidores_portarias AS sp 
                                 INNER JOIN users AS u ON u.id = sp.usuario_id 
                                 INNER JOIN portarias AS p ON p.id = sp.portaria_id
-                                WHERE ((p.tipo = 0 AND p.dataFinal > '$dataAtual')
+                                WHERE ((p.tipo = 0 AND p.dataFinal >= '$dataAtual')
                                 OR (p.tipo = 1 AND p.permaStatus = 0))
                                 AND u.id = $id"
         );

@@ -91,9 +91,9 @@
                                                             @endif    
                                                         <br><hr>
                                                         <span class="span-modal-info">Status da portaria:</span> 
-                                                        @if(($portaria->tipo == 1 && $portaria->permaStatus == 0) or ($portaria->tipo == 0 && $portaria->dataFinal > $mytime = date('Y-m-d H:i:s')))
+                                                        @if(($portaria->tipo == 1 && $portaria->permaStatus == 0) or ($portaria->tipo == 0 && $portaria->dataFinal >= $mytime = date('Y-m-d')))
                                                             Ativa
-                                                        @elseif(($portaria->tipo == 1 && $portaria->permaStatus == 1) or ($portaria->tipo == 0 && $portaria->dataFinal < $mytime = date('Y-m-d H:i:s')))
+                                                        @elseif(($portaria->tipo == 1 && $portaria->permaStatus == 1) or ($portaria->tipo == 0 && $portaria->dataFinal < $mytime = date('Y-m-d')))
                                                             Inativa 
                                                         @endif
                                                     </div>

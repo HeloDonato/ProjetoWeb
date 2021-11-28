@@ -19,10 +19,10 @@
                     @method('PUT')
                     @csrf
                         <div class="mb-3 col-md-8">
-                            {{ Form::password('newPassword', 'old'('newPassword'), ['class' => 'form-control cad-servidor', 'required','placeholder' => 'Nova Senha','autofocus']) }}
+                            <input type="password" name="newPassword" old="newPassword" class="form-control cad-servidor" required placeholder="Nova Senha" autofocus/>
                         </div>
                         <div class="mb-3 col-md-8">
-                            {{ Form::password('confirmaSenha', 'old'('confirmaSenha'), ['class' => 'form-control cad-servidor','placeholder' => 'Confirme a nova senha','autofocus']) }}
+                            <input type="password" name="confirmaSenha" old="confirmaSenha" class="form-control cad-servidor" required placeholder="Confirme a Senha" autofocus/>
                         </div>
                         <div class="lign-bottom col-md-8">
                             <button type="submit" class="btn btn-enviar">Enviar</button>

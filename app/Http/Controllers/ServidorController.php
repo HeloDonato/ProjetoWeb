@@ -16,23 +16,21 @@ class ServidorController extends Controller
 {
     public function index()
     {
-        /*$search = request('search');//buscar
-        if($search){
-            $servidores = User::where([
-                ['nome', 'like', '%'.$search.'%']
-            ])->get();  
-        }else{
-            $servidores = User::orderBy('created_at','desc')->get();//ordenando a ultima criada 
-
-        }*/
-        $servidores = DB::table('users')->where('users.id', 'not like', '1')->paginate(10);
+        $servidores = DB::table('users')->where('users.id', 'not like', '1')->orderBy('users.nome')->paginate(10);
         return view('servidores.show',['servidores'=> $servidores]);
+    }
 
-        //$servidores = Servidor::paginate(10);
+    public  function search(Request $request, User $servidor){
+        $servidor = new User();
+        $search = $request->except('_token');
 
-        //return view('servidores.show',['servidores'=> $servidores]);
+        $servidores = $servidor->search($request->except('_token'));
 
-        //return view('servidores.show')->with('servidor', $servidores);
+        //dd($portarias);
+        return view('servidores.show', [
+            'servidores' => $servidores,
+            'filters' => $search,
+        ]);
     }
 
     public function create(){
