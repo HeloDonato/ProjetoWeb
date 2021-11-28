@@ -17,12 +17,16 @@ class RelatorioController extends Controller
         return view('relatorios.options');
     }
 
-    public function showrelatorio(){
-        $user = User::find(2);
-        $relatorios = $user->portariaServidors(2);
-        $ccount = $user->portariaServidors(2)->count();
-    //dd($relatorios);
-        return view('servidores.showrelatorio')->with('relatorios', $relatorios)->with( 'user', $user)->with('count', $ccount);
+    public function servidorEscolha(){
+        $user = User::all();
+        //dd($relatorios);
+        return view('relatorios.escolha')->with( 'users', $user);
+    }
+
+    public function servidorIndividual($id){
+        $user = User::find($id);
+        //dd($relatorios);
+        return view('relatorios.escolha')->with( 'users', $user);
     }
 
     public function rankingServidores(){

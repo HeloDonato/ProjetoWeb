@@ -15,19 +15,14 @@
                     <h1 class="tit-form-ser">Alterar Senha</h1>
                 </div>
     
-                {{ Form::model($servidor,['route' => ['servidor.updateProfile',$servidor->id], 'method' => "POST"]) }}
-                    @csrf
+                {{ Form::model($servidor,['route' => ['servidor.updateProfile',$servidor->id], 'method' => "PUT"]) }}
                     @method('PUT')
-                    {{ Form::open(['route' => 'servidor.store', 'method' => "POST",'enctype' => "multipart/form-data"]) }}
-                        @csrf
+                    @csrf
                         <div class="mb-3 col-md-8">
-                            {{ Form::text('cpf', 'old'('cpf'), ['class' => 'form-control cad-servidor', 'required','placeholder' => 'Senha Antiga','autofocus']) }}
+                            {{ Form::password('newPassword', 'old'('newPassword'), ['class' => 'form-control cad-servidor', 'required','placeholder' => 'Nova Senha','autofocus']) }}
                         </div>
                         <div class="mb-3 col-md-8">
-                            {{ Form::text('new_password', 'old'('new_password'), ['class' => 'form-control cad-servidor', 'required','placeholder' => 'Nova Senha','autofocus']) }}
-                        </div>
-                        <div class="mb-3 col-md-8">
-                            {{ Form::text('confirm_password', 'old'('confirm_password'), ['class' => 'form-control cad-servidor','placeholder' => 'Confirme a nova senha','autofocus']) }}
+                            {{ Form::password('confirmaSenha', 'old'('confirmaSenha'), ['class' => 'form-control cad-servidor','placeholder' => 'Confirme a nova senha','autofocus']) }}
                         </div>
                         <div class="lign-bottom col-md-8">
                             <button type="submit" class="btn btn-enviar">Enviar</button>

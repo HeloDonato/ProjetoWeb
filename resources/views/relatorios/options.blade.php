@@ -7,7 +7,7 @@
         <div class="card-body">
             <div class="row col-md-12 linha-conteudo-options">
                 <div class="col-md-4">
-                    <a href="{{route('relatorios.options')}}" class="link-relatorio">
+                    <a href="{{route('relatorios.escolha')}}" class="link-relatorio">
                         <div class="row linha-graficos">
                             <img src="{{ asset('img/grafico01.png') }}" class="icon-grafico">
                         </div>

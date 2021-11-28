@@ -49,3 +49,7 @@ li {
     visibility: none;
     display: none;
   }
+
+  .senhaS{
+    -webkit-text-security: disc;
+  }

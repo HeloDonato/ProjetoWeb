@@ -42,7 +42,7 @@
                             {{ Form::text('funcao', 'old'('funcao'), ['class' => 'form-control cad-servidor','placeholder' => 'Função','autofocus']) }}
                         </div>
                         <div class="lign-bottom col-md-8">
-                            <button ty  pe="submit" class="btn btn-enviar">Enviar</button>
+                            <button type="submit" class="btn btn-enviar">Enviar</button>
                         </div>
                     {{Form::close()}} 
                 {{Form::close()}}  
