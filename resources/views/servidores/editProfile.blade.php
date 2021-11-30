@@ -19,6 +19,9 @@
                     @method('PUT')
                     @csrf
                         <div class="mb-3 col-md-8">
+                            <input type="password" name="senhaAntiga" old="senhaAntiga" class="form-control cad-servidor" required placeholder="Senha Antiga" autofocus/>
+                        </div>
+                        <div class="mb-3 col-md-8">
                             <input type="password" name="newPassword" old="newPassword" class="form-control cad-servidor" required placeholder="Nova Senha" autofocus/>
                         </div>
                         <div class="mb-3 col-md-8">

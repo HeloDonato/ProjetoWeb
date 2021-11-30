@@ -100,6 +100,7 @@ class ServidorController extends Controller
 
     public function updateProfile(Request $request){
         // The passwords matches
+            $user = User::findOrFail($request->id);
             $validator = Validator::make($request->all(),[
                 'newPassword' => ['required', 'min:8'],
                 'confirmaSenha' => ['required', 'same:newPassword']
@@ -110,10 +111,10 @@ class ServidorController extends Controller
             }else{
                 try{
                     $user_id = $request->id;
-                    $user = User::findOrFail($request->id);
                     $user->password =  Hash::make($request->newPassword);
                     $user->save();
                     return redirect()->back()->with("msg","Senha alterada com suucesso!");
+                   
                 }catch(QueryException $e){
                     return redirect()->back()->with('msgE','Erro ao editar senha!');
                 } 

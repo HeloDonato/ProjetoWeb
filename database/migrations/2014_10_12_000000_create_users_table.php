@@ -24,7 +24,8 @@ class CreateUsersTable extends Migration
             $table->string('matricula')->unique();
             $table->string('cpf')->unique();
             $table->string('cargo');
-            $table->string('funcao');
+            $table->string('funcao')->nullable();
+            $table->boolean('alter_password');
             $table->rememberToken();
             $table->timestamps();
         });

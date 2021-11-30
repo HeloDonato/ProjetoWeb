@@ -39,7 +39,12 @@
                         @foreach ($portarias as $portaria)
                             @if($portaria->sigilo == 0 or ($portaria->sigilo==1 and Auth::check() and Auth::user()->tipoGrupo != 'padrao'))
                                 <tr>
-                                    <td>{{$portaria->numPortaria}}</td>
+                                    <td> 
+                                        @if($portaria->sigilo==1)
+                                            <i class="fas fa-shield-alt" style="color:red;"></i>
+                                        @endif
+                                        {{$portaria->numPortaria}}
+                                    </td>
                                     <td class="card-title">{{$portaria->titulo}}</td>
                                     <td class="card-date">{{$portaria->descricao}}</td>
                                     <td class="card-date">{{date('d/m/Y',strtotime($portaria->dataInicial))}}</td>
