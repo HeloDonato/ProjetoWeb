@@ -12,7 +12,7 @@
             </div>
             <div class="col-md-6 div-formCS">
                 <div class="tit-form col-md-8">
-                    <h1 class="tit-form-ser">Novo Servidor</h1>
+                    <h1 class="tit-form-ser">Editar Servidor</h1>
                 </div>
     
                 {{ Form::model($servidor,['route' => ['servidor.update',$servidor->id], 'method' => "POST"]) }}

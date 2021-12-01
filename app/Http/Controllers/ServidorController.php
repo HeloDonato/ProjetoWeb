@@ -52,6 +52,7 @@ class ServidorController extends Controller
             $servidor->cpf = preg_replace("/\D+/", "",$request->cpf);
             $servidor->cargo = $request->cargo;
             $servidor->funcao = $request->funcao;
+            $servidor->alter_password = 0;
             $servidor->save();
 
 
@@ -112,6 +113,7 @@ class ServidorController extends Controller
                 try{
                     $user_id = $request->id;
                     $user->password =  Hash::make($request->newPassword);
+                    $user->alter_password = 1;
                     $user->save();
                     return redirect()->back()->with("msg","Senha alterada com suucesso!");
                    

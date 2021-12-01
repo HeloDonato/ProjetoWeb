@@ -3,6 +3,36 @@
 @section('title', 'Servidores')
 
 @section('content')
+
+    @if(Auth::user()->alter_password == 0)
+        <script>
+            function abreModal() {
+                $("#staticBackdrop").modal({
+                    show: true
+                });
+            }
+            setTimeout(abreModal, 1000);
+            window.onload = abreModal;
+        </script>
+    @endif
+
+    <!-- Modal -->
+    <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header header-modal-info">
+            <h5 class="modal-title" id="staticBackdropLabel">Altere sua senha para continuar!</h5>
+        </div>
+        <div class="modal-body">
+            Por razões de segurança, altere sua senha para continuar a usar o sistema. 
+        </div>
+        <div class="modal-footer">
+            <a href="{{ route('servidor.editProfile', Auth::user()->id) }}" class="btn btn-pesquisar">Mudar senha</a>
+        </div>
+        </div>
+    </div>
+    </div>
+
     <div id="cards-container" class="row" style="margin-top: 20px; min-height: 82vh;">
         <div class="card-body">
             <div class="table-responsive">
