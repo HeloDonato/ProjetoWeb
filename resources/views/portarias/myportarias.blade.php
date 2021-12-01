@@ -4,7 +4,7 @@
 
 @section('content')
 
-    @if(Auth::user()->alter_password == 0)
+    @if(Auth::check() && Auth::user()->alter_password == 0)
         <script>
             function abreModal() {
                 $("#staticBackdrop").modal({
