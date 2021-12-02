@@ -49,12 +49,58 @@ class ServidorController extends Controller
             $servidor->nome = $request->nome;
             $servidor->sobrenome = $request->sobrenome;
             $servidor->matricula = $request->matricula;
+
             $servidor->cpf = preg_replace("/\D+/", "",$request->cpf);
+            if (strlen($servidor->cpf ) != 11) {
+                return redirect()
+                ->back()    
+                ->withInput()
+                ->with('msgE','Não foi possível registrar o servidor! Cpf inválido!');
+            }
+
+            for ($t = 9; $t < 11; $t++) {
+                for ($d = 0, $c = 0; $c < $t; $c++) {
+                    $d += $servidor->cpf[$c] * (($t + 1) - $c);
+                }
+                $d = ((10 * $d) % 11) % 10;
+                if ($servidor->cpf[$c] != $d) {
+                    return redirect()->back()->with('msgE','Não foi possível registrar o servidor! Cpf inválido!');;
+                }
+            }
+                
             $servidor->cargo = $request->cargo;
             $servidor->funcao = $request->funcao;
             $servidor->alter_password = 0;
-            $servidor->save();
 
+
+            
+            $registros = User::all();
+
+            //Retornando mensagem de erro caso o número da portaria já exista no banco     
+            foreach($registros as $registro){
+                if($registro->matricula == $servidor->matricula){
+                    return redirect()
+                            ->back()    
+                            ->withInput()
+                            ->with('msgE','Não foi possível registrar o servidor! Número da matricula já registrado!');
+                }
+           
+                else if($registro->cpf == $servidor->cpf){
+                    return redirect()
+                            ->back()    
+                            ->withInput()
+                            ->with('msgE','Não foi possível registrar o servidor! Número de cpf já registrado!');
+                }
+
+                else if($registro->email == $servidor->email){
+                    return redirect()
+                            ->back()    
+                            ->withInput()
+                            ->with('msgE','Não foi possível registrar o servidor! E-mail já registrado!');
+                }
+            }
+
+            $servidor->save();
 
             return redirect('/servidor/show')->with('msg','Servidor adicionado com sucesso!');
         }catch(QueryException $e){
@@ -111,6 +157,7 @@ class ServidorController extends Controller
                 'same'    => 'Senhas precisam ser iguais',
                 'different'    => 'Senha atual igual à antiga',
             ];
+            
             $user = User::findOrFail($request->id);
             $validator = Validator::make($request->all(),[
                 'senhaAntiga' => ['required', 'different:newPassword'],
