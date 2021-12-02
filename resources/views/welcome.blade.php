@@ -27,7 +27,11 @@
             Por razões de segurança, altere sua senha para continuar a usar o sistema. 
         </div>
         <div class="modal-footer">
-            <a href="{{ route('servidor.editProfile', Auth::user()->id) }}" class="btn btn-pesquisar">Mudar senha</a>
+            @if(Auth::check() && Auth::user()->alter_password == 0)
+                <a href="{{ route('servidor.editProfile', Auth::user()->id) }}" class="btn btn-pesquisar">Mudar senha</a>
+            @else
+                ''
+            @endif
         </div>
         </div>
     </div>
@@ -80,7 +84,7 @@
                                     <td class="card-date">{{date('d/m/Y',strtotime($portaria->dataInicial))}}</td>
                                     <td class="card-date">
                                         @if($portaria->dataFinal == null)
-                                            Sem data
+                                            Sem data 
                                         @else
                                             {{date('d/m/Y',strtotime($portaria->dataFinal))}}
                                         @endif

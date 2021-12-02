@@ -101,13 +101,25 @@ class ServidorController extends Controller
 
     public function updateProfile(Request $request){
         // The passwords matches
+            $input = $request->all();
+
+            if (! Hash::check($input['senhaAntiga'],auth()->user()->password)){
+                return redirect()->back()->with('msgE','Senha antiga não corresponde');
+            }
+            
+            $msg = [
+                'same'    => 'Senhas precisam ser iguais',
+                'different'    => 'Senha atual igual à antiga',
+            ];
             $user = User::findOrFail($request->id);
             $validator = Validator::make($request->all(),[
-                'newPassword' => ['required', 'min:8'],
+                'senhaAntiga' => ['required', 'different:newPassword'],
+                'newPassword' => ['required', 'min:8', 'different   :senhaAntiga'],
                 'confirmaSenha' => ['required', 'same:newPassword']
-            ]);
+            ], $msg);
 
             if($validator->fails()){
+                #
                 return redirect()->back()->with('msgE','Erro ao editar senha!');
             }else{
                 try{
