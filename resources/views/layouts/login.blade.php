@@ -26,7 +26,7 @@
     <div id="app">
         <nav class="navbar">
             <a class="navbar-brand" href="{{ url('/') }}">
-                Portarias
+                <img src="{{ asset('img/log_almenara_png.png') }}" class="logo_almenara"/>
             </a>
         </nav>
 

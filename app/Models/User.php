@@ -137,4 +137,52 @@ class User extends Authenticatable
 
         return $inativas[0]->inativas;
     }
+
+    public function portariasPublicas($id){
+        //dd($dataAtual);
+        $publicas = DB::select("SELECT COUNT(u.id) AS publicas FROM servidores_portarias AS sp 
+                                INNER JOIN users AS u ON u.id = sp.usuario_id 
+                                INNER JOIN portarias AS p ON p.id = sp.portaria_id
+                                WHERE p.sigilo = 0
+                                AND u.id = $id"
+        );
+
+        return $publicas[0]->publicas;
+    }
+
+    public function portariasSigilosas($id){
+        //dd($dataAtual);
+        $sigilosas = DB::select("SELECT COUNT(u.id) AS sigilosas FROM servidores_portarias AS sp 
+                                INNER JOIN users AS u ON u.id = sp.usuario_id 
+                                INNER JOIN portarias AS p ON p.id = sp.portaria_id
+                                WHERE p.sigilo = 1
+                                AND u.id = $id"
+        );
+
+        return $sigilosas[0]->sigilosas;
+    }
+
+    public function portariasCampus($id){
+        //dd($dataAtual);
+        $campus = DB::select("SELECT COUNT(u.id) AS campus FROM servidores_portarias AS sp 
+                                INNER JOIN users AS u ON u.id = sp.usuario_id 
+                                INNER JOIN portarias AS p ON p.id = sp.portaria_id
+                                WHERE p.origem = 'Campus'
+                                AND u.id = $id"
+        );
+
+        return $campus[0]->campus;
+    }
+
+    public function portariasReitoria($id){
+        //dd($dataAtual);
+        $reitoria = DB::select("SELECT COUNT(u.id) AS reitoria FROM servidores_portarias AS sp 
+                                INNER JOIN users AS u ON u.id = sp.usuario_id 
+                                INNER JOIN portarias AS p ON p.id = sp.portaria_id
+                                WHERE p.origem = 'Reitoria'
+                                AND u.id = $id"
+        );
+
+        return $reitoria[0]->reitoria;
+    }
 }

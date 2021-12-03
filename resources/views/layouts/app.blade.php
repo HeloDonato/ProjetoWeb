@@ -34,7 +34,7 @@
                 <div class="container" style="width: 100%;">
             @endif
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('Portarias', 'Portarias') }}
+                    <img src="{{ asset('img/log_almenara_png.png') }}" class="logo_almenara"/>
                 </a>
             </div>
                 

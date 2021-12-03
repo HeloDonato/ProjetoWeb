@@ -39,7 +39,7 @@
         <nav class="navbar navbar-expand-md" style="justify-content:space-between">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('Portarias', 'Portarias') }}
+                   <img src="{{ asset('img/log_almenara_png.png') }}" class="logo_almenara"/>
                 </a>
             </div>
                 

@@ -45,7 +45,10 @@
                                             <div class="form-row">
                                                 <div class="col-md-12">
                                                     <div class="form-group">
-                                                        <button type="submit" class="btn btn-enviar"  target="_blank">Gerar Relatório</button>
+                                                        <a target="_blank">
+                                                            <button type="submit" class="btn btn-enviar">Gerar Relatório</button>    
+                                                        </a>
+                                                        
                                                     </div>
                                                 </div>
                                             </div>
