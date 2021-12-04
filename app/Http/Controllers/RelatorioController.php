@@ -45,16 +45,26 @@ class RelatorioController extends Controller
         $reitoria = DB::select("SELECT COUNT(id) AS quantidade FROM portarias WHERE origem = 'Reitoria'");
         $sigilosas = DB::select("SELECT COUNT(id) AS quantidade FROM portarias WHERE sigilo = 1");
         $publicas = DB::select("SELECT COUNT(id) AS quantidade FROM portarias WHERE sigilo = 0");
-        
-        $porcentTemp = $temporarias[0]->quantidade/$total[0]->quantidade*100;
-        $porcentPerm = $permanentes[0]->quantidade/$total[0]->quantidade*100;
-        $porcentAtivas = $ativas[0]->quantidade/$total[0]->quantidade*100;
-        $porcentInativas = $inativas[0]->quantidade/$total[0]->quantidade*100;
-        $porcentReitoria = $reitoria[0]->quantidade/$total[0]->quantidade*100;
-        $porcentCampus = $campus[0]->quantidade/$total[0]->quantidade*100;
-        $porcentSigilosas = $sigilosas[0]->quantidade/$total[0]->quantidade*100;
-        $porcentPublicas = $publicas[0]->quantidade/$total[0]->quantidade*100;
 
+        if($total[0]->quantidade == 0){
+            $porcentTemp = 0;
+            $porcentPerm = 0;
+            $porcentAtivas = 0;
+            $porcentInativas = 0;
+            $porcentReitoria = 0;
+            $porcentCampus = 0;
+            $porcentSigilosas = 0;
+            $porcentPublicas = 0;
+        }else{
+            $porcentTemp = $temporarias[0]->quantidade/$total[0]->quantidade*100;
+            $porcentPerm = $permanentes[0]->quantidade/$total[0]->quantidade*100;
+            $porcentAtivas = $ativas[0]->quantidade/$total[0]->quantidade*100;
+            $porcentInativas = $inativas[0]->quantidade/$total[0]->quantidade*100;
+            $porcentReitoria = $reitoria[0]->quantidade/$total[0]->quantidade*100;
+            $porcentCampus = $campus[0]->quantidade/$total[0]->quantidade*100;
+            $porcentSigilosas = $sigilosas[0]->quantidade/$total[0]->quantidade*100;
+            $porcentPublicas = $publicas[0]->quantidade/$total[0]->quantidade*100;
+        }
 
         $porcentagem = array(
             "porcentTemp" => number_format($porcentTemp, 2, '.', ''),
