@@ -62,7 +62,7 @@
                                 <td>{{$servidor->matricula}}</td>
                                 <td>
                                     <a href="{{ route('servidor.portarias', $servidor->id) }}" class="link-servidor">
-                                        {{$servidor->nome}}y
+                                        {{$servidor->nome}}
                                     </a>
                                 </td>
                                 @if(Auth::check() and Auth::user()->tipoGrupo != 'padrao')

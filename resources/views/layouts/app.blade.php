@@ -84,17 +84,17 @@
                             @endif    
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ strstr(Auth::user()->nome, ' ', true) }}
+                                    Perfil
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ route('servidor.editProfile', Auth::user()->id) }}">
+                                        {{ __('Segurança') }}
+                                    </a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Sair') }}
-                                    </a>
-                                    <a class="dropdown-item" href="{{ route('servidor.editProfile', Auth::user()->id) }}">
-                                        {{ __('Perfil') }}
                                     </a>
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf
