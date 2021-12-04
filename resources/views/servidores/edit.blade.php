@@ -24,9 +24,6 @@
                             {{ Form::text('nome', 'old'('nome'), ['class' => 'form-control cad-servidor', 'required','placeholder' => 'Nome','autofocus']) }}
                         </div>
                         <div class="mb-3 col-md-8">
-                            {{ Form::text('sobrenome', 'old'('sobrenome'), ['class' => 'form-control cad-servidor', 'required','placeholder' => 'Sobrenome','autofocus']) }}
-                        </div>
-                        <div class="mb-3 col-md-8">
                             {{ Form::text('matricula', 'old'('matricula'), ['class' => 'form-control cad-servidor','placeholder' => 'Matrícula','autofocus']) }}
                         </div>
                         <div class="mb-3 col-md-8">

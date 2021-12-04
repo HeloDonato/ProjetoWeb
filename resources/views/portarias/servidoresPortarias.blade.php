@@ -47,7 +47,7 @@
                                         <td>
                                             <ul>
                                                 @foreach ($portaria->participantes as $participante)
-                                                    <li>{{ $participante->servidor->nome }} {{ $participante->servidor->sobrenome }}</li>
+                                                    <li>{{ $participante->servidor->nome }}</li>
                                                 @endforeach
                                             </ul>
                                         </td>

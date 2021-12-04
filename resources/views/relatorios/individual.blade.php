@@ -60,7 +60,7 @@
             <br><br>
 
             <h4 style="text-transform: uppercase;">Relatório de Participação em portarias</h4>
-            <h5>Nome do Servidor: {{$servidor->nome}} {{$servidor->sobrenome}} </h5>
+            <h5>Nome do Servidor: {{$servidor->nome}} </h5>
             <h5>Número de Matrícula: {{$servidor->matricula}}</h5>
             <h5>Data de emissão do relatório: {{date('d/m/Y',strtotime($data))}} </h5>
             

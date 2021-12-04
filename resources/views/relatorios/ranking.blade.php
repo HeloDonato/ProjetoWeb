@@ -83,7 +83,7 @@
                         @if($servidor->id !=1)
                             <tr>
                                 <td class="col-md-4 text-left">
-                                    {{ $servidor->nome }} {{ $servidor->sobrenome }}
+                                    {{ $servidor->nome }}
                                 </td>
                                 <td class="col-md-1">
                                     {{ $servidor->portariasTotais($servidor->id)}}

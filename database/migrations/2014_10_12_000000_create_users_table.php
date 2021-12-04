@@ -20,7 +20,6 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('tipoGrupo');
             $table->string('nome');
-            $table->string('sobrenome');
             $table->string('matricula')->unique();
             $table->string('cpf')->unique();
             $table->string('cargo');

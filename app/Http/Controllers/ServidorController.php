@@ -47,7 +47,6 @@ class ServidorController extends Controller
             $servidor->password = Hash::make(preg_replace("/\D+/", "",$request->cpf));
             $servidor->tipoGrupo = 'padrao';  
             $servidor->nome = $request->nome;
-            $servidor->sobrenome = $request->sobrenome;
             $servidor->matricula = $request->matricula;
 
             $servidor->cpf = preg_replace("/\D+/", "",$request->cpf);

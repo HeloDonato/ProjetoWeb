@@ -27,7 +27,11 @@
             Por razões de segurança, altere sua senha para continuar a usar o sistema. 
         </div>
         <div class="modal-footer">
-            <a href="{{ route('servidor.editProfile', Auth::user()->id) }}" class="btn btn-pesquisar">Mudar senha</a>
+            @if(Auth::check() && Auth::user()->alter_password == 0)
+                <a href="{{ route('servidor.editProfile', Auth::user()->id) }}" class="btn btn-pesquisar">Mudar senha</a>
+            @else   
+                ''
+            @endif
         </div>
         </div>
     </div>
@@ -58,7 +62,7 @@
                                 <td>{{$servidor->matricula}}</td>
                                 <td>
                                     <a href="{{ route('servidor.portarias', $servidor->id) }}" class="link-servidor">
-                                        {{$servidor->nome}} {{$servidor->sobrenome}}
+                                        {{$servidor->nome}}y
                                     </a>
                                 </td>
                                 @if(Auth::check() and Auth::user()->tipoGrupo != 'padrao')
@@ -87,7 +91,7 @@
                                                     <div class="modal-body">
                                                         O registro selecionado será excluído, deseja prosseguir?
                                                         <br>
-                                                        Nome do Servidor: <strong>{{  $servidor->nome }} {{$servidor->sobrenome}}</strong> <br>
+                                                        Nome do Servidor: <strong>{{  $servidor->nome }}</strong> <br>
                                                         Matrícula: {{$servidor->matricula}}
                                                     </div>
                                                     <div class="modal-footer">

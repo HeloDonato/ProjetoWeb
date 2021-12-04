@@ -29,7 +29,7 @@
         <div class="modal-footer">
             @if(Auth::check() && Auth::user()->alter_password == 0)
                 <a href="{{ route('servidor.editProfile', Auth::user()->id) }}" class="btn btn-pesquisar">Mudar senha</a>
-            @else
+            @else   
                 ''
             @endif
         </div>
@@ -109,7 +109,7 @@
                                                         <span class="span-modal-info">Paricipantes dessa portaria:</span>
                                                             <ul>
                                                                 @foreach ($portaria->participantes as $participante)
-                                                                    <li>{{ $participante->servidor->nome }} {{ $participante->servidor->sobrenome }}</li>
+                                                                    <li>{{ $participante->servidor->nome }}</li>
                                                                 @endforeach
                                                             </ul>
                                                         <hr>
