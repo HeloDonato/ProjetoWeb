@@ -17,7 +17,7 @@
     
                 {{ Form::open(['route' => 'servidor.store', 'method' => "POST"]) }}
                     <div class="mb-3 col-md-8">
-                        {{ Form::text('nome', 'old'('nome'), ['class' => 'form-control cad-servidor', 'required','placeholder' => 'Nome completo','autofocus']) }}
+                        {{ Form::text('nome', 'old'('nome'), ['class' => 'form-control cad-servidor', 'required','placeholder' => 'Nome Completo','autofocus']) }}
                     </div>
                     <div class="mb-3 col-md-8">
                         {{ Form::text('matricula', 'old'('matricula'), ['class' => 'form-control cad-servidor','placeholder' => 'Matrícula','autofocus']) }}

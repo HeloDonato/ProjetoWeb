@@ -18,23 +18,23 @@
 
     <!-- Modal -->
     <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-        <div class="modal-header header-modal-info">
-            <h5 class="modal-title" id="staticBackdropLabel">Altere sua senha para continuar!</h5>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header header-modal-info">
+                    <h5 class="modal-title" id="staticBackdropLabel">Altere sua senha para continuar!</h5>
+                </div>
+                <div class="modal-body">
+                    Por razões de segurança, altere sua senha para continuar a usar o sistema. 
+                </div>
+                <div class="modal-footer">
+                    @if(Auth::check() && Auth::user()->alter_password == 0)
+                        <a href="{{ route('servidor.editProfile', Auth::user()->id) }}" class="btn btn-pesquisar">Mudar senha</a>
+                    @else   
+                        ''
+                    @endif
+                </div>
+            </div>
         </div>
-        <div class="modal-body">
-            Por razões de segurança, altere sua senha para continuar a usar o sistema. 
-        </div>
-        <div class="modal-footer">
-            @if(Auth::check() && Auth::user()->alter_password == 0)
-                <a href="{{ route('servidor.editProfile', Auth::user()->id) }}" class="btn btn-pesquisar">Mudar senha</a>
-            @else   
-                ''
-            @endif
-        </div>
-        </div>
-    </div>
     </div>
 
     <div id="cards-container" class="row" style="margin-top: 20px; min-height: 82vh;">
@@ -49,8 +49,7 @@
                                 <th class="col-md-1">CPF</th>
                             @endif
                             <th>E-mail</th>
-                            <th class="col-md-1">Cargo</th>
-                            <th class="col-md-2">Função</th>
+                            <th>Detalhes</th>
                             @if(Auth::check() and Auth::user()->tipoGrupo != 'padrao')
                                 <th class="col-md-3">Ações</th>
                             @endif
@@ -69,8 +68,31 @@
                                     <td>{{$servidor->cpf}}</th>
                                 @endif
                                 <td class="card-title">{{$servidor->email}}</td>
-                                <td class="card-title">{{$servidor->cargo}}</td>
-                                <td class="card-title">{{$servidor->funcao}}</td>
+                                <td class="card-title">
+                                    <a href="" class="btn btn-pesquisar" data-toggle="modal" data-target="#modal{{ $servidor->id }}" style="margin-bottom:3px">Info <i class="fas fa-info-circle"></i></a>      
+
+                                    <div class="modal fade" id="modal{{ $servidor->id }}" tabindex="-1" role="dialog" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header header-modal-info">
+                                                    <h5 class="modal-title"><strong>Servidor: </strong>{{ $servidor->nome}}</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <span class="span-modal-info">Cargo:</span> {{$servidor->cargo}}<br><hr>
+                                                    <span class="span-modal-info">Função:</span> 
+                                                    @if($servidor->funcao == null)
+                                                        Sem função registrada
+                                                    @else
+                                                        {{$servidor->funcao}}
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
                                 @if(Auth::check() and Auth::user()->tipoGrupo != 'padrao')
                                     <td>
                                         <a href="{{ route('servidor.edit', $servidor->id) }}" class="btn btn-pesquisar edit-btn" style="margin-bottom:3px">Editar <i class="fas fa-edit"></i></a>
@@ -128,7 +150,6 @@
                                         @endif
                                     </td>
                                 @endif
-                                
                             </tr>
                         @endforeach
                     </tbody> 
@@ -139,5 +160,4 @@
             </div>
         </div>
     </div>
-
 @endsection
