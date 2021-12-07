@@ -74,10 +74,10 @@
                             @if($portaria->sigilo == 0 or ($portaria->sigilo==1 and Auth::check() and Auth::user()->tipoGrupo != 'padrao'))
                                 <tr>
                                     <td> 
+                                    {{$portaria->numPortaria}}
                                         @if($portaria->sigilo==1)
                                             <i class="fas fa-shield-alt" style="color:red;"></i>
                                         @endif
-                                        {{$portaria->numPortaria}}
                                     </td>
                                     <td class="card-title">{{$portaria->titulo}}</td>
                                     <td class="card-date">{{$portaria->descricao}}</td>
@@ -104,7 +104,7 @@
                                                         </button>
                                                     </div>
                                                     <div class="modal-body">
-                                                        <span class="span-modal-info">Número da portaria:</span> {{$portaria->numPortaria}}<br><hr>
+                                                        <span class="span-modal-info">Número da portaria:</span> <br><hr>
                                                         <span class="span-modal-info">Descrição da portaria:</span> {{$portaria->descricao}}<br><hr>
                                                         <span class="span-modal-info">Paricipantes dessa portaria:</span>
                                                             <ul>
