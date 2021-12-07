@@ -44,13 +44,18 @@ class Portaria extends Model
         $results = $this->where(function($query) use($filter) {
             if(count($filter) > 0) {
                 if(isset($filter['search']) /*and isset($filter['codigo'])*/) {
-                    $query->Where('titulo', 'LIKE', "%".$filter['search']."%")
-                        ->orWhere('numPortaria', 'LIKE', "%".$filter['search']."%")
-                        ->get();
+                    if(auth()->user() == null || auth()->user()->tipoGrupo == 'padrao')
+                        $query->where('sigilo', '=', '0')
+                            ->where('titulo', 'LIKE', "%".$filter['search']."%")
+                            ->orWhere('numPortaria', 'LIKE', "%".$filter['search']."%")
+                            ->get();
+                    elseif(auth()->user()->tipoGrupo != 'padrao')
+                            $query->Where('titulo', 'LIKE', "%".$filter['search']."%")
+                            ->orWhere('numPortaria', 'LIKE', "%".$filter['search']."%")
+                            ->get();
                 }
             }
         })->orderBy('dataInicial', 'DESC')->paginate(10);
-
         return $results;
     }
 
@@ -70,9 +75,9 @@ class Portaria extends Model
     }
 
     
-    public function portariaServidor($idServidor, $tipo)
+    public function portariaServidor($idServidor)
     {   
-        if($tipo == null || $tipo == 'padrao')
+        if(auth()->user() == null || auth()->user()->tipoGrupo == 'padrao')
         {
             $results = Portaria::select('*')
             ->join('servidores_portarias', 'portarias.id', 'servidores_portarias.portaria_id')
@@ -82,7 +87,7 @@ class Portaria extends Model
 
             return $results;
 
-        }else if($tipo != 'padrao')
+        }elseif(auth()->user()->tipoGrupo != 'padrao')
         {
             $results = Portaria::select('*')
             ->join('servidores_portarias', 'portarias.id', 'servidores_portarias.portaria_id')

@@ -154,13 +154,9 @@ class PortariaController extends Controller
 
     public function portariasServidor($id){
         $user = User::find($id);
-        if(auth()->user())
-            $tipo = auth()->user()->tipoGrupo;
-        else    
-            $tipo = null;
 
         $portaria = new Portaria(); 
-        $portarias = $portaria->portariaServidor($user->id, $tipo);
+        $portarias = $portaria->portariaServidor($user->id);
         //dd($portarias);
         return view('portarias.servidoresPortarias')->with('portarias', $portarias)->with('servidor', $user);
     }
