@@ -60,12 +60,36 @@ class Portaria extends Model
     }
 
     public function minhasPortarias($idServidor)
-    {
+    {   
         $results = Portaria::select('*')
             ->join('servidores_portarias', 'portarias.id', 'servidores_portarias.portaria_id')
             ->where('servidores_portarias.usuario_id', '=', $idServidor)
             ->orderBy('dataInicial', 'DESC')->paginate(10);
 
         return $results;
+    }
+
+    
+    public function portariaServidor($idServidor, $tipo)
+    {   
+        if($tipo == null || $tipo == 'padrao')
+        {
+            $results = Portaria::select('*')
+            ->join('servidores_portarias', 'portarias.id', 'servidores_portarias.portaria_id')
+            ->where('servidores_portarias.usuario_id', '=', $idServidor)
+            ->where('sigilo', '=', '0')
+            ->orderBy('dataInicial', 'DESC')->paginate(10);
+
+            return $results;
+
+        }else if($tipo != 'padrao')
+        {
+            $results = Portaria::select('*')
+            ->join('servidores_portarias', 'portarias.id', 'servidores_portarias.portaria_id')
+            ->where('servidores_portarias.usuario_id', '=', $idServidor)
+            ->orderBy('dataInicial', 'DESC')->paginate(10);
+
+            return $results;
+        }   
     }
 }

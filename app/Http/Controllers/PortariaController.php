@@ -19,8 +19,13 @@ class PortariaController extends Controller
 {
     public function index()
     {
-        $portarias = Portaria::orderBy('created_at','desc')->paginate(10);//ordenando a ultima criada 
-
+        if(auth()->user() == null || auth()->user()->tipoGrupo == 'padrao' )
+        {
+            $portarias = Portaria::where('sigilo', '=', '0')->orderBy('created_at','desc')->paginate(10);//ordenando a ultima criada 
+        }else if(auth()->user()->tipoGrupo != 'padrao')
+        {
+            $portarias = Portaria::orderBy('created_at','desc')->paginate(10);//ordenando a ultima criada 
+        }   
         return view('welcome',['portarias'=> $portarias,'search']);
     }
 
@@ -149,11 +154,13 @@ class PortariaController extends Controller
 
     public function portariasServidor($id){
         $user = User::find($id);
+        if(auth()->user())
+            $tipo = auth()->user()->tipoGrupo;
+        else    
+            $tipo = null;
 
-        $portaria = new Portaria();
-        $portarias = $portaria->minhasPortarias($user->id);
-
-        
+        $portaria = new Portaria(); 
+        $portarias = $portaria->portariaServidor($user->id, $tipo);
         //dd($portarias);
         return view('portarias.servidoresPortarias')->with('portarias', $portarias)->with('servidor', $user);
     }
