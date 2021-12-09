@@ -65,7 +65,7 @@
                                     </a>
                                 </td>
                                 @if(Auth::check() and Auth::user()->tipoGrupo != 'padrao')
-                                    <td>{{$servidor->cpf}}</th>
+                                    <td><font class="cpf">{{$servidor->cpf}}</font></th>
                                 @endif
                                 <td class="card-title">{{$servidor->email}}</td>
                                 <td class="card-title">

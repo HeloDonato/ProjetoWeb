@@ -72,7 +72,6 @@ class User extends Authenticatable
             if(count($filter) > 0) {
                 if(isset($filter['search']) /*and isset($filter['codigo'])*/) {
                     $query->Where('nome', 'LIKE', "%".$filter['search']."%")
-                        ->orWhere('sobrenome', 'LIKE', "%".$filter['search']."%")
                         ->orWhere('matricula', 'LIKE', "%".$filter['search']."%")
                         ->get();
                 }

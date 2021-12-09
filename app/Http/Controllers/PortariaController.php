@@ -174,7 +174,7 @@ class PortariaController extends Controller
     public function edit($id){
 
         $portaria = Portaria::findOrFail($id);
-        $participantes = DB::select(DB::raw("select portaria_id, usuario_id, nome, sobrenome FROM servidores_portarias as s 
+        $participantes = DB::select(DB::raw("select portaria_id, usuario_id, nome FROM servidores_portarias as s 
         INNER JOIN users as u ON s.usuario_id = u.id where portaria_id = $id;"));
         
         $servidores = DB::table('users')->where('users.id', 'not like', '1')->get();

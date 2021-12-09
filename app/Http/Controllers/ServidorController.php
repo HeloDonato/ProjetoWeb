@@ -52,9 +52,9 @@ class ServidorController extends Controller
             $servidor->cpf = preg_replace("/\D+/", "",$request->cpf);
             if (strlen($servidor->cpf ) != 11) {
                 return redirect()
-                ->back()    
-                ->withInput()
-                ->with('msgE','Não foi possível registrar o servidor! Cpf inválido!');
+                    ->back()    
+                    ->withInput()
+                    ->with('msgE','Não foi possível registrar o servidor! Cpf inválido!');
             }
 
             for ($t = 9; $t < 11; $t++) {

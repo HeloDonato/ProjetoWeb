@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Portaria extends Model
 {
@@ -43,16 +44,21 @@ class Portaria extends Model
     {
         $results = $this->where(function($query) use($filter) {
             if(count($filter) > 0) {
-                if(isset($filter['search']) /*and isset($filter['codigo'])*/) {
-                    if(auth()->user() == null || auth()->user()->tipoGrupo == 'padrao')
+                if(isset($filter['search'])) {
+                    if(!Auth::check() || auth()->user()->tipoGrupo == 'padrao'){
                         $query->where('sigilo', '=', '0')
-                            ->where('titulo', 'LIKE', "%".$filter['search']."%")
+                            ->where(function ($query) use($filter){
+                                $query->where('titulo', 'LIKE', "%".$filter['search']."%")
+                                ->orWhere('numPortaria', 'LIKE', "%".$filter['search']."%");
+                            
+                            })
+                            ->get();
+                            
+                    }elseif(auth()->user()->tipoGrupo != 'padrao'){
+                        $query->Where('titulo', 'LIKE', "%".$filter['search']."%")
                             ->orWhere('numPortaria', 'LIKE', "%".$filter['search']."%")
                             ->get();
-                    elseif(auth()->user()->tipoGrupo != 'padrao')
-                            $query->Where('titulo', 'LIKE', "%".$filter['search']."%")
-                            ->orWhere('numPortaria', 'LIKE', "%".$filter['search']."%")
-                            ->get();
+                    }
                 }
             }
         })->orderBy('dataInicial', 'DESC')->paginate(10);
