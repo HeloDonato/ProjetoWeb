@@ -59,6 +59,14 @@ class Portaria extends Model
                             ->orWhere('numPortaria', 'LIKE', "%".$filter['search']."%")
                             ->get();
                     }
+                }else{
+                    if(!Auth::check() || auth()->user()->tipoGrupo == 'padrao'){
+                        $query->where('sigilo', '=', '0')
+                            ->get();
+                            
+                    }elseif(auth()->user()->tipoGrupo != 'padrao'){
+                        $query->get();
+                    }
                 }
             }
         })->orderBy('dataInicial', 'DESC')->paginate(10);

@@ -71,9 +71,15 @@ class User extends Authenticatable
         $results = $this->where(function($query) use($filter) {
             if(count($filter) > 0) {
                 if(isset($filter['search']) /*and isset($filter['codigo'])*/) {
-                    $query->Where('nome', 'LIKE', "%".$filter['search']."%")
-                        ->orWhere('matricula', 'LIKE', "%".$filter['search']."%")
-                        ->get();
+                    $query->where('id', '!=', 1)
+                        ->where(function ($query) use($filter){
+                            $query->Where('nome', 'LIKE', "%".$filter['search']."%")
+                            ->orWhere('matricula', 'LIKE', "%".$filter['search']."%")
+                            ->get();
+                        });
+                }else{  
+                    $query->where('id', '!=', 1)
+                    ->get();
                 }
             }
         })->orderBy('nome', 'DESC')->paginate(10);

@@ -69,9 +69,9 @@
                                 @endif
                                 <td class="card-title">{{$servidor->email}}</td>
                                 <td class="card-title">
-                                    <a href="" class="btn btn-pesquisar" data-toggle="modal" data-target="#modal{{ $servidor->id }}" style="margin-bottom:3px">Info <i class="fas fa-info-circle"></i></a>      
+                                    <a href="" class="btn btn-pesquisar" data-toggle="modal" data-target="#modal3{{ $servidor->id }}" style="margin-bottom:3px">Info <i class="fas fa-info-circle"></i></a>      
 
-                                    <div class="modal fade" id="modal{{ $servidor->id }}" tabindex="-1" role="dialog" aria-hidden="true">
+                                    <div class="modal fade" id="modal3{{ $servidor->id }}" tabindex="-1" role="dialog" aria-hidden="true">
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header header-modal-info">
@@ -156,7 +156,11 @@
                 </table>
             </div>
             <div class="div-paginacao">
-                {{ $servidores->links() }}
+                @if(isset($filters['search']))
+                    {{ $servidores->appends($filters)->links() }}
+                @else
+                    {{ $servidores->links() }}
+                @endif
             </div>
         </div>
     </div>
