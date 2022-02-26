@@ -19,6 +19,14 @@
     font-family: 'Play', sans-serif !important;
 }
 
+.link-voltar{
+    color: #fff;
+}
+
+.link-voltar:hover{
+    text-decoration: none;
+}
+
 .container{
     margin-left: 10px !important;
     margin-right: 10px !important;
@@ -102,6 +110,22 @@ footer{
     margin-top: 10px;
     border-radius: 50px !important;
     height: 50px !important;
+}
+
+.btn-voltar{
+    background-color: #596c74;
+    width: 100%;
+    color: #fff;
+    margin-top: 10px;
+    border-radius: 50px !important;
+    height: 50px !important;
+    border-color: #729B79 ;
+    border-width: 2px !important;
+}
+
+.btn-voltar:hover{
+    background-color: #7c8d94;
+    color: #fff;
 }
 
 .btn-entrar:hover{

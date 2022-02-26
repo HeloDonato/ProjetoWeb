@@ -50,12 +50,18 @@
                             </div>
                             <div class="form-group row justify-content-center">
                                 <div class="col-md-8">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-
-                                        <label class="form-check-label text-dark" for="remember">
-                                            {{ __('Lembrar-me') }}
-                                        </label>
+                                    <div class="row">
+                                        <div class="form-check">
+                                            <input  type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+                                            <label class=" text-dark" for="remember">
+                                                {{ __('Lembrar-me') }}
+                                            </label>
+                                            @if (Route::has('password.request'))
+                                                <a class="btn btn-link" href="{{ route('password.request') }}">
+                                                    {{ __('Alterar Senha') }}
+                                                </a>
+                                            @endif
+                                        </div>
                                     </div>
                                 </div>
                             </div>
