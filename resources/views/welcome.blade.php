@@ -47,7 +47,7 @@
                             <th class="col-md-2">Título da Portaria</th>
                             <th class="col-md-3">Descrição da Portaria</th>
                             <th>Data Inicial</th>
-                            <th>Data Final</th>
+                            <th>Status</th>
                             <th>Informações</th>
                             @if(Auth::user())
                                 @if(Auth::user()->tipoGrupo != 'padrao')
@@ -83,10 +83,10 @@
                                 <td class="card-date">{{$portaria->descricao}}</td>
                                 <td class="card-date">{{date('d/m/Y',strtotime($portaria->dataInicial))}}</td>
                                 <td class="card-date">
-                                    @if($portaria->dataFinal == null)
-                                        Sem data 
-                                    @else
-                                        {{date('d/m/Y',strtotime($portaria->dataFinal))}}
+                                    @if(($portaria->tipo == 1 && $portaria->permaStatus == 0) or ($portaria->tipo == 0 && $portaria->dataFinal >= $mytime = date('Y-m-d')))
+                                        Ativa
+                                    @elseif(($portaria->tipo == 1 && $portaria->permaStatus == 1) or ($portaria->tipo == 0 && $portaria->dataFinal < $mytime = date('Y-m-d')))
+                                        Inativa 
                                     @endif
                                 </td>
                                 <td class="card-title">

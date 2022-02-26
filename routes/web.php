@@ -5,6 +5,7 @@ use App\Http\Controllers\PortariaController;
 use App\Http\Controllers\ServidorController;
 use App\Http\Controllers\RelatorioController;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
