@@ -121,7 +121,7 @@ class ServidorController extends Controller
 
     public function edit($id){
 
-        $servidor = User::findOrFail($id);
+        $servidor = User::join('servidores', 'users.id', '=', 'servidores.usuario_id')->findOrFail($id);
         //dd($portaria->id);
 
         return view('servidores.edit',['servidor' => $servidor]);
@@ -139,7 +139,16 @@ class ServidorController extends Controller
 
     public function update(Request $request){
         try{
-            User::findOrFail($request->id)->update($request->all());
+            $user =  User::findOrFail($request->id);
+                $user->email = $request->email;
+            $servidor = Servidor::findOrFail($request->id);
+                $servidor->nome = $request->nome;
+                $servidor->cpf = $request->cpf;
+                $servidor->matricula = $request->matricula;
+                $servidor->cargo = $request->cargo;
+                $servidor->funcao = $request->funcao;
+            $user->update();
+            $servidor->update();
         return redirect('/servidor/show')->with('msg','Servidor editado com sucesso!');
         }catch(QueryException $e){
         return redirect('/servidor/show')->with('msgE','Erro ao editar servidor!');
