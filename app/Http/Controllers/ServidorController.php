@@ -6,6 +6,7 @@ use Illuminate\Console\Scheduling\Event;
 use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
 use App\Models\User;
+use App\Models\Servidor;
 use Illuminate\Support\Facades\Hash;
 use Facade\FlareClient\Http\Response;
 use Illuminate\Support\Facades\DB;
@@ -16,14 +17,14 @@ class ServidorController extends Controller
 {
     public function index()
     {
-        $servidores = DB::table('users')->where('users.id', 'not like', '1')->orderBy('users.nome')->paginate(10);
+        $servidores = DB::table('users')->join('servidores', 'users.id', '=', 'servidores.usuario_id')->where('users.id', 'not like', '1')->orderBy('servidores.nome')->paginate(10);
         return view('servidores.show',['servidores'=> $servidores]);
+
     }
 
     public  function search(Request $request, User $servidor){
         $servidor = new User();
         $search = $request->except('_token');
-
         $servidores = $servidor->search($request->except('_token'));
 
         //dd($portarias);
@@ -39,13 +40,13 @@ class ServidorController extends Controller
 
     public function store(Request $request){
         
-        $servidor = new User;
-        
+        $user = new User;
 
         try{
-            $servidor->email = $request->email;
-            $servidor->password = Hash::make(preg_replace("/\D+/", "",$request->cpf));
-            $servidor->tipoGrupo = 'padrao';  
+            $user->email = $request->email;
+            $user->password = Hash::make(preg_replace("/\D+/", "",$request->cpf));
+            $user->tipoGrupo = 'padrao';  
+            $servidor = new Servidor;
             $servidor->nome = $request->nome;
             $servidor->matricula = $request->matricula;
 
@@ -69,11 +70,11 @@ class ServidorController extends Controller
                 
             $servidor->cargo = $request->cargo;
             $servidor->funcao = $request->funcao;
-            $servidor->alter_password = 0;
+            $user->alter_password = 0;
 
 
             
-            $registros = User::all();
+            $registros = Servidor::all();
 
             //Retornando mensagem de erro caso o número da portaria já exista no banco     
             foreach($registros as $registro){
@@ -91,14 +92,15 @@ class ServidorController extends Controller
                             ->with('msgE','Não foi possível registrar o servidor! Número de cpf já registrado!');
                 }
 
-                else if($registro->email == $servidor->email){
+                else if($registro->email == $user->email){
                     return redirect()
                             ->back()    
                             ->withInput()
                             ->with('msgE','Não foi possível registrar o servidor! E-mail já registrado!');
                 }
             }
-
+            $user->save();
+            $servidor->usuario_id = $user->id;
             $servidor->save();
 
             return redirect('/servidor/show')->with('msg','Servidor adicionado com sucesso!');

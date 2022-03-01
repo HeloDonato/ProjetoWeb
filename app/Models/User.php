@@ -57,8 +57,8 @@ class User extends Authenticatable
     //relacao many to many
     public function portariaServidors($id)
     {
-        $results = User::select('users.nome', 'users.sobrenome', 'users.matricula', 'portarias.numPortaria', 'portarias.titulo')
-            ->join('servidores_portarias', 'users.id', 'servidores_portarias.portaria_id')
+        $results = User::select('servidores.nome', 'servidores.sobrenome', 'servidores.matricula', 'portarias.numPortaria', 'portarias.titulo')
+            ->join('servidores', 'users.id', '=', 'servidores.usuario_id')
             ->join('portarias','servidores_portarias.portaria_id', 'portarias.id')
             ->where('servidores_portarias.usuario_id', '=', $id)->get();
             
@@ -90,6 +90,7 @@ class User extends Authenticatable
     public function portariasTotais($id){
         $total = DB::select("SELECT COUNT(u.id) AS total FROM servidores_portarias AS sp 
                             INNER JOIN users AS u ON u.id = sp.usuario_id 
+                            INNER JOIN servidores AS s ON s.usuario_id = u.id
                             INNER JOIN portarias AS p ON p.id = sp.portaria_id 
                             WHERE u.id = $id"
         );
@@ -99,6 +100,7 @@ class User extends Authenticatable
     public function portariasTemporarias($id){
         $temporarias = DB::select("SELECT COUNT(u.id) AS temporarias FROM servidores_portarias AS sp 
                                     INNER JOIN users AS u ON u.id = sp.usuario_id 
+                                    INNER JOIN servidores AS s ON s.usuario_id = u.id
                                     INNER JOIN portarias AS p ON p.id = sp.portaria_id
                                     WHERE p.tipo = 0
                                     AND u.id = $id"
@@ -110,6 +112,7 @@ class User extends Authenticatable
     public function portariasPermanentes($id){
         $permanentes = DB::select("SELECT COUNT(u.id) AS permanentes FROM servidores_portarias AS sp 
                                     INNER JOIN users AS u ON u.id = sp.usuario_id 
+                                    INNER JOIN servidores AS s ON s.usuario_id = u.id
                                     INNER JOIN portarias AS p ON p.id = sp.portaria_id
                                     WHERE p.tipo = 1
                                     AND u.id = $id"
@@ -121,6 +124,7 @@ class User extends Authenticatable
     public function portariasAtivas($id, $dataAtual){
         $ativas = DB::select("SELECT COUNT(u.id) AS ativas FROM servidores_portarias AS sp 
                                 INNER JOIN users AS u ON u.id = sp.usuario_id 
+                                INNER JOIN servidores AS s ON s.usuario_id = u.id
                                 INNER JOIN portarias AS p ON p.id = sp.portaria_id
                                 WHERE ((p.tipo = 0 AND p.dataFinal >= '$dataAtual')
                                 OR (p.tipo = 1 AND p.permaStatus = 0))
@@ -147,6 +151,7 @@ class User extends Authenticatable
         //dd($dataAtual);
         $publicas = DB::select("SELECT COUNT(u.id) AS publicas FROM servidores_portarias AS sp 
                                 INNER JOIN users AS u ON u.id = sp.usuario_id 
+                                INNER JOIN servidores AS s ON s.usuario_id = u.id
                                 INNER JOIN portarias AS p ON p.id = sp.portaria_id
                                 WHERE p.sigilo = 0
                                 AND u.id = $id"
@@ -159,6 +164,7 @@ class User extends Authenticatable
         //dd($dataAtual);
         $sigilosas = DB::select("SELECT COUNT(u.id) AS sigilosas FROM servidores_portarias AS sp 
                                 INNER JOIN users AS u ON u.id = sp.usuario_id 
+                                INNER JOIN servidores AS s ON s.usuario_id = u.id
                                 INNER JOIN portarias AS p ON p.id = sp.portaria_id
                                 WHERE p.sigilo = 1
                                 AND u.id = $id"
@@ -171,6 +177,7 @@ class User extends Authenticatable
         //dd($dataAtual);
         $campus = DB::select("SELECT COUNT(u.id) AS campus FROM servidores_portarias AS sp 
                                 INNER JOIN users AS u ON u.id = sp.usuario_id 
+                                INNER JOIN servidores AS s ON s.usuario_id = u.id
                                 INNER JOIN portarias AS p ON p.id = sp.portaria_id
                                 WHERE p.origem = 'Campus'
                                 AND u.id = $id"
@@ -183,6 +190,7 @@ class User extends Authenticatable
         //dd($dataAtual);
         $reitoria = DB::select("SELECT COUNT(u.id) AS reitoria FROM servidores_portarias AS sp 
                                 INNER JOIN users AS u ON u.id = sp.usuario_id 
+                                INNER JOIN servidores AS s ON s.usuario_id = u.id
                                 INNER JOIN portarias AS p ON p.id = sp.portaria_id
                                 WHERE p.origem = 'Reitoria'
                                 AND u.id = $id"

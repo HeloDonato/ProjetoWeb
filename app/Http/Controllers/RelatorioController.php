@@ -14,19 +14,19 @@ class RelatorioController extends Controller
 {
     public function index()
     {   
-        $user = User::all();
+        $user = User::join('servidores', 'users.id', '=', 'servidores.usuario_id')->get();
         return view('relatorios.options')->with( 'users', $user);
     }
 
     public function servidorIndividual(Request $request){
         $id = $request->id_servidor;
-        $servidor = User::find($id);
+        $servidor = User::join('servidores', 'users.id', '=', 'servidores.usuario_id')->get()->find($id);
         //dd($servidor);
         return view('relatorios.individual')->with( 'servidor', $servidor);
     }
 
     public function rankingServidores(){
-        $servidores = User::orderBy('nome', 'asc')->get();
+        $servidores = User::join('servidores', 'users.id', '=', 'servidores.usuario_id')->orderBy('servidores.nome', 'asc')->get();
 
         return view('relatorios.ranking')
             ->with('servidores', $servidores);
