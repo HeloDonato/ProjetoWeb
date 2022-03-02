@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateServidoresPortariasTable extends Migration
+class CreateServidoresPortariaTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class CreateServidoresPortariasTable extends Migration
     public function up()
     {
         Schema::create('servidores_portarias', function (Blueprint $table) {
-            $table->foreignId('usuario_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreignId('servidores_id')->references('id')->on('servidores');
             $table->foreignId('portaria_id')->references('id')->on('portarias')->onDelete('cascade');
             $table->timestamps();
         });
@@ -27,6 +27,6 @@ class CreateServidoresPortariasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('servidores_portarias');
+        Schema::dropIfExists('servidores_portaria');
     }
 }
