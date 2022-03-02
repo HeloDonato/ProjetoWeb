@@ -23,5 +23,25 @@ class Servidor extends Model
         return $this->belongsTo(User::class, 'usuario_id');
     }
 
+    public function searchServidores($filter = null)
+    {
+        $results = $this->where(function($query) use($filter) {
+            if(count($filter) > 0) {
+                if(isset($filter['search'])) {
+                    $query->where('usuario_id', '!=', 1)
+                        ->where(function ($query) use($filter){
+                            $query->Where('nome', 'LIKE', "%".$filter['search']."%")
+                                    ->orWhere('matricula', 'LIKE', "%".$filter['search']."%")
+                                    ->get();
+                        }); 
+                }else{  
+                    $query->where('usuario_id', '!=', 1)
+                    ->get();
+                }
+            }
+        })->orderBy('nome', 'ASC')->paginate(10); 
+
+        return $results;
+    }
     use HasFactory;
 }

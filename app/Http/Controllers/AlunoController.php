@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Aluno;
 use Illuminate\Console\Scheduling\Event;
 use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
@@ -13,28 +14,28 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 
-class ServidorController extends Controller
+class AlunoController extends Controller
 {
     public function index()
     {
-        $servidores = Servidor::where('usuario_id', 'not like', '1')->orderBy('servidores.nome')->paginate(10);
-        return view('servidores.show',['servidores'=> $servidores]);
+        $alunos = Aluno::where('usuario_id', 'not like', '1')->orderBy('alunos.nome')->paginate(10);
+        return view('alunos.show',['alunos'=> $alunos]);
     }
 
-    public  function search(Request $request, User $servidor){
-        $servidor = new Servidor();
+    public  function search(Request $request, User $aluno){
+        $aluno = new Aluno();
         $search = $request->except('_token');
-        $servidores = $servidor->searchServidores($request->except('_token'));
+        $alunos = $aluno->search($request->except('_token'));
 
         //dd($portarias);
-        return view('servidores.show', [
-            'servidores' => $servidores,
+        return view('alunos.show', [
+            'alunos' => $alunos,
             'filters' => $search,
         ]);
     }
 
     public function create(){
-        return view('servidores.create');
+        return view('alunos.create');
     }
 
     public function store(Request $request){
@@ -45,74 +46,73 @@ class ServidorController extends Controller
             $user->email = $request->email;
             $user->password = Hash::make(preg_replace("/\D+/", "",$request->cpf));
             $user->tipoGrupo = 'padrao';  
-            $servidor = new Servidor;
-            $servidor->nome = $request->nome;
-            $servidor->matricula = $request->matricula;
+            $aluno = new Aluno;
+            $aluno->nome = $request->nome;
+            $aluno->matricula = $request->matricula;
 
-            $servidor->cpf = preg_replace("/\D+/", "",$request->cpf);
-            if (strlen($servidor->cpf ) != 11) {
+            $aluno->cpf = preg_replace("/\D+/", "",$request->cpf);
+            if (strlen($aluno->cpf ) != 11) {
                 return redirect()
                     ->back()    
                     ->withInput()
-                    ->with('msgE','Não foi possível registrar o servidor! Cpf inválido!');
+                    ->with('msgE','Não foi possível registrar o aluno! Cpf inválido!');
             }
 
             for ($t = 9; $t < 11; $t++) {
                 for ($d = 0, $c = 0; $c < $t; $c++) {
-                    $d += $servidor->cpf[$c] * (($t + 1) - $c);
+                    $d += $aluno->cpf[$c] * (($t + 1) - $c);
                 }
                 $d = ((10 * $d) % 11) % 10;
-                if ($servidor->cpf[$c] != $d) {
-                    return redirect()->back()->with('msgE','Não foi possível registrar o servidor! Cpf inválido!');;
+                if ($aluno->cpf[$c] != $d) {
+                    return redirect()->back()->with('msgE','Não foi possível registrar o aluno! Cpf inválido!');;
                 }
             }
                 
-            $servidor->cargo = $request->cargo;
-            $servidor->funcao = $request->funcao;
+            //$aluno->curso = $request->curso;
+            //$aluno->turma = $request->turma;
             $user->alter_password = 0;
-
-
             
-            $registros = Servidor::all();
+            $registros = Aluno::all();
 
-            //Retornando mensagem de erro caso o número da portaria já exista no banco     
+            //Retornando mensagem de erro caso o número de matrícula já exista no banco     
             foreach($registros as $registro){
-                if($registro->matricula == $servidor->matricula){
+                if($registro->matricula == $aluno->matricula){
                     return redirect()
                             ->back()    
                             ->withInput()
-                            ->with('msgE','Não foi possível registrar o servidor! Número da matricula já registrado!');
+                            ->with('msgE','Não foi possível registrar o aluno! Número da matricula já registrado!');
                 }
            
-                else if($registro->cpf == $servidor->cpf){
+                else if($registro->cpf == $aluno->cpf){
                     return redirect()
                             ->back()    
                             ->withInput()
-                            ->with('msgE','Não foi possível registrar o servidor! Número de cpf já registrado!');
+                            ->with('msgE','Não foi possível registrar o aluno! Número de cpf já registrado!');
                 }
 
                 else if($registro->email == $user->email){
                     return redirect()
                             ->back()    
                             ->withInput()
-                            ->with('msgE','Não foi possível registrar o servidor! E-mail já registrado!');
+                            ->with('msgE','Não foi possível registrar o aluno! E-mail já registrado!');
                 }
             }
             $user->save();
-            $servidor->usuario_id = $user->id;
-            $servidor->save();
+            $aluno->usuario_id = $user->id;
+            $aluno->save();
 
-            return redirect('/servidor/show')->with('msg','Servidor adicionado com sucesso!');
+            return redirect('/aluno/show')->with('msg','Aluno adicionado com sucesso!');
         }catch(QueryException $e){
-            return redirect()->back()->with('msgE','Erro ao criar servidor!');
+            return redirect()->back()->with('msgE','Erro ao cadastrar aluno!');
         }
     }
 
     public function destroy($id){
-        $servidor = User::find($id);
+        $aluno = User::find($id);
+
         try{
-            $servidor->delete();
-            return redirect()->back()->with('msg','Servidor excluído com sucesso!!');
+            $aluno->delete();
+            return redirect()->back()->with('msg','Aluno excluído com sucesso!!');
         }catch(QueryException $e){
             return redirect()->back()->with('msgE','Erro ao excluir!');
         }
@@ -120,19 +120,19 @@ class ServidorController extends Controller
 
     public function edit($id){
 
-        $servidor = User::join('servidores', 'users.id', '=', 'servidores.usuario_id')->findOrFail($id);
+        $aluno = User::join('servidores', 'users.id', '=', 'servidores.usuario_id')->findOrFail($id);
         //dd($portaria->id);
 
-        return view('servidores.edit',['servidor' => $servidor]);
+        return view('servidores.edit',['servidor' => $aluno]);
 
     }
     
     public function editProfile($id){
 
-        $servidor = User::findOrFail($id);
+        $aluno = User::findOrFail($id);
         //dd($portaria->id);
 
-        return view('servidores.editProfile',['servidor' => $servidor]);
+        return view('servidores.editProfile',['servidor' => $aluno]);
 
     }
 
@@ -140,14 +140,14 @@ class ServidorController extends Controller
         try{
             $user =  User::findOrFail($request->id);
                 $user->email = $request->email;
-            $servidor = Servidor::findOrFail($request->id);
-                $servidor->nome = $request->nome;
-                $servidor->cpf = $request->cpf;
-                $servidor->matricula = $request->matricula;
-                $servidor->cargo = $request->cargo;
-                $servidor->funcao = $request->funcao;
+            $aluno = Servidor::findOrFail($request->id);
+                $aluno->nome = $request->nome;
+                $aluno->cpf = $request->cpf;
+                $aluno->matricula = $request->matricula;
+                $aluno->cargo = $request->cargo;
+                $aluno->funcao = $request->funcao;
             $user->update();
-            $servidor->update();
+            $aluno->update();
         return redirect('/servidor/show')->with('msg','Servidor editado com sucesso!');
         }catch(QueryException $e){
         return redirect('/servidor/show')->with('msgE','Erro ao editar servidor!');
@@ -193,11 +193,11 @@ class ServidorController extends Controller
     
     
     public function alterarGrupo(Request $request){
-        $servidor = User::findOrFail($request->id);
+        $aluno = User::findOrFail($request->id);
 
         try{
-            $servidor->tipoGrupo = $request->tipoGrupo;
-            $servidor->save();
+            $aluno->tipoGrupo = $request->tipoGrupo;
+            $aluno->save();
             return redirect('/servidor/show')->with('msg','Servidor editado com sucesso!');
         }catch(QueryException $e){
             return redirect('/servidor/show')->with('msgE','Erro ao editar servidor!');

@@ -67,7 +67,7 @@
                                 @if(Auth::check() and Auth::user()->tipoGrupo != 'padrao')
                                     <td><font class="cpf">{{$servidor->cpf}}</font></th>
                                 @endif
-                                <td class="card-title">{{$servidor->email}}</td>
+                                <td class="card-title">{{$servidor->usuario->email}}</td>
                                 <td class="card-title">
                                     <a href="" class="btn btn-pesquisar" data-toggle="modal" data-target="#modal3{{ $servidor->id }}" style="margin-bottom:3px">Info <i class="fas fa-info-circle"></i></a>      
 

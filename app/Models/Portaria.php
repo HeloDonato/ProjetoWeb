@@ -82,7 +82,7 @@ class Portaria extends Model
     {   
         $results = Portaria::select('*')
             ->join('servidores_portarias', 'portarias.id', 'servidores_portarias.portaria_id')
-            ->where('servidores_portarias.servidores_id', '=', $idServidor)
+            ->where('servidores_portarias.servidor_id', '=', $idServidor)
             ->orderBy('dataInicial', 'DESC')->paginate(10);
 
         return $results;

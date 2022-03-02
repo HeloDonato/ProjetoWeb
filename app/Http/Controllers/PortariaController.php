@@ -125,7 +125,7 @@ class PortariaController extends Controller
                             if($id_servidor == $servidor->id){
                                 $portaria_servidor = new ServidorPortaria;
                                 $portaria_servidor->portaria_id= $id_portaria;
-                                $portaria_servidor->usuario_id = $id_servidor;
+                                $portaria_servidor->servidor_id = $id_servidor;
                                 $portaria_servidor->save();
                             }
                         }

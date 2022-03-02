@@ -70,6 +70,9 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('servidor.show') }}">{{ __('Servidores') }}</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('aluno.show') }}">{{ __('Alunos') }}</a>
+                        </li>
                         @guest
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('login') }}">{{ __('Entrar') }} <i class="fas fa-sign-in-alt nav-icon fa-lg"></i></a>
@@ -92,6 +95,11 @@
                                         <li>
                                             <a class="dropdown-item" href="{{ route('servidor.create') }}">
                                                 {{ __('Cadastrar Servidor') }}
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="{{ route('aluno.create') }}">
+                                                {{ __('Cadastrar Aluno') }}
                                             </a>
                                         </li>
                                         <li>

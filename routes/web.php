@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PortariaController;
 use App\Http\Controllers\ServidorController;
 use App\Http\Controllers\RelatorioController;
+use App\Http\Controllers\AlunoController;
 
 
 /*
@@ -36,6 +37,11 @@ Route::group(['prefix' => 'servidor'], function(){
     Route::any('/search',[ServidorController::class,'search'])->name('servidor.search');
 });
 
+Route::group(['prefix' => 'aluno'], function(){
+    Route::get('/show',  [AlunoController::class, 'index'])->name('aluno.show');
+    Route::any('/search',[AlunoController::class,'search'])->name('aluno.search');
+});
+
 Route::group(['middleware' => 'auth'], function(){
 
     Route::group(['prefix' => 'portaria'], function(){
@@ -64,6 +70,15 @@ Route::group(['middleware' => 'auth'], function(){
             Route::get('/create',  [ServidorController::class, 'create'])->name('servidor.create');
             Route::post('/create/novo',  [ServidorController::class, 'store'])->name('servidor.store');
         });
+
+        Route::group(['prefix' => 'aluno'], function(){
+            Route::get('/delete/{id}',  [AlunoController::class, 'destroy'])->name('aluno.destroy');
+            Route::get('/edit/{id}',    [AlunoController::class, 'edit'])->name('aluno.edit');
+            Route::put('/update/{id}',  [AlunoController::class, 'update'])->name('aluno.update');
+            //Route::any('/busca',  [ServidorController::class, 'search']);
+            Route::get('/create',       [AlunoController::class, 'create'])->name('aluno.create');
+            Route::post('/create/novo', [AlunoController::class, 'store'])->name('aluno.store');
+        });
     
         Route::group(['prefix' => 'relatorios'], function(){
             Route::get('/options',  [RelatorioController::class, 'index'])->name('relatorios.options');
@@ -73,6 +88,7 @@ Route::group(['middleware' => 'auth'], function(){
             //Route::any('/busca',  [ServidorController::class, 'search']);
     
         });
+
         Route::group(['middleware' => 'super'], function(){ 
             Route::group(['prefix' => 'super'], function(){
                 Route::put('/update/{id}',  [ServidorController::class, 'alterarGrupo'])->name('grupo.update');

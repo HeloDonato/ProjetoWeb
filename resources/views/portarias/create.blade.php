@@ -71,7 +71,7 @@
                         <select data-live-search="true" name="id_servidor[]" multiple class="form-control cad-servidor chosen-select" required> 
                             <option value="" disabled selected>Selecione </option>
                             @foreach ($servidores as $servidor)
-                                <option value="{{$servidor->id}}"> {{$servidor->nome }}</option>
+                                <option value="{{$servidor->usuario_id}}"> {{$servidor->nome }}</option>
                             @endforeach
                         </select>
                     </div>

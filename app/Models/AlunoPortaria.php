@@ -8,9 +8,9 @@ use Illuminate\Support\Facades\DB;
 
 class ServidorPortaria extends Model
 {
-    protected $table = 'servidores_portarias';
+    protected $table = 'alunos_portarias';
     protected $fillable = [
-        'servidor_id',
+        'aluno_id',
         'portaria_id',
     ];
 
@@ -28,7 +28,7 @@ class ServidorPortaria extends Model
     protected $guarded = [];//tudo q for enviado pelo post pode ser atualizado
 
     public function servidor(){
-        return $this->belongsTo(Servidor::class, 'servidor_id');
+        return $this->belongsTo(User::class, 'aluno_id');
     }
 
     public function portaria(){

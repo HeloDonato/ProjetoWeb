@@ -10,18 +10,10 @@
     <title>Portarias</title>
 
     <!-- Scripts -->
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="{{ asset('js/app.js') }}" defer></script>
-    <script src="http://harvesthq.github.io/chosen/chosen.jquery.js" defer></script>
-    <script src="http://harvesthq.github.io/chosen/chosen.jquery.js" defer></script>
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
-    <script>
-        $(function() {
-            $('.chosen-select').chosen();
-            $('.chosen-select-deselect').chosen({ allow_single_deselect: true });
-        });
-    </script>
+
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
@@ -33,7 +25,6 @@
     <link type="text/css" rel="stylesheet" href="{{ mix('css/app.css') }}">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/config.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/chosen.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
     <script>
@@ -42,17 +33,32 @@
             $cpf.mask('000.000.000-00', {reverse: true});
         });
     </script>
+
 </head>
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-md" style="justify-content:space-between">
+            @if((Auth::check() and Auth::user()->tipoGrupo!='padrao'))
+                <div class="container" style="width: 60%;">
+            @else
+                <div class="container" style="width: 100%;">
+            @endif
+                    <a class="navbar-brand" href="{{ url('/') }}">
+                        <img src="{{ asset('img/log_almenara_png.png') }}" class="logo_almenara"/>
+                    </a>
+                </div>
+
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                   <img src="{{ asset('img/log_almenara_png.png') }}" class="logo_almenara"/>
-                </a>
+                <form action="{{route('aluno.search')}}" method="POST" class="form-pesquisa">
+                    @csrf
+                    <div class="input-group">
+                        <input id="search" name="search" value="{{$filters['search'] ?? ''}}" class="form-control" type="text" placeholder="Pesquisar aluno (nome, matrícula)" >
+                        <button type="submit" class="btn btn-pesquisar">Pesquisar</button>
+                    </div>
+                </form>
             </div>
                 
-            <div class="container">
+            <div class="container container-links">
                 <div class="navbar-conteudo">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
@@ -61,17 +67,17 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto" style="justify-content: right">
                         <!-- Authentication Links -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('servidor.show') }}">{{ __('Servidores') }}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('aluno.show') }}">{{ __('Alunos') }}</a>
+                        </li>
                         @guest
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}"><i class="fas fa-sign-in-alt nav-icon fa-lg"></i> {{ __('Entrar') }}</a>
+                                <a class="nav-link" href="{{ route('login') }}">{{ __('Entrar') }} <i class="fas fa-sign-in-alt nav-icon fa-lg"></i></a>
                             </li>
                         @else
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('servidor.show') }}">{{ __('Servidores') }}</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('aluno.show') }}">{{ __('Alunos') }}</a>
-                            </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('portaria.myportarias') }}">{{ __('Minhas Portarias') }}</a>
                             </li>
@@ -98,7 +104,7 @@
                                         </li>
                                         <li>
                                             <a class="dropdown-item" href="{{route('relatorios.options')}}">
-                                            {{ __('Relatórios') }}
+                                                {{ __('Relatórios') }}
                                             </a>
                                         </li>
                                     </ul>
@@ -106,7 +112,7 @@
                             @endif    
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    Perfil
+                                     Perfil
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
@@ -144,11 +150,14 @@
 
             @yield('content')
         </main>
-
+        
         <footer class="text-center text-lg-start">
             Rodovia BR 367 Almenara/Jequitinhonha, km 111, Zona Rural, Almenara-MG - CEP:39900-000 <br>
             Fone: (038) 3218-7385 - Email: comunicacao.almenara@ifnmg.edu.br
         </footer>
     </div>
+         
+           
+
 </body>
 </html>

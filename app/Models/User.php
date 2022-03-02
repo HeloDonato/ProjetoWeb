@@ -177,4 +177,6 @@ class User extends Authenticatable
 
         return $reitoria[0]->reitoria;
     }
+
+    
 }
