@@ -43,7 +43,7 @@ class PortariaController extends Controller
     }
 
     public function create(){
-        $servidores = DB::table('users')->where('users.id', 'not like', '1')->get();
+        $servidores = DB::table('servidores')->where('servidores.usuario_id', 'not like', '1')->get();
         return view('portarias.create')->with('servidores', $servidores);
     }
 
