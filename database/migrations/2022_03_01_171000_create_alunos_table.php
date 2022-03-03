@@ -18,6 +18,8 @@ class CreateAlunosTable extends Migration
             $table->string('nome');
             $table->string('matricula')->unique();
             $table->string('cpf')->unique();
+            $table->string('curso');
+            $table->string('turma');
             $table->foreignId('usuario_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });

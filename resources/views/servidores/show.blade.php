@@ -95,7 +95,7 @@
                                 </td>
                                 @if(Auth::check() and Auth::user()->tipoGrupo != 'padrao')
                                     <td>
-                                        <a href="{{ route('servidor.edit', $servidor->id) }}" class="btn btn-pesquisar edit-btn" style="margin-bottom:3px">Editar <i class="fas fa-edit"></i></a>
+                                        <a href="{{ route('servidor.edit', $servidor->usuario_id) }}" class="btn btn-pesquisar edit-btn" style="margin-bottom:3px">Editar <i class="fas fa-edit"></i></a>
                                         <a href="" class="btn btn-danger" data-toggle="modal" data-target="#modal{{ $servidor->id }}" style="margin-bottom:3px">Excluir <i class="fas fa-trash-alt"></i></a>
                                         @if(Auth::user()->tipoGrupo == 'super')
                                             <a href="" class="btn btn-secondary" data-toggle="modal" data-target="#modal2{{ $servidor->id }}" style="margin-bottom:3px">Acesso <i class="fas fa-user-shield"></i></a>      
@@ -137,9 +137,9 @@
                                                         <div class="modal-body">
                                                             {{ Form::model($servidor,['route' => ['grupo.update', $servidor->id], 'method' => "PUT"]) }}
                                                             <select name="tipoGrupo" class="form-control">
-                                                                <option value="admin">Admin </option>
-                                                                <option value="padrao">Padrão</option>
-                                                                <option value="super">Super</option>
+                                                                <option value="admin" {{ $servidor->usuario->tipoGrupo == 'admin' ? 'selected' : '' }}> Admin </option>
+                                                                <option value="padrao" {{ $servidor->usuario->tipoGrupo == 'padrao' ? 'selected' : '' }}> Padrão</option>
+                                                                <option value="super" {{ $servidor->usuario->tipoGrupo == 'super' ? 'selected' : '' }}> Super</option>
                                                             </select>
                                                             <input type="submit" class="btn btn-enviar" value="Alterar">
                                                             {{Form::close()}}

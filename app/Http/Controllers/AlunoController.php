@@ -68,8 +68,8 @@ class AlunoController extends Controller
                 }
             }
                 
-            //$aluno->curso = $request->curso;
-            //$aluno->turma = $request->turma;
+            $aluno->curso = $request->curso;
+            $aluno->turma = $request->turma;
             $user->alter_password = 0;
             
             $registros = Aluno::all();
@@ -119,11 +119,10 @@ class AlunoController extends Controller
     }
 
     public function edit($id){
-
-        $aluno = User::join('servidores', 'users.id', '=', 'servidores.usuario_id')->findOrFail($id);
+        $aluno = User::join('alunos', 'users.id', '=', 'alunos.usuario_id')->findOrFail($id);
         //dd($portaria->id);
 
-        return view('servidores.edit',['servidor' => $aluno]);
+        return view('alunos.edit',['aluno' => $aluno]);
 
     }
     
@@ -132,25 +131,26 @@ class AlunoController extends Controller
         $aluno = User::findOrFail($id);
         //dd($portaria->id);
 
-        return view('servidores.editProfile',['servidor' => $aluno]);
+        return view('alunos.editProfile',['aluno' => $aluno]);
 
     }
 
-    public function update(Request $request){
+    public function update(Request $request){       
         try{
-            $user =  User::findOrFail($request->id);
-                $user->email = $request->email;
-            $aluno = Servidor::findOrFail($request->id);
+            $aluno = ALuno::findOrFail($request->id);
                 $aluno->nome = $request->nome;
                 $aluno->cpf = $request->cpf;
                 $aluno->matricula = $request->matricula;
-                $aluno->cargo = $request->cargo;
-                $aluno->funcao = $request->funcao;
+                $aluno->curso = $request->curso;
+                $aluno->turma = $request->turma;
+            $user =  User::findOrFail($aluno->usuario_id);
+                $user->email = $request->email;
             $user->update();
             $aluno->update();
-        return redirect('/servidor/show')->with('msg','Servidor editado com sucesso!');
+        return redirect('/aluno/show')->with('msg','Aluno editado com sucesso!');
         }catch(QueryException $e){
-        return redirect('/servidor/show')->with('msgE','Erro ao editar servidor!');
+            dd($e);
+        return redirect('/aluno/show')->with('msgE','Erro ao editar aluno!');
         }
     }
 
@@ -190,18 +190,5 @@ class AlunoController extends Controller
                 } 
             }   
         }
-    
-    
-    public function alterarGrupo(Request $request){
-        $aluno = User::findOrFail($request->id);
-
-        try{
-            $aluno->tipoGrupo = $request->tipoGrupo;
-            $aluno->save();
-            return redirect('/servidor/show')->with('msg','Servidor editado com sucesso!');
-        }catch(QueryException $e){
-            return redirect('/servidor/show')->with('msgE','Erro ao editar servidor!');
-        }
-    }
 
 }

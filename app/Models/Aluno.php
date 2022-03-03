@@ -13,6 +13,8 @@ class Aluno extends Model
         'nome',
         'sobrenome',
         'matricula',
+        'curso',
+        'turma',
         'cpf',
     ];
     use HasFactory;

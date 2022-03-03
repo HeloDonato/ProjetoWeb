@@ -49,11 +49,12 @@
                                 <th class="col-md-2">CPF</th>
                             @endif
                             <th>E-mail</th>
+                            <th>Detalhes</th>
                             <!--<th>Turma</th> -->
                             @if(Auth::check() and Auth::user()->tipoGrupo != 'padrao')
                                 <th class="col-md-3">Ações</th>
                             @endif
-                        </tr>
+                        </tr>   
                     </thead>
                     <tbody>
                         @foreach($alunos as $aluno)
@@ -68,10 +69,30 @@
                                     <td><font class="cpf">{{$aluno->cpf}}</font></th>
                                 @endif
                                 <td class="card-title">{{$aluno->usuario->email}}</td>
+
+                                <td class="card-title">
+                                    <a href="" class="btn btn-pesquisar" data-toggle="modal" data-target="#modal3{{ $aluno->id }}" style="margin-bottom:3px">Info <i class="fas fa-info-circle"></i></a>      
+
+                                    <div class="modal fade" id="modal3{{ $aluno->id }}" tabindex="-1" role="dialog" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header header-modal-info">
+                                                    <h5 class="modal-title"><strong>Aluno: </strong>{{ $aluno->nome}}</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <span class="span-modal-info">Curso:</span> {{$aluno->curso}}<br><hr>
+                                                    <span class="span-modal-info">Turma:</span> {{$aluno->turma}}<br><hr>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 <!-- <td class="card-title"></td> -->
                                 @if(Auth::check() and Auth::user()->tipoGrupo != 'padrao')
                                     <td>
-                                        <a href="{{ route('servidor.edit', $aluno->usuario_id) }}" class="btn btn-pesquisar edit-btn" style="margin-bottom:3px">Editar <i class="fas fa-edit"></i></a>
+                                        <a href="{{ route('aluno.edit', $aluno->usuario_id) }}" class="btn btn-pesquisar edit-btn" style="margin-bottom:3px">Editar <i class="fas fa-edit"></i></a>
                                         <a href="" class="btn btn-danger" data-toggle="modal" data-target="#modal{{ $aluno->id }}" style="margin-bottom:3px">Excluir <i class="fas fa-trash-alt"></i></a>
 
                                         <div class="modal fade" id="modal{{ $aluno->id  }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
