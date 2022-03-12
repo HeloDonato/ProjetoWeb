@@ -88,14 +88,23 @@ class Portaria extends Model
         return $results;
     }
 
-    
+    public function minhasPortariasAlunos($idAluno)
+    {   
+        $results = Portaria::select('*')
+            ->join('alunos_portarias', 'portarias.id', 'alunos_portarias.portaria_id')
+            ->where('alunos_portarias.aluno_id', '=', $idAluno)
+            ->orderBy('dataInicial', 'DESC')->paginate(10);
+
+        return $results;
+    }
+
     public function portariaServidor($idServidor)
     {   
         if(auth()->user() == null || auth()->user()->tipoGrupo == 'padrao')
         {
             $results = Portaria::select('*')
             ->join('servidores_portarias', 'portarias.id', 'servidores_portarias.portaria_id')
-            ->where('servidores_portarias.usuario_id', '=', $idServidor)
+            ->where('servidores_portarias.servidor_id', '=', $idServidor)
             ->where('sigilo', '=', '0')
             ->orderBy('dataInicial', 'DESC')->paginate(10);
 
@@ -105,7 +114,30 @@ class Portaria extends Model
         {
             $results = Portaria::select('*')
             ->join('servidores_portarias', 'portarias.id', 'servidores_portarias.portaria_id')
-            ->where('servidores_portarias.usuario_id', '=', $idServidor)
+            ->where('servidores_portarias.servidor_id', '=', $idServidor)
+            ->orderBy('dataInicial', 'DESC')->paginate(10);
+
+            return $results;
+        }   
+    }
+
+    public function portariaAluno($idALuno)
+    {   
+        if(auth()->user() == null || auth()->user()->tipoGrupo == 'padrao')
+        {
+            $results = Portaria::select('*')
+            ->join('alunos_portarias', 'portarias.id', 'alunos_portarias.portaria_id')
+            ->where('alunos_portarias.aluno_id', '=', $idALuno)
+            ->where('sigilo', '=', '0')
+            ->orderBy('dataInicial', 'DESC')->paginate(10);
+
+            return $results;
+
+        }elseif(auth()->user()->tipoGrupo != 'padrao')
+        {
+            $results = Portaria::select('*')
+            ->join('alunos_portarias', 'portarias.id', 'alunos_portarias.portaria_id')
+            ->where('alunos_portarias.aluno_id', '=', $idALuno)
             ->orderBy('dataInicial', 'DESC')->paginate(10);
 
             return $results;

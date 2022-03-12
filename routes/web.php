@@ -29,7 +29,8 @@ Route::group(['prefix' => 'portaria'], function(){
     Route::get('/dowload/{doc}',[PortariaController::class,'download'])->name('portaria.download');
     Route::get('/view/{doc}',[PortariaController::class,'view'])->name('portaria.view');
     Route::any('/search',[PortariaController::class,'search'])->name('portaria.search');
-    Route::get('/show/portariasServidores{id}',  [PortariaController::class, 'portariasServidor'])->name('servidor.portarias');
+    Route::get('/show/portariasServidores/{id}',  [PortariaController::class, 'portariasServidor'])->name('servidor.portarias');
+    Route::get('/show/alunosPortarias/{id}',  [PortariaController::class, 'portariasAlunos'])->name('aluno.portarias');
 });
 
 Route::group(['prefix' => 'servidor'], function(){

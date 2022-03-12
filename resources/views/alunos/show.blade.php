@@ -61,7 +61,7 @@
                             <tr>
                                 <td>{{$aluno->matricula}}</td>
                                 <td>
-                                    <a href="{{ route('servidor.portarias', $aluno->id) }}" class="link-servidor">
+                                    <a href="{{ route('aluno.portarias', $aluno->id) }}" class="link-servidor">
                                         {{$aluno->nome}}
                                     </a>
                                 </td>

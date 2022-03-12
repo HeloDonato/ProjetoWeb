@@ -148,7 +148,6 @@ class PortariaController extends Controller
         $portaria = new Portaria();
         $portarias = $portaria->minhasPortarias($userId);
 
-        
         //dd($portarias);
         return view('portarias.myportarias')->with('portarias', $portarias);
     }
@@ -161,6 +160,15 @@ class PortariaController extends Controller
         //dd($portarias);
         return view('portarias.servidoresPortarias')->with('portarias', $portarias)->with('servidor', $user);
     }
+    
+    public function portariasAlunos($id){
+        $user = User::find($id);
+        $portaria = new Portaria(); 
+        $portarias = $portaria->portariaAluno($user->id);
+        //dd($portarias);
+        return view('portarias.alunosPortarias')->with('portarias', $portarias)->with('servidor', $user);
+    }
+
 
     public function destroy($id){
         $portaria = Portaria::find($id);
