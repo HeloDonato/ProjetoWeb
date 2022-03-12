@@ -8,6 +8,7 @@ use Illuminate\Database\QueryException;
 use App\Models\User;
 use App\Models\Portaria;
 use App\Models\ServidorPortaria;
+use App\Models\Servidor;
 use Carbon\Carbon;
 use Facade\FlareClient\Http\Response;
 use Illuminate\Support\Facades\Date;
@@ -174,10 +175,9 @@ class PortariaController extends Controller
     public function edit($id){
 
         $portaria = Portaria::findOrFail($id);
-        $participantes = DB::select(DB::raw("select portaria_id, usuario_id, nome FROM servidores_portarias as s 
-        INNER JOIN users as u ON s.usuario_id = u.id where portaria_id = $id;"));
-        
-        $servidores = DB::table('users')->where('users.id', 'not like', '1')->get();
+        $participantes = DB::select(DB::raw("select portaria_id, servidor_id, nome FROM servidores_portarias as s 
+        INNER JOIN servidores as sv ON s.servidor_id = sv.id where portaria_id = $id;"));
+        $servidores = User::join('servidores', 'users.id', '=', 'servidores.usuario_id')->where('users.id', 'not like', '1')->get();
         //dd($portaria->id);
 
         return view('portarias.edit',['portaria' => $portaria, 'participantes'=>$participantes, 'servidores'=>$servidores]);
@@ -191,9 +191,8 @@ class PortariaController extends Controller
             try{
                 $portaria = Portaria::findOrFail($request->id);
                 $id_portaria = $portaria->id;
-                $servidores = User::all();
+                $servidores = Servidor::all();
                 $id_servidores = $request->id_servidor;
-
                 if($request->id_servidor != null){
 
                     DB::table('servidores_portarias')->where('portaria_id', '=', $id_portaria)->delete();
@@ -203,7 +202,7 @@ class PortariaController extends Controller
                             if($id_servidor == $servidor->id){
                                 $portaria_servidor = new ServidorPortaria;
                                 $portaria_servidor->portaria_id = $id_portaria;
-                                $portaria_servidor->usuario_id  = $id_servidor;
+                                $portaria_servidor->servidor_id  = $id_servidor;
                                 $portaria_servidor->save();
                             }
                         }

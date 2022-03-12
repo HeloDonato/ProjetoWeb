@@ -100,6 +100,9 @@
                         <label for="participantes">Escolha os servidores</label>
                             <select data-live-search="true" name="id_servidor[]" multiple class="form-control cad-servidor chosen-select">
                                 <option disabled> Selecione </option>
+                                @foreach ($participantes as $participante)
+                                    <option value="{{$participante->servidor_id}}" selected> {{$participante->nome }}</option>
+                                @endforeach
                                 @foreach ($servidores as $servidor)
                                     <option value="{{$servidor->id}}"> {{$servidor->nome }}</option>
                                 @endforeach
