@@ -117,7 +117,7 @@
                                                         Matrícula: {{$servidor->matricula}}
                                                     </div>
                                                     <div class="modal-footer">
-                                                        <a href="{{ route('servidor.destroy', $servidor->id) }}" class="btn btn-danger">Excluir</a>
+                                                        <a href="{{ route('servidor.destroy', $servidor->usuario_id) }}" class="btn btn-danger">Excluir</a>
                                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
                                                     </div>
                                                 </div>
@@ -135,7 +135,7 @@
                                                             </button>
                                                         </div>
                                                         <div class="modal-body">
-                                                            {{ Form::model($servidor,['route' => ['grupo.update', $servidor->id], 'method' => "PUT"]) }}
+                                                            {{ Form::model($servidor,['route' => ['grupo.update', $servidor->usuario_id], 'method' => "PUT"]) }}
                                                             <select name="tipoGrupo" class="form-control">
                                                                 <option value="admin" {{ $servidor->usuario->tipoGrupo == 'admin' ? 'selected' : '' }}> Admin </option>
                                                                 <option value="padrao" {{ $servidor->usuario->tipoGrupo == 'padrao' ? 'selected' : '' }}> Padrão</option>

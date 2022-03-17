@@ -5,6 +5,7 @@ use App\Http\Controllers\PortariaController;
 use App\Http\Controllers\ServidorController;
 use App\Http\Controllers\RelatorioController;
 use App\Http\Controllers\AlunoController;
+use App\Http\Controllers\UserController;
 
 
 /*
@@ -53,6 +54,11 @@ Route::group(['middleware' => 'auth'], function(){
         Route::get('/profile/{id}',  [ServidorController::class, 'editProfile'])->name('servidor.editProfile');
         Route::put('/profile/edit/{id}',  [ServidorController::class, 'updateProfile'])->name('servidor.updateProfile');
     });
+
+    Route::group(['prefix' => 'aluno'], function(){
+        Route::get('/profile/{id}',  [AlunoController::class, 'editProfile'])->name('aluno.editProfile');
+        Route::put('/profile/edit/{id}',  [AlunoController::class, 'updateProfile'])->name('aluno.updateProfile');
+    });
     
     Route::group(['middleware' => 'admin'], function(){
         Route::group(['prefix' => 'admin/portaria'], function(){
@@ -92,7 +98,7 @@ Route::group(['middleware' => 'auth'], function(){
 
         Route::group(['middleware' => 'super'], function(){ 
             Route::group(['prefix' => 'super'], function(){
-                Route::put('/update/{id}',  [ServidorController::class, 'alterarGrupo'])->name('grupo.update');
+                Route::put('/update/{id}',  [UserController::class, 'alterarGrupo'])->name('grupo.update');
             });
         });
     });
