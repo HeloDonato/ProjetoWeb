@@ -50,14 +50,9 @@ Route::group(['middleware' => 'auth'], function(){
         Route::get('/myportarias',[PortariaController::class,'myportarias'])->name('portaria.myportarias');
     });
     
-    Route::group(['prefix' => 'servidor'], function(){
-        Route::get('/profile/{id}',  [ServidorController::class, 'editProfile'])->name('servidor.editProfile');
-        Route::put('/profile/edit/{id}',  [ServidorController::class, 'updateProfile'])->name('servidor.updateProfile');
-    });
-
-    Route::group(['prefix' => 'aluno'], function(){
-        Route::get('/profile/{id}',  [AlunoController::class, 'editProfile'])->name('aluno.editProfile');
-        Route::put('/profile/edit/{id}',  [AlunoController::class, 'updateProfile'])->name('aluno.updateProfile');
+    Route::group(['prefix' => 'usuario'], function(){
+        Route::get('/profile/{id}',  [UserController::class, 'editProfile'])->name('usuario.editProfile');
+        Route::put('/profile/edit/{id}',  [UserController::class, 'updateProfile'])->name('usuario.updateProfile');
     });
     
     Route::group(['middleware' => 'admin'], function(){

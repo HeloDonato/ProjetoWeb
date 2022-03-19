@@ -154,6 +154,7 @@ class ServidorController extends Controller
 
     public function updateProfile(Request $request){
         // The passwords matches
+            dd($request->id);
             $input = $request->all();
 
             if (! Hash::check($input['senhaAntiga'],auth()->user()->password)){
@@ -188,18 +189,4 @@ class ServidorController extends Controller
                 } 
             }   
         }
-    
-    
-    public function alterarGrupo(Request $request){
-        $servidor = User::findOrFail($request->id);
-
-        try{
-            $servidor->tipoGrupo = $request->tipoGrupo;
-            $servidor->save();
-            return redirect('/servidor/show')->with('msg','Servidor editado com sucesso!');
-        }catch(QueryException $e){
-            return redirect('/servidor/show')->with('msgE','Erro ao editar servidor!');
-        }
-    }
-
 }

@@ -28,7 +28,7 @@
         </div>
         <div class="modal-footer">
             @if(Auth::check() && Auth::user()->alter_password == 0)
-                <a href="{{ route('servidor.editProfile', Auth::user()->id) }}" class="btn btn-pesquisar">Mudar senha</a>
+                <a href="{{ route('usuario.editProfile', Auth::user()->id) }}" class="btn btn-pesquisar">Mudar senha</a>
             @else   
                 ''
             @endif

@@ -28,7 +28,7 @@
                 </div>
                 <div class="modal-footer">
                     @if(Auth::check() && Auth::user()->alter_password == 0)
-                        <a href="{{ route('servidor.editProfile', Auth::user()->id) }}" class="btn btn-pesquisar">Mudar senha</a>
+                        <a href="{{ route('usuario.editProfile', Auth::user()->id) }}" class="btn btn-pesquisar">Mudar senha</a>
                     @else   
                         ''
                     @endif
@@ -136,12 +136,12 @@
                                                         </div>
                                                         <div class="modal-body">
                                                             {{ Form::model($servidor,['route' => ['grupo.update', $servidor->usuario_id], 'method' => "PUT"]) }}
-                                                            <select name="tipoGrupo" class="form-control">
-                                                                <option value="admin" {{ $servidor->usuario->tipoGrupo == 'admin' ? 'selected' : '' }}> Admin </option>
-                                                                <option value="padrao" {{ $servidor->usuario->tipoGrupo == 'padrao' ? 'selected' : '' }}> Padrão</option>
-                                                                <option value="super" {{ $servidor->usuario->tipoGrupo == 'super' ? 'selected' : '' }}> Super</option>
-                                                            </select>
-                                                            <input type="submit" class="btn btn-enviar" value="Alterar">
+                                                                <select name="tipoGrupo" class="form-control">
+                                                                    <option value="admin" {{ $servidor->usuario->tipoGrupo == 'admin' ? 'selected' : '' }}> Admin </option>
+                                                                    <option value="padrao" {{ $servidor->usuario->tipoGrupo == 'padrao' ? 'selected' : '' }}> Padrão</option>
+                                                                    <option value="super" {{ $servidor->usuario->tipoGrupo == 'super' ? 'selected' : '' }}> Super</option>
+                                                                </select>
+                                                                <input type="submit" class="btn btn-enviar" value="Alterar">
                                                             {{Form::close()}}
                                                         </div>
                                                     </div>

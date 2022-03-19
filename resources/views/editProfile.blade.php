@@ -15,7 +15,7 @@
                     <h1 class="tit-form-ser">Alterar Senha</h1>
                 </div>
     
-                {{ Form::model($aluno,['route' => ['aluno.updateProfile',$aluno->usuario_id], 'method' => "PUT"]) }}
+                {{ Form::model($usuario,['route' => ['usuario.updateProfile',$usuario->id], 'method' => "PUT"]) }}
                     @method('PUT')
                     @csrf
                         <div class="mb-3 col-md-8">

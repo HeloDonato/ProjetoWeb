@@ -27,7 +27,7 @@
             Por razões de segurança, altere sua senha para continuar a usar o sistema. 
         </div>
         <div class="modal-footer">
-            <a href="{{ route('servidor.editProfile', Auth::user()->id) }}" class="btn btn-pesquisar">Mudar senha</a>
+                <a href="{{ route('usuario.editProfile', Auth::user()->id) }}" class="btn btn-pesquisar">Mudar senha</a>
         </div>
         </div>
     </div>

@@ -28,7 +28,7 @@
                 </div>
                 <div class="modal-footer">
                     @if(Auth::check() && Auth::user()->alter_password == 0)
-                        <a href="{{ route('servidor.editProfile', Auth::user()->id) }}" class="btn btn-pesquisar">Mudar senha</a>
+                        <a href="{{ route('usuario.editProfile', Auth::user()->id) }}" class="btn btn-pesquisar">Mudar senha</a>
                     @else   
                         ''
                     @endif
@@ -94,7 +94,7 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <a href="{{ route('servidor.edit', $aluno->usuario_id) }}" class="btn btn-pesquisar edit-btn" style="margin-bottom:3px">Editar <i class="fas fa-edit"></i></a>
+                                        <a href="{{ route('aluno.edit', $aluno->usuario_id) }}" class="btn btn-pesquisar edit-btn" style="margin-bottom:3px">Editar <i class="fas fa-edit"></i></a>
                                         <a href="" class="btn btn-danger" data-toggle="modal" data-target="#modal{{ $aluno->id }}" style="margin-bottom:3px">Excluir <i class="fas fa-trash-alt"></i></a>
                                         @if(Auth::user()->tipoGrupo == 'super')
                                             <a href="" class="btn btn-secondary" data-toggle="modal" data-target="#modal2{{ $aluno->id }}" style="margin-bottom:3px">Acesso <i class="fas fa-user-shield"></i></a>      
@@ -116,7 +116,7 @@
                                                         Matrícula: {{$aluno->matricula}}
                                                     </div>
                                                     <div class="modal-footer">
-                                                        <a href="{{ route('servidor.destroy', $aluno->id) }}" class="btn btn-danger">Excluir</a>
+                                                        <a href="{{ route('servidor.destroy', $aluno->usuario_id) }}" class="btn btn-danger">Excluir</a>
                                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
                                                     </div>
                                                 </div>
@@ -134,7 +134,7 @@
                                                             </button>
                                                         </div>
                                                         <div class="modal-body">
-                                                            {{ Form::model($aluno,['route' => ['grupo.update', $aluno->id], 'method' => "PUT"]) }}
+                                                            {{ Form::model($aluno,['route' => ['grupo.update', $aluno->usuario_id], 'method' => "PUT"]) }}
                                                             <select name="tipoGrupo" class="form-control">
                                                                 <option value="admin" {{ $aluno->usuario->tipoGrupo == 'admin' ? 'selected' : '' }}> Admin </option>
                                                                 <option value="padrao" {{ $aluno->usuario->tipoGrupo == 'padrao' ? 'selected' : '' }}> Padrão</option>

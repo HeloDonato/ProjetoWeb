@@ -116,7 +116,7 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('servidor.editProfile', Auth::user()->id) }}">
+                                    <a class="dropdown-item" href="{{ route('usuario.editProfile', Auth::user()->id) }}">
                                         {{ __('Segurança') }}
                                     </a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"

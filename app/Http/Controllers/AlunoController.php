@@ -125,15 +125,6 @@ class AlunoController extends Controller
         return view('alunos.edit',['aluno' => $aluno]);
 
     }
-    
-    public function editProfile($id){
-
-        $aluno = User::findOrFail($id);
-        //dd($portaria->id);
-
-        return view('alunos.editProfile',['aluno' => $aluno]);
-
-    }
 
     public function update(Request $request){       
         try{
@@ -153,54 +144,4 @@ class AlunoController extends Controller
         return redirect('/aluno/show')->with('msgE','Erro ao editar aluno!');
         }
     }
-
-    public function updateProfile(Request $request){
-        // The passwords matches
-        $input = $request->all();
-
-        if (! Hash::check($input['senhaAntiga'],auth()->user()->password)){
-            return redirect()->back()->with('msgE','Senha antiga não corresponde');
-        }
-        
-        $msg = [
-            'same'    => 'Senhas precisam ser iguais',
-            'different'    => 'Senha atual igual à antiga',
-        ];
-        
-        $user = User::findOrFail($request->id);
-        $validator = Validator::make($request->all(),[
-            'senhaAntiga' => ['required', 'different:newPassword'],
-            'newPassword' => ['required', 'min:8', 'different   :senhaAntiga'],
-            'confirmaSenha' => ['required', 'same:newPassword']
-        ], $msg);
-
-        if($validator->fails()){
-            #
-            return redirect()->back()->with('msgE','Erro ao editar senha!');
-        }else{
-            try{
-                $user_id = $request->id;
-                $user->password =  Hash::make($request->newPassword);
-                $user->alter_password = 1;
-                $user->save();
-                return redirect()->back()->with("msg","Senha alterada com sucesso!");
-                
-            }catch(QueryException $e){
-                return redirect()->back()->with('msgE','Erro ao editar senha!');
-            } 
-        }   
-    }
-
-    public function alterarGrupo(Request $request){
-        $servidor = User::findOrFail($request->id);
-
-        try{
-            $servidor->tipoGrupo = $request->tipoGrupo;
-            $servidor->save();
-            return redirect('/servidor/show')->with('msg','Nível de usuário alterado com sucesso!');
-        }catch(QueryException $e){
-            return redirect('/servidor/show')->with('msgE','Erro ao tentar executar mudanças!');
-        }
-    }
-
 }
