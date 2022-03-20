@@ -13,7 +13,7 @@ class Aluno extends Model
         'nome',
         'sobrenome',
         'matricula',
-        'curso',
+        'curso_id',
         'turma',
         'cpf',
     ];
@@ -42,5 +42,9 @@ class Aluno extends Model
         })->orderBy('nome', 'ASC')->paginate(10); 
 
         return $results;
+    }
+
+    public function curso(){
+        return $this->belongsTo(Curso::class, 'curso_id');
     }
 }

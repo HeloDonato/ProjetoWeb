@@ -9,6 +9,8 @@ use App\Models\User;
 use App\Models\Portaria;
 use App\Models\ServidorPortaria;
 use App\Models\Servidor;
+use App\Models\AlunoPortaria;
+use App\Models\Aluno;
 use Carbon\Carbon;
 use Facade\FlareClient\Http\Response;
 use Illuminate\Support\Facades\Date;
@@ -45,7 +47,9 @@ class PortariaController extends Controller
 
     public function create(){
         $servidores = DB::table('servidores')->where('servidores.usuario_id', 'not like', '1')->get();
-        return view('portarias.create')->with('servidores', $servidores);
+        $alunos = DB::table('alunos')->get();
+
+        return view('portarias.create')->with('servidores', $servidores)->with('alunos', $alunos);
     }
 
     public function store(Request $request){
@@ -118,8 +122,12 @@ class PortariaController extends Controller
             try{
                 $ultima_portaria = Portaria::max('id');
                 $id_portaria = $ultima_portaria;
-                $servidores = User::all();
+
+                $servidores = Servidor::all();
+                $alunos = Aluno::all();
                 $id_servidores = $request->id_servidor;
+                $id_alunos = $request->id_aluno;
+
                 if(!empty($id_servidores)){
                     foreach($servidores as $servidor){
                         foreach($id_servidores as $id_servidor){
@@ -132,8 +140,22 @@ class PortariaController extends Controller
                         }
                     }
                 }
+
+                if(!empty($id_alunos)){
+                    foreach($alunos as $aluno){
+                        foreach($id_alunos as $id_aluno){
+                            if($id_aluno == $aluno->id){
+                                $portaria_aluno = new AlunoPortaria;
+                                $portaria_aluno->portaria_id= $id_portaria;
+                                $portaria_aluno->aluno_id = $id_aluno;
+                                $portaria_aluno->save();
+                            }
+                        }
+                    }
+                }
+
             }catch(QueryException $e){
-                return redirect()->back()->with('msgE','Portaria criada com sucesso, mas não foi possível identificar os servidores!');
+                return redirect()->back()->with('msgE','Portaria criada com sucesso, mas não foi possível identificar os servidores e/ou alunos!');
             }
         return redirect('/')->with('msg','Portaria criada com sucesso!');
         }catch(QueryException $e){
@@ -144,17 +166,18 @@ class PortariaController extends Controller
     public function myportarias(){
         $user = auth()->user();
         $userId = $user->id;
-
         $portaria = new Portaria();
-        $portarias = $portaria->minhasPortarias($userId);
 
-        //dd($portarias);
+        if(!empty(Servidor::find($userId)))
+            $portarias = $portaria->minhasPortarias($userId);
+        else    
+            $portarias = $portaria->minhasPortariasAlunos($userId);
+
         return view('portarias.myportarias')->with('portarias', $portarias);
     }
 
     public function portariasServidor($id){
-        $user = User::find($id);
-
+        $user = Servidor::find($id);
         $portaria = new Portaria(); 
         $portarias = $portaria->portariaServidor($user->id);
         //dd($portarias);
@@ -162,7 +185,7 @@ class PortariaController extends Controller
     }
     
     public function portariasAlunos($id){
-        $user = User::find($id);
+        $user = Aluno::find($id);
         $portaria = new Portaria(); 
         $portarias = $portaria->portariaAluno($user->id);
         //dd($portarias);
@@ -185,10 +208,14 @@ class PortariaController extends Controller
         $portaria = Portaria::findOrFail($id);
         $participantes = DB::select(DB::raw("select portaria_id, servidor_id, nome FROM servidores_portarias as s 
         INNER JOIN servidores as sv ON s.servidor_id = sv.id where portaria_id = $id;"));
+        $participantesA = DB::select(DB::raw("select portaria_id, aluno_id, nome FROM alunos_portarias as a 
+        INNER JOIN alunos as al ON a.aluno_id = al.id where portaria_id = $id;"));
         $servidores = User::join('servidores', 'users.id', '=', 'servidores.usuario_id')->where('users.id', 'not like', '1')->get();
+        $alunos = User::join('alunos', 'users.id', '=', 'alunos.usuario_id')->where('users.id', 'not like', '1')->get();
         //dd($portaria->id);
 
-        return view('portarias.edit',['portaria' => $portaria, 'participantes'=>$participantes, 'servidores'=>$servidores]);
+        return view('portarias.edit',['portaria' => $portaria, 'participantes'=>$participantes, 
+        'servidores'=>$servidores, 'participantesA'=>$participantesA, 'alunos'=>$alunos]);
 
     }
     

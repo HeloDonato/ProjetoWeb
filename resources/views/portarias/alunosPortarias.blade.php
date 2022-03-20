@@ -67,6 +67,9 @@
                                                                 @foreach ($portaria->participantes as $participante)
                                                                     <li>{{ $participante->servidor->nome }}</li>
                                                                 @endforeach
+                                                                @foreach ($portaria->participantesA as $participante)
+                                                                    <li>{{ $participante->aluno->nome }}</li>
+                                                                @endforeach
                                                             </ul>
                                                         <hr>
                                                         <span class="span-modal-info">Origem da portaria:</span> {{$portaria->origem}}<br><hr>

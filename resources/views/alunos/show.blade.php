@@ -62,12 +62,12 @@
                             <tr>
                                 <td>{{$aluno->matricula}}</td>
                                 <td>
-                                    <a href="{{ route('servidor.portarias', $aluno->id) }}" class="link-servidor">
+                                    <a href="{{ route('aluno.portarias', $aluno->id) }}" class="link-servidor">
                                         {{$aluno->nome}}
                                     </a>
                                 </td>
                                 @if(!Auth::check() or (Auth::check() and Auth::user()->tipoGrupo == 'padrao'))
-                                    <td>{{ $aluno->curso }}</td>
+                                    <td>{{ $aluno->curso->nome }}</td>
                                     <td>{{ $aluno->turma }}</th>
                                 @endif
                                 <td class="card-title">{{$aluno->usuario->email}}</td>
@@ -86,7 +86,7 @@
                                                         </button>
                                                     </div>
                                                     <div class="modal-body">
-                                                        <span class="span-modal-info">Curso:</span> {{$aluno->curso}}<br><hr>
+                                                        <span class="span-modal-info">Curso:</span> {{$aluno->curso->nome}}<br><hr>
                                                         <span class="span-modal-info">Turma:</span> {{$aluno->turma}} 
                                                     </div>
                                                 </div>

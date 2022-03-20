@@ -108,6 +108,18 @@
                                 @endforeach
                             </select>
                         </div>
+                        <div class="form-group col-md-8">
+                        <label for="participantes">Escolha os alunos (se houver)</label>
+                            <select data-live-search="true" name="id_aluno[]" multiple class="form-control cad-servidor chosen-select"> 
+                                <option value="" disabled>Selecione </option>
+                                @foreach ($participantesA as $participante)
+                                    <option value="{{$participante->aluno_id}}" selected> {{$participante->nome }}</option>
+                                @endforeach
+                                @foreach ($alunos as $aluno)
+                                    <option value="{{$aluno->id}}"> {{$aluno->nome }}</option>
+                                @endforeach
+                            </select>
+                        </div>
                         <div class="form-group col-md-8" style="color: #fff;">
                             <label>Arquivo da Portaria*</label><br>
                             {{ Form::file('doc')}}

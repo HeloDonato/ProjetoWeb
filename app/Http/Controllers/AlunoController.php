@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
 use App\Models\User;
 use App\Models\Servidor;
+use App\Models\Curso;
 use Illuminate\Support\Facades\Hash;
 use Facade\FlareClient\Http\Response;
 use Illuminate\Support\Facades\DB;
@@ -35,7 +36,8 @@ class AlunoController extends Controller
     }
 
     public function create(){
-        return view('alunos.create');
+        $cursos = DB::table('cursos')->get();
+        return view('alunos.create')->with('cursos', $cursos);
     }
 
     public function store(Request $request){
@@ -68,7 +70,7 @@ class AlunoController extends Controller
                 }
             }
                 
-            $aluno->curso = $request->curso;
+            $aluno->curso_id = $request->curso;
             $aluno->turma = $request->turma;
             $user->alter_password = 0;
             

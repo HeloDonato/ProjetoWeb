@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
-class ServidorPortaria extends Model
+class AlunoPortaria extends Model
 {
     protected $table = 'alunos_portarias';
     protected $fillable = [
@@ -27,8 +27,8 @@ class ServidorPortaria extends Model
 
     protected $guarded = [];//tudo q for enviado pelo post pode ser atualizado
 
-    public function servidor(){
-        return $this->belongsTo(User::class, 'aluno_id');
+    public function aluno(){
+        return $this->belongsTo(Aluno::class, 'aluno_id');
     }
 
     public function portaria(){

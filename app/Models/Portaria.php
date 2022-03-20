@@ -77,6 +77,10 @@ class Portaria extends Model
     {
         return $this->hasMany(ServidorPortaria::class, 'portaria_id');
     }
+    public function participantesA()
+    {
+        return $this->hasMany(AlunoPortaria::class, 'portaria_id');
+    }
 
     public function minhasPortarias($idServidor)
     {   

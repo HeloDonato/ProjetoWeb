@@ -28,8 +28,13 @@
                     <div class="mb-3 col-md-8">
                         {{ Form::email('email', 'old'('email'), ['class' => 'form-control cad-servidor', 'required','placeholder' => 'E-mail','autofocus']) }}
                     </div>
-                    <div class="mb-3 col-md-8">
-                        {{ Form::text('curso', 'old'('curso'), ['class' => 'form-control cad-servidor', 'required','placeholder' => 'Curso','autofocus']) }}
+                    <div class="form-group col-md-8">
+                        <select data-live-search="true" name="curso" class="form-control cad-servidor" required> 
+                            <option value="" disabled selected>Selecione o curso</option>
+                            @foreach ($cursos as $curso)
+                                <option value="{{$curso->id}}"> {{$curso->nome }}</option>
+                            @endforeach
+                        </select>
                     </div>
                     <div class="mb-3 col-md-8">
                         {{ Form::text('turma', 'old'('turma'), ['class' => 'form-control cad-servidor', 'required','placeholder' => 'Turma','autofocus']) }}

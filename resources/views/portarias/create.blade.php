@@ -71,7 +71,16 @@
                         <select data-live-search="true" name="id_servidor[]" multiple class="form-control cad-servidor chosen-select" required> 
                             <option value="" disabled selected>Selecione </option>
                             @foreach ($servidores as $servidor)
-                                <option value="{{$servidor->usuario_id}}"> {{$servidor->nome }}</option>
+                                <option value="{{$servidor->id}}"> {{$servidor->nome }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group col-md-8">
+                        <label for="participantes">Escolha os alunos (se houver)</label>
+                        <select data-live-search="true" name="id_aluno[]" multiple class="form-control cad-servidor chosen-select"> 
+                            <option value="" disabled selected>Selecione </option>
+                            @foreach ($alunos as $aluno)
+                                <option value="{{$aluno->id}}"> {{$aluno->nome }}</option>
                             @endforeach
                         </select>
                     </div>

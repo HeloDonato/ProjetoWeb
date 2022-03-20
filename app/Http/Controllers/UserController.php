@@ -37,7 +37,6 @@ class UserController extends Controller
 
     public function updateProfile(Request $request){
         // The passwords matches
-            dd($request->id);
             $input = $request->all();
 
             if (! Hash::check($input['senhaAntiga'],auth()->user()->password)){
