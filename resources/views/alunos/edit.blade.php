@@ -31,8 +31,14 @@
                         <div class="mb-3 col-md-8">
                             {{ Form::email('email', 'old'('email'), ['class' => 'form-control cad-servidor', 'required','placeholder' => 'E-mail','autofocus']) }}
                         </div>
-                        <div class="mb-3 col-md-8">
-                            {{ Form::text('curso', 'old'('curso'), ['class' => 'form-control cad-servidor', 'required','placeholder' => 'Curso','autofocus']) }}
+                        <div class="form-group col-md-7">
+                            <select data-live-search="true" name="curso" class="form-control cad-servidor" required> 
+                                <option value="" disabled selected>Selecione o curso</option>
+                                @foreach ($cursos as $curso)
+                                    <option value="{{$curso->id}}"> {{$curso->nome }}</option>
+                                @endforeach
+                            </select>
+                        <a data-toggle="modal" data-target="#modal" style="margin-bottom:3px"> <i class="fas fa-plus fa-lg"></i></a>
                         </div>
                         <div class="mb-3 col-md-8">
                             {{ Form::text('turma', 'old'('turma'), ['class' => 'form-control cad-servidor','placeholder' => 'Turma','autofocus']) }}
@@ -41,7 +47,31 @@
                             <button type="submit" class="btn btn-enviar">Enviar</button>
                         </div>
                 {{Form::close()}}  
-
+                    <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header header-modal-info">
+                                    <h5 class="modal-title"><strong>Adicionar Curso </strong></h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                </div>
+                                <div class="modal-body">
+                                    {{ Form::open(['route' => 'curso.store', 'method' => "POST"]) }}
+                                        <div class="mb-3 col-md-12">
+                                            {{ Form::text('nome', 'old'('nome'), ['class' => 'form-control cad-servidor', 'required','placeholder' => 'Nome do curso','autofocus']) }}
+                                        </div>
+                                        <div class="mb-3 col-md-12">
+                                            {{ Form::text('descricao', 'old'('descricao'), ['class' => 'form-control cad-servidor', 'required','placeholder' => 'Descrição do curso','autofocus']) }}
+                                        </div>
+                                        <div class="lign-bottom col-md-12">
+                                            <button type="submit" class="btn btn-enviar">Enviar</button>
+                                        </div>
+                                    {{Form::close()}}  
+                                </div>
+                            </div>
+                        </div>
+                    </div>
             </div>
         </div>
     </div>

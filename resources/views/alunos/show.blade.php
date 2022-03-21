@@ -68,6 +68,7 @@
                                 </td>
                                 @if(!Auth::check() or (Auth::check() and Auth::user()->tipoGrupo == 'padrao'))
                                     <td>{{ $aluno->curso->nome }}</td>
+                                    <td>{{ $aluno->curso->descricao }}</td>
                                     <td>{{ $aluno->turma }}</th>
                                 @endif
                                 <td class="card-title">{{$aluno->usuario->email}}</td>
@@ -87,6 +88,7 @@
                                                     </div>
                                                     <div class="modal-body">
                                                         <span class="span-modal-info">Curso:</span> {{$aluno->curso->nome}}<br><hr>
+                                                        <span class="span-modal-info">Descriçao do curso:</span> {{$aluno->curso->descricao}} <br> <hr>
                                                         <span class="span-modal-info">Turma:</span> {{$aluno->turma}} 
                                                     </div>
                                                 </div>

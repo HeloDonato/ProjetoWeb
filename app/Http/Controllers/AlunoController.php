@@ -122,12 +122,27 @@ class AlunoController extends Controller
 
     public function edit($id){
         $aluno = User::join('alunos', 'users.id', '=', 'alunos.usuario_id')->findOrFail($id);
+        $cursos = DB::table('cursos')->get();
         //dd($portaria->id);
 
-        return view('alunos.edit',['aluno' => $aluno]);
+        return view('alunos.edit',['aluno' => $aluno, 'cursos' => $cursos]);
 
     }
 
+    public function adicionarCurso(Request $request){
+        $curso = new Curso;
+
+        try{
+            $curso->nome = $request->nome;
+            $curso->descricao = $request->descricao;
+            $curso->save();
+            return redirect()->back()->with('msg','Curso adicionado com sucesso!!');
+        }catch(QueryException $e){
+            return redirect()->back()->with('msgE','Erro ao adicionar!');
+        }
+
+        //dd($portaria->id);
+    }
     public function update(Request $request){       
         try{
             $aluno = ALuno::findOrFail($request->id);

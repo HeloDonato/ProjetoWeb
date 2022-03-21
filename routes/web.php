@@ -94,6 +94,7 @@ Route::group(['middleware' => 'auth'], function(){
         Route::group(['middleware' => 'super'], function(){ 
             Route::group(['prefix' => 'super'], function(){
                 Route::put('/update/{id}',  [UserController::class, 'alterarGrupo'])->name('grupo.update');
+                Route::post('/create',  [AlunoController::class, 'adicionarCurso'])->name('curso.store');
             });
         });
     });
