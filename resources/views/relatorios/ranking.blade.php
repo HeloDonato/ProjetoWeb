@@ -86,19 +86,19 @@
                                     {{ $servidor->nome }}
                                 </td>
                                 <td class="col-md-1">
-                                    {{ $servidor->portariasTotais($servidor->id)}}
+                                    {{ $portaria->portariasTotais($servidor->id)}}
                                 </td>
                                 <td class="col-md-1">
-                                    {{ $servidor->portariasTemporarias($servidor->id) }}
+                                    {{ $portaria->portariasTemporarias($servidor->id) }}
                                 </td>
                                 <td class="col-md-1">
-                                    {{ $servidor->portariasPermanentes($servidor->id) }}
+                                    {{ $portaria->portariasPermanentes($servidor->id) }}
                                 </td>
                                 <td class="col-md-1">
-                                    {{ $servidor->portariasAtivas($servidor->id, $data) }}
+                                    {{ $portaria->portariasAtivas($servidor->id, $data) }}
                                 </td>
                                 <td class="col-md-1">
-                                    {{ $servidor->portariasInativas($servidor->id, $data) }}
+                                    {{ $portaria->portariasInativas($servidor->id, $data) }}
                                 </td>
                             </tr>
                             @endif  

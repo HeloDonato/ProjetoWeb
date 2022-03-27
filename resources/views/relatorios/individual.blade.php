@@ -28,15 +28,15 @@
         <center>
             @php
                 $data = date('Y-m-d');
-                $total = $servidor->portariasTotais($servidor->id);
-                $temp = $servidor->portariasTemporarias($servidor->id);
-                $perm = $servidor->portariasPermanentes($servidor->id);
-                $ativas = $servidor->portariasAtivas($servidor->id, $data);
-                $inativas = $servidor->portariasInativas($servidor->id, $data);
-                $publicas = $servidor->portariasPublicas($servidor->id);
-                $sigilosas = $servidor->portariasSigilosas($servidor->id);
-                $campus = $servidor->portariasCampus($servidor->id);
-                $reitoria = $servidor->portariasReitoria($servidor->id);
+                $total = $portaria->portariasTotais($servidor->id);
+                $temp = $portaria->portariasTemporarias($servidor->id);
+                $perm = $portaria->portariasPermanentes($servidor->id);
+                $ativas = $portaria->portariasAtivas($servidor->id, $data);
+                $inativas = $portaria->portariasInativas($servidor->id, $data);
+                $publicas = $portaria->portariasPublicas($servidor->id);
+                $sigilosas = $portaria->portariasSigilosas($servidor->id);
+                $campus = $portaria->portariasCampus($servidor->id);
+                $reitoria = $portaria->portariasReitoria($servidor->id);
                 if($total == 0){
                     $porcentT = 0;
                     $porcentPer = 0;

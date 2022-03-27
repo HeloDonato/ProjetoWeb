@@ -6,6 +6,8 @@ use Illuminate\Console\Scheduling\Event;
 use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
 use App\Models\User;
+use App\Models\Servidor;
+use App\Models\ServidorPortaria;
 use Illuminate\Support\Facades\Hash;
 use Facade\FlareClient\Http\Response;
 use Illuminate\Support\Facades\DB;
@@ -14,22 +16,26 @@ class RelatorioController extends Controller
 {
     public function index()
     {   
-        $user = User::join('servidores', 'users.id', '=', 'servidores.usuario_id')->get();
+        $user = Servidor::all();
         return view('relatorios.options')->with( 'users', $user);
     }
 
     public function servidorIndividual(Request $request){
         $id = $request->id_servidor;
-        $servidor = User::join('servidores', 'users.id', '=', 'servidores.usuario_id')->get()->find($id);
+        $servidor = Servidor::find($id);
+        $portaria = new ServidorPortaria;
         //dd($servidor);
-        return view('relatorios.individual')->with( 'servidor', $servidor);
+        return view('relatorios.individual')
+               ->with( 'servidor', $servidor)
+               ->with('portaria', $portaria);
     }
 
     public function rankingServidores(){
-        $servidores = User::join('servidores', 'users.id', '=', 'servidores.usuario_id')->orderBy('servidores.nome', 'asc')->get();
-
+        $servidores = Servidor::orderBy('servidores.nome', 'asc')->get();
+        $portaria = new ServidorPortaria;
         return view('relatorios.ranking')
-            ->with('servidores', $servidores);
+            ->with('servidores', $servidores)
+            ->with('portaria', $portaria);
     }
 
     public function relatorioGeral(){
