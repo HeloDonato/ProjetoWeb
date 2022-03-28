@@ -36,7 +36,7 @@ class AlunoPortaria extends Model
     }
 
     public function portariasTotais($id){
-        $total = DB::select("SELECT COUNT(a.id) AS total FROM alunos_portarias AS sp 
+        $total = DB::select("SELECT COUNT(a.id) AS total FROM alunos_portarias AS ap 
                             INNER JOIN alunos AS a ON a.id = ap.aluno_id
                             INNER JOIN portarias AS p ON p.id = ap.portaria_id 
                             WHERE a.id = $id"
@@ -45,7 +45,7 @@ class AlunoPortaria extends Model
     }
 
     public function portariasTemporarias($id){
-        $temporarias = DB::select("SELECT COUNT(a.id) AS temporarias FROM alunos_portarias AS sp 
+        $temporarias = DB::select("SELECT COUNT(a.id) AS temporarias FROM alunos_portarias AS ap 
                                     INNER JOIN alunos AS a ON ap.aluno_id = a.id
                                     INNER JOIN portarias AS p ON p.id = ap.portaria_id
                                     WHERE p.tipo = 0
@@ -56,7 +56,7 @@ class AlunoPortaria extends Model
     }
 
     public function portariasPermanentes($id){
-        $permanentes = DB::select("SELECT COUNT(a.id) AS permanentes FROM alunos_portarias AS sp 
+        $permanentes = DB::select("SELECT COUNT(a.id) AS permanentes FROM alunos_portarias AS ap 
                                     INNER JOIN alunos AS a ON ap.aluno_id = a.id
                                     INNER JOIN portarias AS p ON p.id = ap.portaria_id
                                     WHERE p.tipo = 1
@@ -67,7 +67,7 @@ class AlunoPortaria extends Model
     }
 
     public function portariasAtivas($id, $dataAtual){
-        $ativas = DB::select("SELECT COUNT(a.id) AS ativas FROM alunos_portarias AS sp 
+        $ativas = DB::select("SELECT COUNT(a.id) AS ativas FROM alunos_portarias AS ap 
                                 INNER JOIN alunos AS a ON ap.aluno_id = a.id
                                 INNER JOIN portarias AS p ON p.id = ap.portaria_id
                                 WHERE ((p.tipo = 0 AND p.dataFinal >= '$dataAtual')
@@ -80,7 +80,7 @@ class AlunoPortaria extends Model
 
     public function portariasInativas($id, $dataAtual){
             //dd($dataAtual);
-            $inativas = DB::select("SELECT COUNT(a.id) AS inativas FROM alunos_portarias AS sp 
+            $inativas = DB::select("SELECT COUNT(a.id) AS inativas FROM alunos_portarias AS ap 
                                     INNER JOIN alunos AS a ON ap.aluno_id = a.id
                                     INNER JOIN portarias AS p ON p.id = ap.portaria_id
                                     WHERE ((p.tipo = 0 AND p.dataFinal < '$dataAtual')
@@ -93,7 +93,7 @@ class AlunoPortaria extends Model
 
     public function portariasPublicas($id){
         //dd($dataAtual);
-        $publicas = DB::select("SELECT COUNT(a.id) AS publicas FROM alunos_portarias AS sp 
+        $publicas = DB::select("SELECT COUNT(a.id) AS publicas FROM alunos_portarias AS ap 
                                 INNER JOIN alunos AS a ON ap.aluno_id = a.id
                                 INNER JOIN portarias AS p ON p.id = ap.portaria_id
                                 WHERE p.sigilo = 0
@@ -105,7 +105,7 @@ class AlunoPortaria extends Model
 
     public function portariasSigilosas($id){
         //dd($dataAtual);
-        $sigilosas = DB::select("SELECT COUNT(u.id) AS sigilosas FROM alunos_portarias AS sp 
+        $sigilosas = DB::select("SELECT COUNT(a.id) AS sigilosas FROM alunos_portarias AS ap 
                                 INNER JOIN alunos AS a ON ap.aluno_id = a.id
                                 INNER JOIN portarias AS p ON p.id = ap.portaria_id
                                 WHERE p.sigilo = 1
@@ -117,7 +117,7 @@ class AlunoPortaria extends Model
 
     public function portariasCampus($id){
         //dd($dataAtual);
-        $campus = DB::select("SELECT COUNT(a.id) AS campus FROM alunos_portarias AS sp 
+        $campus = DB::select("SELECT COUNT(a.id) AS campus FROM alunos_portarias AS ap 
                                 INNER JOIN alunos AS a ON ap.aluno_id = a.id
                                 INNER JOIN portarias AS p ON p.id = ap.portaria_id
                                 WHERE p.origem = 'Campus'
@@ -129,7 +129,7 @@ class AlunoPortaria extends Model
 
     public function portariasReitoria($id){
         //dd($dataAtual);
-        $reitoria = DB::select("SELECT COUNT(a.id) AS reitoria FROM alunos_portarias AS sp 
+        $reitoria = DB::select("SELECT COUNT(a.id) AS reitoria FROM alunos_portarias AS ap 
                                 INNER JOIN alunos AS a ON ap.aluno_id = a.id
                                 INNER JOIN portarias AS p ON p.id = ap.portaria_id
                                 WHERE p.origem = 'Reitoria'

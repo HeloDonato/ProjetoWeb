@@ -23,6 +23,13 @@ class Aluno extends Model
         return $this->belongsTo(User::class, 'usuario_id');
     }
 
+    public function getAluno($idAluno)
+    {   
+        $results = Aluno::select('*')
+            ->where('alunos.usuario_id', '=', $idAluno)->first();
+        return $results;
+    }
+
     public function search($filter = null)
     {
         $results = $this->where(function($query) use($filter) {

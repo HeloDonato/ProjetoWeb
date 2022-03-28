@@ -48,7 +48,7 @@
         <img class="if" src="{{ asset('img/almenara_horizontal_jpg.jpg') }}" style="width: 43%; height:15%" />
         <center>
             <br><br>
-            <h4 style="text-transform: uppercase;">Listagem de servidores por quantidade de portarias registradas</h4>
+            <h4 style="text-transform: uppercase;">Listagem de {{$nome}} por quantidade de portarias registradas</h4>
             <h5>Data de emissão do relatório: {{date('d/m/Y',strtotime($data))}} </h5>
             <h5 id="info-listagem"></h5>
             <br>
@@ -57,7 +57,7 @@
                 <thead>
                     <tr>
                         <th class="col-md-6">
-                            <strong>SERVIDOR</strong>
+                            <strong>{{$nome}}</strong>
                         </th>
                         <a>
                         <th class="col-md-1 titleColum" onclick="sortTable(1), info(1)" style="cursor:pointer;">
@@ -80,7 +80,7 @@
                 </thead>
                 <tbody>
                     @foreach($servidores as $servidor)
-                        @if($servidor->id !=1)
+                        @if ( ($servidor->id !=1 && empty($servidor->curso_id)) || !empty($servidor->curso->id) )
                             <tr>
                                 <td class="col-md-4 text-left">
                                     {{ $servidor->nome }}
@@ -101,7 +101,7 @@
                                     {{ $portaria->portariasInativas($servidor->id, $data) }}
                                 </td>
                             </tr>
-                            @endif  
+                        @endif  
                     @endforeach
                 </tbody>
             </table>

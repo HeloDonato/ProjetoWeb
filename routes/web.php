@@ -85,6 +85,7 @@ Route::group(['middleware' => 'auth'], function(){
         Route::group(['prefix' => 'relatorios'], function(){
             Route::get('/options',  [RelatorioController::class, 'index'])->name('relatorios.options');
             Route::get('/ranking',  [RelatorioController::class, 'rankingServidores'])->name('relatorios.ranking');
+            Route::get('/rankingAlunos',  [RelatorioController::class, 'rankingAlunos'])->name('relatorios.rankingA');
             Route::get('/relatorioGeral',  [RelatorioController::class, 'relatorioGeral'])->name('relatorios.relatorioGeral');
             Route::post('/individual',  [RelatorioController::class, 'servidorIndividual'])->name('relatorios.individual');
             //Route::any('/busca',  [ServidorController::class, 'search']);

@@ -149,7 +149,7 @@ class AlunoController extends Controller
                 $aluno->nome = $request->nome;
                 $aluno->cpf = $request->cpf;
                 $aluno->matricula = $request->matricula;
-                $aluno->curso = $request->curso;
+                $aluno->curso_id = $request->curso;
                 $aluno->turma = $request->turma;
             $user =  User::findOrFail($aluno->usuario_id);
                 $user->email = $request->email;
@@ -157,8 +157,7 @@ class AlunoController extends Controller
             $aluno->update();
         return redirect('/aluno/show')->with('msg','Aluno editado com sucesso!');
         }catch(QueryException $e){
-            dd($e);
-        return redirect('/aluno/show')->with('msgE','Erro ao editar aluno!');
+            return redirect('/aluno/show')->with('msgE','Erro ao editar aluno!');
         }
     }
 }

@@ -28,15 +28,15 @@
         <center>
             @php
                 $data = date('Y-m-d');
-                $total = $portaria->portariasTotais($servidor->id);
-                $temp = $portaria->portariasTemporarias($servidor->id);
-                $perm = $portaria->portariasPermanentes($servidor->id);
-                $ativas = $portaria->portariasAtivas($servidor->id, $data);
-                $inativas = $portaria->portariasInativas($servidor->id, $data);
-                $publicas = $portaria->portariasPublicas($servidor->id);
-                $sigilosas = $portaria->portariasSigilosas($servidor->id);
-                $campus = $portaria->portariasCampus($servidor->id);
-                $reitoria = $portaria->portariasReitoria($servidor->id);
+                $total = $portaria->portariasTotais($participante->id);
+                $temp = $portaria->portariasTemporarias($participante->id);
+                $perm = $portaria->portariasPermanentes($participante->id);
+                $ativas = $portaria->portariasAtivas($participante->id, $data);
+                $inativas = $portaria->portariasInativas($participante->id, $data);
+                $publicas = $portaria->portariasPublicas($participante->id);
+                $sigilosas = $portaria->portariasSigilosas($participante->id);
+                $campus = $portaria->portariasCampus($participante->id);
+                $reitoria = $portaria->portariasReitoria($participante->id);
                 if($total == 0){
                     $porcentT = 0;
                     $porcentPer = 0;
@@ -60,8 +60,8 @@
             <br><br>
 
             <h4 style="text-transform: uppercase;">Relatório de Participação em portarias</h4>
-            <h5>Nome do Servidor: {{$servidor->nome}} </h5>
-            <h5>Número de Matrícula: {{$servidor->matricula}}</h5>
+            <h5>Nome: {{$participante->nome}} </h5>
+            <h5>Número de Matrícula: {{$participante->matricula}}</h5>
             <h5>Data de emissão do relatório: {{date('d/m/Y',strtotime($data))}} </h5>
             
             <br><br><br>

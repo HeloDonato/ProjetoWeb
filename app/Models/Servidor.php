@@ -23,6 +23,13 @@ class Servidor extends Model
         return $this->belongsTo(User::class, 'usuario_id');
     }
 
+    public function getServidor($idServidor)
+    {   
+        $results = Servidor::select('*')
+            ->where('servidores.usuario_id', '=', $idServidor)->first();
+        return $results;
+    }
+
     public function searchServidores($filter = null)
     {
         $results = $this->where(function($query) use($filter) {
