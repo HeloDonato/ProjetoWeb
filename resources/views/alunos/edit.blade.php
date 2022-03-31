@@ -34,9 +34,12 @@
                         <div class="form-group col-md-8">   
                             <div class='col-md-11'>     
                                 <select data-live-search="true" name="curso" class="form-control cad-servidor" required> 
-                                    <option value="" disabled selected>Selecione o curso</option>
+                                    <option value="" disabled>Selecione o curso</option>
                                     @foreach ($cursos as $curso)
                                         <option value="{{$curso->id}}"> {{$curso->nome }}</option>
+                                        @if ($curso->id == $aluno->curso_id)
+                                            <option value="{{$curso->id}}" selected> {{$curso->nome }}</option>
+                                        @endif
                                     @endforeach
                                 </select>
                             </div>

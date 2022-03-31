@@ -104,7 +104,7 @@
                                                     </button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <span class="span-modal-info">Número da portaria:</span> <br><hr>
+                                                    <span class="span-modal-info">Número da portaria:</span>  {{$portaria->numPortaria}} <br><hr>
                                                     <span class="span-modal-info">Descrição da portaria:</span> {{$portaria->descricao}}<br><hr>
                                                     <span class="span-modal-info">Paricipantes dessa portaria:</span>
                                                         <ul>

@@ -226,8 +226,13 @@ class PortariaController extends Controller
             try{
                 $portaria = Portaria::findOrFail($request->id);
                 $id_portaria = $portaria->id;
+
                 $servidores = Servidor::all();
                 $id_servidores = $request->id_servidor;
+                
+                $alunos = Aluno::all();
+                $id_alunos = $request->id_aluno;
+                
                 if($request->id_servidor != null){
 
                     DB::table('servidores_portarias')->where('portaria_id', '=', $id_portaria)->delete();
@@ -242,6 +247,20 @@ class PortariaController extends Controller
                             }
                         }
                     }
+
+                    if(!empty($id_alunos)){
+                        foreach($alunos as $aluno){
+                            foreach($id_alunos as $id_aluno){
+                                if($id_aluno == $aluno->id){
+                                    $portaria_aluno = new AlunoPortaria;
+                                    $portaria_aluno->portaria_id= $id_portaria;
+                                    $portaria_aluno->aluno_id = $id_aluno;
+                                    $portaria_aluno->save();
+                                }
+                            }
+                        }
+                    }
+
                 }
             }catch(QueryException $e){
                     return redirect()->back()->with('msgE','Portaria criada com sucesso, mas não foi possível identificar os servidores!');
