@@ -65,6 +65,7 @@ class User extends Authenticatable
         return $results;
     }
     protected $guarded = [];//tudo q for enviado pelo post pode ser atualizado
+<<<<<<< HEAD
 
     public function portariasTotais($id){
         $total = DB::select("SELECT COUNT(u.id) AS total FROM servidores_portarias AS sp 
@@ -179,4 +180,6 @@ class User extends Authenticatable
     }
 
     
+=======
+>>>>>>> 2bb7478b7ab5c36f6a4512453b5872b62206aef9
 }

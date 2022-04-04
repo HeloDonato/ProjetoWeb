@@ -6,6 +6,10 @@ use Illuminate\Console\Scheduling\Event;
 use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
 use App\Models\User;
+use App\Models\Servidor;
+use App\Models\ServidorPortaria;
+use App\Models\Aluno;
+use App\Models\AlunoPortaria;
 use Illuminate\Support\Facades\Hash;
 use Facade\FlareClient\Http\Response;
 use Illuminate\Support\Facades\DB;
@@ -14,22 +18,50 @@ class RelatorioController extends Controller
 {
     public function index()
     {   
-        $user = User::join('servidores', 'users.id', '=', 'servidores.usuario_id')->get();
-        return view('relatorios.options')->with( 'users', $user);
+        $user = Servidor::orderBy('nome')->get();
+        $alunos = Aluno::orderBy('nome')->get();
+        return view('relatorios.options')->with( 'users', $user)
+                ->with('alunos', $alunos);
     }
 
     public function servidorIndividual(Request $request){
         $id = $request->id_servidor;
-        $servidor = User::join('servidores', 'users.id', '=', 'servidores.usuario_id')->get()->find($id);
+        $mix = new Servidor;
+        $aluno = new Aluno;
+        if(!empty($mix->getServidor($id))){
+
+            $participante = $mix->getServidor($id);
+            $portaria = new ServidorPortaria;
+
+        }else{
+            $participante = $aluno->getAluno($id);
+            $portaria = new AlunoPortaria;
+        }
         //dd($servidor);
-        return view('relatorios.individual')->with( 'servidor', $servidor);
+        return view('relatorios.individual')
+               ->with( 'participante', $participante)
+               ->with('portaria', $portaria);
     }
 
     public function rankingServidores(){
-        $servidores = User::join('servidores', 'users.id', '=', 'servidores.usuario_id')->orderBy('servidores.nome', 'asc')->get();
-
+        $servidores = Servidor::orderBy('servidores.nome', 'asc')->get();
+        $portaria = new ServidorPortaria;
+        $nome = 'SERVIDORES';
         return view('relatorios.ranking')
-            ->with('servidores', $servidores);
+            ->with('servidores', $servidores)
+            ->with('portaria', $portaria)
+            ->with('nome', $nome);
+
+    }
+
+    public function rankingAlunos(){
+        $servidores = Aluno::orderBy('alunos.nome', 'asc')->get();
+        $portaria = new AlunoPortaria;
+        $nome = 'ALUNOS';
+        return view('relatorios.ranking')
+            ->with('servidores', $servidores)
+            ->with('portaria', $portaria)
+            ->with('nome', $nome);
     }
 
     public function relatorioGeral(){

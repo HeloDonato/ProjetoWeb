@@ -122,7 +122,8 @@
                         </div>
                         <div class="form-group col-md-8" style="color: #fff;">
                             <label>Arquivo da Portaria*</label><br>
-                            {{ Form::file('doc')}}
+
+                            {{ Form::file('doc')    }}
                         </div>
                         <div class="mb-3 col-md-8">
                             <input type="submit" class="btn btn-enviar" value="Salvar Mudanças">
