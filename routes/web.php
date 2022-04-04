@@ -6,7 +6,7 @@ use App\Http\Controllers\ServidorController;
 use App\Http\Controllers\RelatorioController;
 use App\Http\Controllers\AlunoController;
 use App\Http\Controllers\UserController;
-
+use App\Http\Controllers\Auth\ForgotPasswordController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,6 +24,9 @@ Route::get('/', function () {
 });
 
 Auth::routes();
+
+Route::post('/password/reset',[ForgotPasswordController::class,'reset'])->name('password.reset');
+Route::get('/password/reset/{token}',[ForgotPasswordController::class,'showReset'])->name('password.showReset');
 
 Route::group(['prefix' => 'portaria'], function(){
     Route::get('/',[PortariaController::class,'index'])->name('welcome');

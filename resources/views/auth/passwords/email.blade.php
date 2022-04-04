@@ -24,17 +24,23 @@
                                 {{ session('status') }}
                             </div>
                         @endif
-                        <form method="POST" action="{{ route('password.email') }}">
+                        <form method="POST" action="{{ route('password.reset')}}">
                             @csrf
                             <div class="form-group row justify-content-center">
                                 <div class="col-md-8">
                                     <input id="email" type="email" placeholder="E-mail" class="form-control @error('email') is-invalid @enderror cad-login" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
 
-                                    @error('email')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
+                                    @if(session('error'))
+                                        <div>
+                                            {{ session('error')}}
+                                        </div>
+                                    @endif
+
+                                    @if(session('sucess'))
+                                        <div>    
+                                            {{ session('sucess')}}
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
                             <div class="form-group row justify-content-center">
