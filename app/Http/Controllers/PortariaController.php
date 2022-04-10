@@ -236,6 +236,7 @@ class PortariaController extends Controller
                 if($request->id_servidor != null){
 
                     DB::table('servidores_portarias')->where('portaria_id', '=', $id_portaria)->delete();
+                    DB::table('alunos_portarias')->where('portaria_id', '=', $id_portaria)->delete();
 
                     foreach($servidores as $servidor){
                         foreach($id_servidores as $id_servidor){
