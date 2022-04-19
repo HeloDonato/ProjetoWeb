@@ -17,6 +17,8 @@ use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use PhpParser\Node\Expr\New_;
+use File;
+use Exception;
 
 class PortariaController extends Controller
 {
@@ -94,30 +96,24 @@ class PortariaController extends Controller
             
             //upload do doc
 
-            if($request->hasFile('doc')){
-                if($request->file('doc')->isValid()){
-                    $requestdoc = $request->doc;
-
-                    $extension = $requestdoc->extension();
-    
-                    $docName = md5($requestdoc->getClientOriginalName() . strtotime("now")) . "." . $extension;
-    
-                    $requestdoc->move(storage_path('portarias'), $docName);
-    
-                    $portaria->doc = $docName;
-                }else{
-                    return redirect()
-                        ->back()
-                        ->withInput()
-                        ->with('msgE','Não foi possível registrar a portaria! Problemas com o processamento do arquivo!');
-                }
+            $portaria_data = $request->all();
+            $portaria_data['doc'] = 'false';
+            
+            $portaria = Portaria::create($portaria_data);
+            
+            // UPLOAD DOS ARQUIVOS
+            if($request->file('doc') != null) {
+                $path_controle_frequencia = $request->file('doc')
+                                                ->storeAs("portaria/$portaria->id/pdfs","doc.pdf");
+                $portaria_data['doc'] = 'true';
             }else{
                 return redirect()
-                        ->back()
-                        ->withInput()
-                        ->with('msgE','Erro ao cadastarar portaria! Selecione um arquivo para ser enviado!');
+                    ->back()
+                    ->withInput()
+                    ->with('msgE','Não foi possível registrar a portaria! Problemas com o processamento do arquivo!');
             }
-            $portaria->save();
+
+            $portaria->update($portaria_data);
 
             try{
                 $ultima_portaria = Portaria::max('id');
@@ -221,7 +217,23 @@ class PortariaController extends Controller
     
     public function update(Request $request){
         try{
+            $portaria = new Portaria;
             Portaria::findOrFail($request->id)->update($request->all());
+            $portaria_data = $request->all();
+            
+        
+            // UPLOAD DOS ARQUIVOS
+            //dd($request->all());
+            if($request->file('doc')) {
+                $file = storage_path('portarias'.$request->id."/pdfs"."/doc.pdf");
+                File::delete($file);
+                /* $path_controle_frequencia = $request->file('doc')
+                     ->storeAs("portaria/$portaria->id/pdfs","doc.pdf");*/
+                $path =  $request->file('doc')->storeAs($request->id."/pdfs", '/doc.pdf', 'portarias');
+                $portaria_data['doc'] = 'true';
+            }
+
+            $portaria->update($portaria_data);
 
             try{
                 $portaria = Portaria::findOrFail($request->id);
@@ -232,6 +244,7 @@ class PortariaController extends Controller
                 
                 $alunos = Aluno::all();
                 $id_alunos = $request->id_aluno;
+
                 
                 if($request->id_servidor != null){
 
@@ -268,7 +281,7 @@ class PortariaController extends Controller
             }
 
             return redirect('/')->with('msg','Portaria editada com sucesso!');
-        }catch(QueryException $e){
+        }catch(\Exception $e){
             return redirect('/')->with('msgE','Erro ao editar portaria!');
         }
 
@@ -280,11 +293,13 @@ class PortariaController extends Controller
 
     }
 
-    public function view($doc){
+    public function view(Request $request,$id){
 
-        $docFile = "portarias/$doc";
+        $portaria = $request->all();
 
-        return response()->file(storage_path($docFile));
+        $docFile = "portaria/$id/pdfs/doc.pdf";
+
+        return response()->file(storage_path("app/$docFile"));
 
 
     }

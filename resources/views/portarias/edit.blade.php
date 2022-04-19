@@ -15,7 +15,7 @@
                     <h1 class="tit-form-ser">Nova Portaria</h1>
                 </div>
     
-                {{ Form::model($portaria,['route' => ['portaria.update',$portaria->id], 'method' => "POST"]) }}
+                {{ Form::model($portaria,['route' => ['portaria.update',$portaria->id], 'method' => "POST", 'enctype' => "multipart/form-data"]) }}
                     @csrf
                     @method('PUT')
                         <div class="mb-3 col-md-8">

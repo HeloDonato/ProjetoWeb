@@ -90,7 +90,7 @@
                                     @endif
                                 </td>
                                 <td class="card-title">
-                                    <a href="{{route('portaria.view',$portaria->doc ?? $portaria->portaria->doc)}}" class="btn btn-pesquisar" target="_blank" style="margin-bottom:3px">Abrir <i class="fas fa-eye"></i></a>
+                                    <a href="{{route('portaria.view',$portaria->id ?? $portaria->portaria->id)}}" class="btn btn-pesquisar" target="_blank" style="margin-bottom:3px">Abrir <i class="fas fa-eye"></i></a>
                                     <a href="{{route('portaria.download',$portaria->doc ?? $portaria->portaria->doc)}}" class="btn btn-pesquisar" style="margin-bottom:3px">Baixar <i class="fas fa-download"></i></a>
                                     <a href="" class="btn btn-pesquisar" data-toggle="modal" data-target="#modal{{ $portaria->id ?? $portaria->portaria_id }}" style="margin-bottom:3px">Info <i class="fas fa-info-circle"></i></a>      
 

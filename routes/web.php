@@ -31,7 +31,7 @@ Route::get('/password/reset/{token}',[ForgotPasswordController::class,'showReset
 Route::group(['prefix' => 'portaria'], function(){
     Route::get('/',[PortariaController::class,'index'])->name('welcome');
     Route::get('/dowload/{doc}',[PortariaController::class,'download'])->name('portaria.download');
-    Route::get('/view/{doc}',[PortariaController::class,'view'])->name('portaria.view');
+    Route::get('/view/{id}/pdf/doc',[PortariaController::class,'view'])->name('portaria.view');
     Route::any('/search',[PortariaController::class,'search'])->name('portaria.search');
     Route::get('/show/portariasServidores/{id}',  [PortariaController::class, 'portariasServidor'])->name('servidor.portarias');
     Route::get('/show/alunosPortarias/{id}',  [PortariaController::class, 'portariasAlunos'])->name('aluno.portarias');
