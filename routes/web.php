@@ -7,6 +7,8 @@ use App\Http\Controllers\RelatorioController;
 use App\Http\Controllers\AlunoController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\Auth\LoginController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -23,10 +25,16 @@ Route::get('/', function () {
     return redirect()->route('welcome');
 });
 
-Auth::routes();
+Auth::routes([
+    'register' => false,
+]);
 
-Route::post('/password/reset',[ForgotPasswordController::class,'reset'])->name('password.reset');
-Route::get('/password/reset/{token}',[ForgotPasswordController::class,'showReset'])->name('password.showReset');
+
+
+Route::get('forget-password', [ForgotPasswordController::class, 'showForgetPasswordForm'])->name('forget.password.get');
+Route::post('forget-password', [ForgotPasswordController::class, 'submitForgetPasswordForm'])->name('forget.password.post'); 
+Route::get('reset-password/{token}', [ForgotPasswordController::class, 'showResetPasswordForm'])->name('reset.password.get');
+Route::post('reset-password', [ForgotPasswordController::class, 'submitResetPasswordForm'])->name('reset.password.post');
 
 Route::group(['prefix' => 'portaria'], function(){
     Route::get('/',[PortariaController::class,'index'])->name('welcome');

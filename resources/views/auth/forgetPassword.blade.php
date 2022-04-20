@@ -22,7 +22,7 @@
                                 {{ session('status') }}
                             </div>
                         @endif
-                        <form method="POST" action="{{ route('password.reset')}}">
+                        <form method="POST" action="{{ route('forget.password.post')}}">
                             @csrf
                             <div class="form-group row justify-content-center">
                                 <div class="col-md-8">
