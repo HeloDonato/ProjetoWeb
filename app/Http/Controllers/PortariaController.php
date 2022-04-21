@@ -287,9 +287,9 @@ class PortariaController extends Controller
 
     }
 
-    public function download(Request $request,$doc){
+    public function download(Request $request,$id){
 
-        return response()->download(storage_path('portarias/'.$doc));    
+        return response()->download(storage_path('app/portaria/'.$id.'/pdfs/doc.pdf'));    
 
     }
 
