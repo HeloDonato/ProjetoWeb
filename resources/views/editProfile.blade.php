@@ -7,7 +7,7 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="fundo-img">
-                    <img src="{{ asset('img/cadeado.png') }}" id="img-cadeado">
+                    <img src="{{ asset('img/block.png') }}" id="img-cadeado">
                 </div>
             </div>
             <div class="col-md-6 div-formCS">

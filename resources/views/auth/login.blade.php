@@ -1,4 +1,4 @@
-@extends('layouts.login')
+@extends('layouts.app')
 
 @section('content')
 
@@ -58,7 +58,7 @@
                                             </label>
                                             @if (Route::has('password.request'))
                                                 <a class="btn btn-link" href="{{ route('forget.password.get') }}">
-                                                    {{ __('Alterar Senha') }}
+                                                    {{ __('Esqueci a senha') }}
                                                 </a>
                                             @endif
                                         </div>

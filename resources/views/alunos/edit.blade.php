@@ -7,7 +7,7 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="fundo-img">
-                    <img src="{{ asset('img/alunos.png') }}" id="img-servidores">
+                    <img src="{{ asset('img/alunos2.png') }}" id="img-alunos">
                 </div>
             </div>
             <div class="col-md-6 div-formCS">
@@ -32,19 +32,21 @@
                             {{ Form::email('email', 'old'('email'), ['class' => 'form-control cad-servidor', 'required','placeholder' => 'E-mail','autofocus']) }}
                         </div>
                         <div class="form-group col-md-8">   
-                            <div class='col-md-11'>     
-                                <select data-live-search="true" name="curso" class="form-control cad-servidor" required> 
-                                    <option value="" disabled>Selecione o curso</option>
-                                    @foreach ($cursos as $curso)
-                                        <option value="{{$curso->id}}"> {{$curso->nome }}</option>
-                                        @if ($curso->id == $aluno->curso_id)
-                                            <option value="{{$curso->id}}" selected> {{$curso->nome }}</option>
-                                        @endif
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class='col-md-1'>
-                                <a data-toggle="modal" data-target="#modal" style="margin-bottom:3px"> <i class="fas fa-plus fa-lg"></i></a>
+                            <div class="row">
+                                <div class='col-md-1' style="padding-top: 7px; color:#fff">
+                                    <a data-toggle="modal" data-target="#modal" style="margin-bottom:3px"> <i class="fas fa-plus fa-lg"></i></a>
+                                </div>
+                                <div class='col-md-11'>     
+                                    <select data-live-search="true" name="curso" class="form-control cad-servidor" required> 
+                                        <option value="" disabled>Selecione o curso</option>
+                                        @foreach ($cursos as $curso)
+                                            <option value="{{$curso->id}}"> {{$curso->nome }}</option>
+                                            @if ($curso->id == $aluno->curso_id)
+                                                <option value="{{$curso->id}}" selected> {{$curso->nome }}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                </div>
                             </div>
                         </div>
                         <div class="mb-3 col-md-8">

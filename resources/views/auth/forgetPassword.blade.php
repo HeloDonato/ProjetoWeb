@@ -1,4 +1,4 @@
-@extends('layouts.login')
+@extends('layouts.app')
 
 @section('content')
 
@@ -7,7 +7,7 @@
         <div class="row" style="min-height: 80vh;">
             <div class="col-md-6">
                 <div class="fundo-img">
-                    <img src="{{ asset('img/almenara_vertical_jpg.jpg') }}" id="img-portarias">
+                    <img src="{{ asset('img/password-reset.png') }}" id="img-reset-password">
                 </div>
             </div>
             <div class="col-md-6">

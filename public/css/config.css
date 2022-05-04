@@ -154,17 +154,27 @@ footer{
 }
 
 #img-portarias{
-    width: 30vw;
+    width: 27vw;
+    height: 25vw;
+}
+
+#img-reset-password{
+    width: 35vw;
     height: 30vw;
 }
 
 #img-servidores{
     width: 30vw;
-    height: 20vw;
+    height: 22vw;
+}
+
+#img-alunos{
+    width: 30vw;
+    height: 25vw;
 }
 
 #img-cadeado{
-    width: 20vw;
+    width: 21vw;
     height: 20vw;
 }
 

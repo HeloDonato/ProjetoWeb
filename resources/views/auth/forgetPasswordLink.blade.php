@@ -1,60 +1,70 @@
 
 @extends('layouts.app')
-  
-  @section('content')
-    <main class="login-form">
-      <div class="cotainer">
-          <div class="row justify-content-center">
-              <div class="col-md-8">
-                  <div class="card">
-                      <div class="card-header">Recuperação de Senha</div>
-                      <div class="card-body">
-      
-                          <form action="{{ route('reset.password.post') }}" method="POST">
-                              @csrf
-                              <input type="hidden" name="token" value="{{ $token }}">
-      
-                              <div class="form-group row">
-                                  <label for="email_address" class="col-md-4 col-form-label text-md-right"><font color="black">E-mail</font></label>
-                                  <div class="col-md-6">
-                                      <input type="text" id="email_address" class="form-control" name="email" required autofocus>
-                                      @if ($errors->has('email'))
-                                          <span class="text-danger">{{ $errors->first('email') }}</span>
-                                      @endif
-                                  </div>
-                              </div>
-      
-                              <div class="form-group row">
-                                  <label for="password" class="col-md-4 col-form-label text-md-right"><font color="black">Senha</font></label>
-                                  <div class="col-md-6">
-                                      <input type="password" id="password" class="form-control" name="password" required autofocus>
-                                      @if ($errors->has('password'))
-                                          <span class="text-danger">{{ $errors->first('password') }}</span>
-                                      @endif
-                                  </div>
-                              </div>
-      
-                              <div class="form-group row">
-                                  <label for="password-confirm" class="col-md-4 col-form-label text-md-right"><font color="black">Confirmar Senha</font></label>
-                                  <div class="col-md-6">
-                                      <input type="password" id="password-confirm" class="form-control" name="password_confirmation" required autofocus>
-                                      @if ($errors->has('password_confirmation'))
-                                          <span class="text-danger">{{ $errors->first('password_confirmation') }}</span>
-                                      @endif
-                                  </div>
-                              </div>
-      
-                              <div class="col-md-6 offset-md-4">
-                                  <button type="submit" class="btn btn-primary">
-                                       Resetar senha
-                                  </button>
-                              </div>
-                          </form>
-                            
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
-    </main>
-  @endsection 
+
+@section('content')
+
+<div class="container-fluid">
+    <div class="content">
+        <div class="row" style="min-height: 80vh;">
+            <div class="col-md-6">
+                <div class="fundo-img">
+                    <img src="{{ asset('img/password-reset.png') }}" id="img-reset-password">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div style="min-height:80vh; width:48vw;">
+                    <div style="width: 100%; padding-top:20vh">
+                        <center>
+                            <h1 class="tit-form-login">Recuperação de Senha</h1>
+                        </center>
+                        <br>
+                        @if (session('status'))
+                            <div class="alert alert-success" role="alert">
+                                {{ session('status') }}
+                            </div>
+                        @endif
+                        <form action="{{ route('reset.password.post') }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="token" value="{{ $token }}">
+    
+                            <div class="form-group row justify-content-center">
+                                <div class="col-md-6">
+                                    <input type="text" id="email_address" class="form-control cad-login" name="email" required autofocus placeholder="E-mail">
+                                    @if ($errors->has('email'))
+                                        <span class="text-danger">{{ $errors->first('email') }}</span>
+                                    @endif
+                                </div>
+                            </div>
+    
+                            <div class="form-group row justify-content-center">
+                                <div class="col-md-6">
+                                    <input type="password" id="password" class="form-control cad-login" name="password" placeholder="Nova Senha" required autofocus>
+                                    @if ($errors->has('password'))
+                                        <span class="text-danger">{{ $errors->first('password') }}</span>
+                                    @endif
+                                </div>
+                            </div>
+    
+                            <div class="form-group row justify-content-center">
+                                <div class="col-md-6">
+                                    <input type="password" id="password-confirm" class="form-control cad-login" name="password_confirmation" placeholder="Confirmar Senha" required autofocus>
+                                    @if ($errors->has('password_confirmation'))
+                                        <span class="text-danger">{{ $errors->first('password_confirmation') }}</span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="form-group row justify-content-center">
+                                <div class="col-md-6 ">
+                                    <button type="submit" class="btn btn-entrar">
+                                        Resetar senha
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection

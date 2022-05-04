@@ -7,7 +7,7 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="fundo-img">
-                    <img src="{{ asset('img/alunos.png') }}" id="img-servidores">
+                    <img src="{{ asset('img/alunos2.png') }}" id="img-alunos">
                 </div>
             </div>
             <div class="col-md-6 div-formCS">
@@ -29,16 +29,18 @@
                         {{ Form::email('email', 'old'('email'), ['class' => 'form-control cad-servidor', 'required','placeholder' => 'E-mail','autofocus']) }}
                     </div>
                     <div class="form-group col-md-8">   
-                        <div class='col-md-11'>     
-                            <select data-live-search="true" name="curso" class="form-control cad-servidor" required> 
-                                <option value="" disabled selected>Selecione o curso</option>
-                                @foreach ($cursos as $curso)
-                                    <option value="{{$curso->id}}"> {{$curso->nome }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class='col-md-1'>
-                            <a data-toggle="modal" data-target="#modal" style="margin-bottom:3px"> <i class="fas fa-plus fa-lg"></i></a>
+                        <div class="row">
+                            <div class='col-md-1' style="padding-top: 7px; color:#fff">
+                                <a data-toggle="modal" data-target="#modal" style="margin-bottom:3px"> <i class="fas fa-plus fa-lg"></i></a>
+                            </div>
+                            <div class='col-md-11'>     
+                                <select data-live-search="true" name="curso" class="form-control cad-servidor" required> 
+                                    <option value="" disabled selected>Selecione o curso</option>
+                                    @foreach ($cursos as $curso)
+                                        <option value="{{$curso->id}}"> {{$curso->nome }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                         </div>
                     </div>
                     <div class="mb-3 col-md-8">
@@ -53,9 +55,9 @@
                             <div class="modal-content">
                                 <div class="modal-header header-modal-info">
                                     <h5 class="modal-title"><strong>Adicionar Curso </strong></h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
                                 </div>
                                 <div class="modal-body">
                                     {{ Form::open(['route' => 'curso.store', 'method' => "POST"]) }}
