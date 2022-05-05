@@ -61,7 +61,7 @@ class ForgotPasswordController extends Controller
               $message->subject('Reset Password');
           });
   
-          return back()->with('msgE', 'Link com redefinição de senha enviado com sucesso, por favor confira seu email ou sua caixa de span!');
+          return back()->with('msg', 'Link com redefinição de senha enviado com sucesso, por favor confira seu email ou sua caixa de span!');
         }
       /**
        * Write code on Method
@@ -92,14 +92,15 @@ class ForgotPasswordController extends Controller
                               ->first();
   
           if(!$updatePassword){
-              return back()->withInput()->with('error', 'Invalid token!');
+              return back()->withInput()->with('msgE', 'Token Inválido!');
           }
   
           $user = User::where('email', $request->email)
-                      ->update(['password' => Hash::make($request->password)]);
+                      ->update(['password' => Hash::make($request->password),
+                      'alter_password' => 1
+                    ]);
  
           DB::table('password_resets')->where(['email'=> $request->email])->delete();
-  
-          return redirect('/login')->with('msgE', 'Sua Senha foi alterada com sucesso!');
+          return redirect('/login')->with('msg', 'Sua Senha foi alterada com sucesso!');
         }
 }

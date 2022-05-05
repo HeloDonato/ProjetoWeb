@@ -116,7 +116,6 @@ class AlunoController extends Controller
             $aluno->delete();
             return redirect()->back()->with('msg','Aluno excluído com sucesso!!');
         }catch(QueryException $e){
-            dd($e);
             return redirect()->back()->with('msgE','Erro ao excluir!');
         }
     }
