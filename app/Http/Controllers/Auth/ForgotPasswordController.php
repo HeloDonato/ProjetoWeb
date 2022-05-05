@@ -11,6 +11,7 @@ use App\Models\User;
 use Mail; 
 use Hash;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Validator;
 
 class ForgotPasswordController extends Controller
 {
@@ -78,29 +79,42 @@ class ForgotPasswordController extends Controller
        * @return response()
        */
       public function submitResetPasswordForm(Request $request){
-          $request->validate([
-              'email' => 'required|email|exists:users',
-              'password' => 'required|string|min:6|confirmed',
-              'password_confirmation' => 'required'
-          ]);
+
+        $msg = [
+            'same'    => 'Senhas precisam ser iguais.',
+            'min' => 'Senha precisa de pelo menos 8 caracteres.',
+            'exists' => 'E-mail inválido.'
+        ];
+                
+        $request->validate([
+            'email' => ['required', 'email', 'exists:users'],
+            'password' => ['required', 'min:8', 'confirmed', 'string', 'same:password_confirmation'],
+            'password_confirmation' => ['required', 'same:password']
+        ], $msg);
+
+        $updatePassword = DB::table('password_resets')
+                            ->where([
+                              'email' => $request->email, 
+                              'token' => $request->token
+                            ])
+                            ->first();
   
-          $updatePassword = DB::table('password_resets')
-                              ->where([
-                                'email' => $request->email, 
-                                'token' => $request->token
-                              ])
-                              ->first();
-  
-          if(!$updatePassword){
-              return back()->withInput()->with('msgE', 'Token Inválido!');
-          }
-  
+        if(!$updatePassword){
+            return back()->withInput()->with('msgE', 'Token Inválido!');
+        }
+        
+        try{
           $user = User::where('email', $request->email)
-                      ->update(['password' => Hash::make($request->password),
-                      'alter_password' => 1
-                    ]);
- 
+                  ->update(['password' => Hash::make($request->password),
+                  'alter_password' => 1
+                ]);
+
           DB::table('password_resets')->where(['email'=> $request->email])->delete();
           return redirect('/login')->with('msg', 'Sua Senha foi alterada com sucesso!');
-        }
+
+        }catch(QueryException $e){
+          return redirect()->back()->with('msgE','Erro ao editar senha!');
+       }
+          
+      }
 }
